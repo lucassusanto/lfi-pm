@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--
+        BUGS ! Line 32, 77, 82
+    -->
     <meta charset="utf-8" />
     <title>LFI - SI Data</title>
     
@@ -15,8 +18,18 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-    
-    <!-- ? -->
+
+    <!-- Styles -->
+    <style>
+        body {
+            background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));
+        }
+        #content {
+            background-color: white;
+        }
+    </style>
+
+    <!-- Bug: Cek fungsinya -->
     <script type="text/javascript"> 
         $(document).ready(function() {
             $('#example').DataTable( {
@@ -28,10 +41,7 @@
     </script>
 </head>
 
-<body style="background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));">
-
-{{ url('layouts.lfi') }}
-
+<body>
 <!-- NavBar -->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -53,7 +63,7 @@
 </nav>
 
 <div class="row">
-<!--========================================== Side Navigation ==========================================-->
+    <!-- SideBar -->
     <div class="col-sm-2 col-md-2 col-md-offset-1">
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
@@ -64,10 +74,12 @@
                         </a>
                     </h4>
                 </div>
+                <!-- Bug: Animation -->
                 <div id="collapseOne" class="panel-collapse">
                     <div class="panel-body">
                         <table class="table">
                             <tr>
+                                <!-- Bug: Focus based on url -->
                                 <td style="background-color: rgb(246,246,246);">
                                     <a href="index.html">Asset</a>
                                 </td>
@@ -104,104 +116,13 @@
             </div>
         </div>
     </div>
-<!--============================================ Content Area ============================================-->
-    <div class="col-sm-8 col-md-8">
-        <div class="well" style=" background-color: white;">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 align="center">Asset</h2>
-                </div>
-                <div class="col-md-4">
-                    <a class="btn btn-success" href="asset_new.html"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                </div>
-            </div>
-            <table id=example width="100%" class="table">
-                <thead>
-                    <tr>
-                        <th>Asset No</th>
-                        <th>Type</th>
-                        <th>Asset Status</th>
-                        <th>Asset Category</th>
-                        <th>Note</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>100-001</td>
-                        <td>100</td>
-                        <td>In service</td>
-                        <td>Location</td>
-                        <td>Office area</td>
-                        <td align="center">
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                            <a href="asset_edit.html" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot></tfoot>
-            </table>
-        </div>
-    </div>
-</div>
 
-<!-- Modal -->
-<div id="modal-konfirmasi" class="modal fade" role="dialog">
-<div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-    <form class="form-horizontal" action="action.php">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Konfirmasi</h4>
+    <!-- Content Area -->
+    <div class="col-sm-8 col-md-8">
+        <div id="content" class="well">
+            @yield('content')
         </div>
-        <div class="modal-body">
-            <div class="form-group">
-                <h4 align="center">Apakah Anda ingin <span style="color: red;">menghapus</span> data ini?</h4>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-3" for="no">Asset No:</label>
-                <label class="control-label col-sm-3" for="no">100-001</label>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-3" for="priority">Asset Priority:</label>
-                <label class="control-label col-sm-3" for="priority">Critical</label>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-3" for="status">Asset Status:</label>
-                <div class="col-sm-4">
-                    <select class="form-control" id="asset_status" name="status" disabled>
-                        <option>In service</option>
-                        <option>In repair</option>
-                        <option>Scrapped</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-3" for="category">Asset Category:</label>
-                <div class="col-sm-4">
-                    <select class="form-control" id="asset_category" name="category" disabled>
-                        <option>Equipment</option>
-                        <option>Building</option>
-                        <option>System</option>
-                        <option>Location</option>
-                    </select>
-                </div>
-            </div>        
-            <div class="form-group">
-                <label class="control-label col-sm-3" for="notes">Notes:</label>
-                <div class="col-sm-9">
-                    <textarea class="form-control" id="asset_notes" name="notes" disabled></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-        </div>
-    </form>
     </div>
-</div>
 </div>
 
 </body>

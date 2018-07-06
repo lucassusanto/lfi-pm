@@ -17,9 +17,4 @@ class AssetController extends Controller
     public function edit() {
         return view('asset.edit');
     }
-
-    // Debug
-    public function layout() {
-        return view('layouts.lfi');
-    }
 }

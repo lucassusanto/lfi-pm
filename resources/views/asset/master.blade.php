@@ -10,31 +10,55 @@
     </div>
 </div>
 
-<table id=example width="100%" class="table">
-    <thead>
-        <tr>
-            <th>Asset No</th>
-            <th>Type</th>
-            <th>Asset Status</th>
-            <th>Asset Category</th>
-            <th>Note</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>100-001</td>
-            <td>100</td>
-            <td>In service</td>
-            <td>Location</td>
-            <td>Office area</td>
-            <td align="center">
-                <button class="btn btn-danger" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                <a href="{{ url('asset/edit') }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-            </td>
-        </tr>
-    </tbody>
-    <tfoot></tfoot>
+<table id=example width="100%" height="100%" class="table">
+<thead>
+    <tr>
+        <th>Asset No</th>
+        <th>Type</th>
+        <th>Asset Status</th>
+        <th>Asset Category</th>
+        <th>Note</th>
+        <th>Action</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach($datas as $data)
+    <tr>
+        <td>{{ $data->asset_no }}</td>
+        <td>{{ $data->type }}</td>
+        <td>
+            @if ( $data->status_id == 'as_status_inservice' )
+                In Service
+            @elseif ( $data->status_id == 'as_status_inrepair' )
+                In Repair
+            @elseif ( $data->status_id == 'as_status_scrapped' )
+                Scrapped
+            @else
+                Error!
+            @endif
+        </td>
+        <td>
+            @if ( $data->category_id == 'as_cat_building' )
+                Building
+            @elseif ( $data->category_id == 'as_cat_equipment' )
+                Equipment
+            @elseif ( $data->category_id == 'as_cat_location' )
+                Location
+            @elseif ( $data->category_id == 'as_cat_system' )
+                System
+            @else
+                Error!
+            @endif
+        </td>
+        <td>{{ $data->note }}</td>
+        <td align="center">
+            <button class="btn btn-danger" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
+            <a href="{{ url('asset/edit') }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="{{ url('asset/view') }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
+        </td>
+    </tr> 
+    @endforeach
+</tbody>
 </table>
         
 

@@ -6,7 +6,7 @@
         <h2 align="center">Asset</h2>
     </div>
     <div class="col-md-4">
-        <a class="btn btn-success" href="asset_new.html"><span class="glyphicon glyphicon-plus"></span> Add</a>
+        <a class="btn btn-success" href="asset/new"><span class="glyphicon glyphicon-plus"></span> Add</a>
     </div>
 </div>
 
@@ -52,16 +52,17 @@
             <div class="form-group">
                 <h4 align="center">Apakah Anda ingin <span style="color: red;">menghapus</span> data ini?</h4>
             </div>
+
             <div class="form-group">
-                <label class="control-label col-sm-3" for="no">Asset No:</label>
-                <label class="control-label col-sm-3" for="no">100-001</label>
+                <label class="control-label col-sm-3 col-sm-offset-3" for="no">Asset No:</label>
             </div>
+
             <div class="form-group">
-                <label class="control-label col-sm-3" for="priority">Asset Priority:</label>
+                <label class="control-label col-sm-3 col-sm-offset-3" for="priority">Asset Priority:</label>
                 <label class="control-label col-sm-3" for="priority">Critical</label>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3" for="status">Asset Status:</label>
+                <label class="control-label col-sm-3 col-sm-offset-3" for="status">Asset Status:</label>
                 <div class="col-sm-4">
                     <select class="form-control" id="asset_status" name="status" disabled>
                         <option>In service</option>
@@ -71,7 +72,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3" for="category">Asset Category:</label>
+                <label class="control-label col-sm-3 col-sm-offset-3" for="category">Asset Category:</label>
                 <div class="col-sm-4">
                     <select class="form-control" id="asset_category" name="category" disabled>
                         <option>Equipment</option>
@@ -82,7 +83,7 @@
                 </div>
             </div>        
             <div class="form-group">
-                <label class="control-label col-sm-3" for="notes">Notes:</label>
+                <label class="control-label col-sm-3 col-sm-offset-3" for="notes">Notes:</label>
                 <div class="col-sm-9">
                     <textarea class="form-control" id="asset_notes" name="notes" disabled></textarea>
                 </div>

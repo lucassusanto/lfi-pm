@@ -2,8 +2,13 @@
 <html>
 <head>
     <!--
-        BUGS ! Line 32, 77, 82
+        BUGS ! Line 37, 82, 87
+
+        Comments:
+        {{ Request::url() }}    ->  http://localhost/pweb/lfi-pm/public/asset/new
+        {{ Request::path() }}   ->  asset/new 
     -->
+
     <meta charset="utf-8" />
     <title>LFI - SI Data</title>
     

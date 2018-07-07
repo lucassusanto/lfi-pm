@@ -16,7 +16,7 @@
         <div class="col-sm-3">
             <input type="text" class="form-control" id="asset_no" name="no" placeholder="Asset No" required>
         </div>
-        <label class="control-label col-sm-3" for="dtype">Depreciation type:</label>
+        <label class="control-label col-sm-3" for="asset_dtype">Depreciation type:</label>
         <div class="col-sm-3">
             <select class="form-control" id="asset_dtype" name="dtype">
                 <option>Straight Line</option>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="priority">Asset Priority:</label>
+        <label class="control-label col-sm-2" for="asset_priority">Asset Priority:</label>
         <div class="col-sm-3">
             <select class="form-control" id="asset_priority" name="priority">
                 <option>Critical</option>
@@ -34,7 +34,7 @@
                 <option>Non-Production</option>
             </select>
         </div>
-        <label class="control-label col-sm-3" for="dinterval">Depreciation interval:</label>
+        <label class="control-label col-sm-3" for="asset_dinterval">Depreciation interval:</label>
         <div class="col-sm-3">
             <select class="form-control" id="asset_dinterval" name="dinterval">
                 <option>Annually</option>
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="status">Asset Status:</label>
+        <label class="control-label col-sm-2" for="asset_status">Asset Status:</label>
         <div class="col-sm-3">
             <select class="form-control" id="asset_status" name="status">
                 <option>In service</option>
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="category">Asset Category:</label>
+        <label class="control-label col-sm-2" for="asset_category">Asset Category:</label>
         <div class="col-sm-3">
             <select class="form-control" id="asset_category" name="category">
                 <option>Equipment</option>
@@ -65,7 +65,7 @@
     </div><br>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="notes">Notes:</label>
+        <label class="control-label col-sm-2" for="asset_notes">Notes:</label>
         <div class="col-sm-9">
             <textarea class="form-control" id="asset_notes" name="notes" placeholder="Tuliskan catatan .."></textarea>
         </div>

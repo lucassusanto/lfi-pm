@@ -11,13 +11,27 @@
 |
 */
 Route::get('/', function () {
-    return view('main');
+    return view('welcome');
 });
 
 // Asset
-Route::get('/asset', 'AssetController@index');
-Route::get('/asset/new', 'AssetController@new');
-Route::get('/asset/edit', 'AssetController@edit');
+Route::prefix('asset')->group(function() {
+    Route::get('/', 'AssetController@index');
+    Route::get('new', 'AssetController@new');
+    Route::get('edit', 'AssetController@edit');
+
+    // Asset Type
+    Route::prefix('type')->group(function() {
+        Route::get('/', 'AssetTypeController@index');
+        Route::get('new', 'AssetTypeController@new');
+
+        Route::post('new', 'AssetTypeController@new_data');
+        Route::post('delete', 'AssetTypeController@delete');
+        Route::post('edit', 'AssetTypeController@edit');
+        Route::post('commit_edit', 'AssetTypeController@commit_edit');
+    });
+});
+
 
 // Asset Comment
 Route::get('/asset/comment', 'AssetCommentController@index');
@@ -53,14 +67,6 @@ Route::get('/asset/part/edit', 'AssetPartController@edit');
 Route::get('/asset/slog', 'AssetServiceLogController@index');
 Route::get('/asset/slog/new', 'AssetServiceLogController@new');
 Route::get('/asset/slog/edit', 'AssetServiceLogController@edit');
-
-// Asset Type
-Route::get('/asset/type', 'AssetTypeController@index');
-Route::get('/asset/type/new', 'AssetTypeController@new');
-Route::get('/asset/type/edit', 'AssetTypeController@edit');
-
-Route::post('/asset/type/new', 'AssetTypeController@new_data');
-Route::post('/asset/type/delete', 'AssetTypeController@delete');
 
 // Auth
 Auth::routes();

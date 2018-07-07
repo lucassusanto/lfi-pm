@@ -9,9 +9,11 @@ use DateTime;
 
 class AssetTypeController extends Controller
 {
-    // GET
+    // Master Data
     public function index() {
-        $datas = DB::table('asset_type')->select('type', 'note')->get();
+        $datas = DB::table('asset_type')
+            ->select('id', 'type', 'note')
+            ->get();
 
         return view('asset.type.master', ['datas' => $datas]);
     }
@@ -20,36 +22,66 @@ class AssetTypeController extends Controller
         return view('asset.type.new');
     }
 
-    public function edit() {
-        return view('asset.type.edit');
-    }
-
-    // POST
     public function new_data(Request $request) {
         // TODO: success/failure flag to UI
         $now = new DateTime();
-
+        $user_id = '1000000';      // Sekarang masih pakai ID default user Admin
+        
         $type = $request->type;
         $note = $request->note;
-
-        $admin_id = '1000000';      // Sekarang masih pakai ID default user Admin
         
-        DB::table('asset_type')->insert(
-            ['id' => '12', 'type' => $type, 'note' => $note, 'modified_time' => $now, 'modified_id' => $admin_id, 'created_time' => $now, 'created_id' => $admin_id]
-        );
-
-        return $this->index();
+        $data_id = DB::table('asset_type')->insertGetId(
+            ['type' => $type,
+             'note' => $note,
+             'modified_time' => $now,
+             'modified_id' => $user_id,
+             'created_time' => $now,
+             'created_id' => $user_id
+        ]);
+        
+        return $data_id;
+        // return redirect('asset/type');
     }
 
     public function delete(Request $request) {
-        // TODO: success/failure flag to UI
+        $id = $request->id;
+
+        DB::table('asset_type')
+            ->where('id', '=', $id)
+            ->delete();
+
+        return redirect('asset/type');
+    }
+
+    
+    // Editing Data
+    public function edit(Request $request) {
+        $id = $request->id;
+
+        $datas = DB::table('asset_type')
+            ->select('id', 'type', 'note')
+            ->where('id', '=', $id)
+            ->get();
+
+        return view('asset.type.edit', ['datas' => $datas]);
+    }
+   
+    public function commit_edit(Request $request) {
+        $now = new DateTime();
+        $user_id = '1000000';      // Sekarang masih pakai ID default user Admin
         
-        // DEBUGGING
-        // $id = $request->id;
-        $id = 12;
+        $id = $request->id;
+        $type = $request->type;
+        $note = $request->note;
+        
+        DB::table('asset_type')
+            ->where('id', $id)
+            ->update ([ 'type' => $type,
+                        'note' => $note,
+                        'modified_time' => $now,
+                        'modified_id' => $user_id
+            ]);
 
-        DB::table('asset_type')->where('id', '=', $id) ->delete();
-
-        return $this->index();
+        return redirect('asset/type');
     }
 }

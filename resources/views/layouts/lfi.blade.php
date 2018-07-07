@@ -2,12 +2,12 @@
 <html>
 <head>
     <!--
-        BUGS ! Line 33, 78
+        BUGS ! Line 77
     -->
 
     <meta charset="utf-8" />
     <title>LFI - SI Data</title>
-    
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -30,11 +30,10 @@
         }
     </style>
 
-    <!-- Bug: Cek fungsinya -->
     <script type="text/javascript"> 
         $(document).ready(function() {
             $('#example').DataTable( {
-                "scrollY":        "200px",
+                "scrollY":        "400px",
                 "scrollCollapse": true,
                 "paging":         false
             } );
@@ -226,6 +225,8 @@
 </div>
 
 <!-- Content Area -->
+@yield('js')
+
 <div class="col-sm-8 col-md-8">
     <div id="content" class="well">
         @yield('content')

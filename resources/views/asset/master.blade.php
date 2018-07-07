@@ -60,7 +60,7 @@
     @endforeach
 </tbody>
 </table>
-        
+
 
 <!-- Modal -->
 <div id="modal-konfirmasi" class="modal fade" role="dialog">

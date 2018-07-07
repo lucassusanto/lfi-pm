@@ -1,0 +1,10 @@
+TODOs:
+- Ganti semua link href dan actions jd {{ url('/') }}
+- Kasih display setelah post (insert, delete) di asset type
+- Layout LFI
+- Bikin script di delete asset_type
+- Asset_no harus unik
+-- Cek exception di controller
+
+Notes:
+{{ url('/') }} linknya dari document root

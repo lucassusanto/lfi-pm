@@ -22,13 +22,13 @@ Route::prefix('asset')->group(function() {
 
     // Asset Type
     Route::prefix('type')->group(function() {
-        Route::get('/', 'AssetTypeController@index');
-        Route::get('new', 'AssetTypeController@new');
+        Route::get('/',     'AssetTypeController@index');
+        Route::get('new',   'AssetTypeController@new_data');
 
-        Route::post('new', 'AssetTypeController@new_data');
-        Route::post('delete', 'AssetTypeController@delete');
-        Route::post('edit', 'AssetTypeController@edit');
-        Route::post('commit_edit', 'AssetTypeController@commit_edit');
+        Route::post('new',          'AssetTypeController@commit_new_data');
+        Route::post('delete',       'AssetTypeController@commit_delete');
+        Route::post('edit',         'AssetTypeController@show_edit');
+        Route::post('commit_edit',  'AssetTypeController@commit_edit');
     });
 });
 

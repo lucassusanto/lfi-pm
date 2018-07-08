@@ -9,41 +9,52 @@ use DateTime;
 
 class AssetTypeController extends Controller
 {
-    // Master Data
     public function index() {
         $datas = DB::table('asset_type')
             ->select('id', 'type', 'note')
             ->get();
 
-        return view('asset.type.master', ['datas' => $datas]);
+        return view('asset.type.master', [
+            'datas' => $datas
+        ]);
     }
 
-    public function new() {
+    // Menampilkan form data baru | GET
+    public function new_data() {
         return view('asset.type.new');
     }
 
-    public function new_data(Request $request) {
-        // TODO: success/failure flag to UI
+    // Menambah data baru | POST
+    public function commit_new_data(Request $request) {
         $now = new DateTime();
         $user_id = '1000000';      // Sekarang masih pakai ID default user Admin
         
         $type = $request->type;
         $note = $request->note;
         
-        $data_id = DB::table('asset_type')->insertGetId(
-            ['type' => $type,
-             'note' => $note,
-             'modified_time' => $now,
-             'modified_id' => $user_id,
-             'created_time' => $now,
-             'created_id' => $user_id
+        $last_id = DB::table('asset_type')
+            ->select('id')
+            ->orderBy('id', 'desc')
+            ->take(1)
+            ->get();
+
+        $last_id = $last_id[0]->id + 1;
+        
+        DB::table('asset_type')->insert([
+            'id'                => $last_id,
+            'type'              => $type,
+            'note'              => $note,
+            'modified_time'     => $now,
+            'modified_id'       => $user_id,
+            'created_time'      => $now,
+            'created_id'        => $user_id
         ]);
         
-        return $data_id;
-        // return redirect('asset/type');
+        return redirect('asset/type');
     }
 
-    public function delete(Request $request) {
+    // Menghapus data | POST
+    public function commit_delete(Request $request) {
         $id = $request->id;
 
         DB::table('asset_type')
@@ -53,9 +64,8 @@ class AssetTypeController extends Controller
         return redirect('asset/type');
     }
 
-    
-    // Editing Data
-    public function edit(Request $request) {
+    // Menampilkan detil data edit | POST
+    public function show_edit(Request $request) {
         $id = $request->id;
 
         $datas = DB::table('asset_type')
@@ -63,9 +73,12 @@ class AssetTypeController extends Controller
             ->where('id', '=', $id)
             ->get();
 
-        return view('asset.type.edit', ['datas' => $datas]);
+        return view('asset.type.edit', [
+            'data' => $datas[0]
+        ]);
     }
-   
+
+    // Menyimpan hasil edit | POST
     public function commit_edit(Request $request) {
         $now = new DateTime();
         $user_id = '1000000';      // Sekarang masih pakai ID default user Admin
@@ -76,10 +89,11 @@ class AssetTypeController extends Controller
         
         DB::table('asset_type')
             ->where('id', $id)
-            ->update ([ 'type' => $type,
-                        'note' => $note,
-                        'modified_time' => $now,
-                        'modified_id' => $user_id
+            ->update ([
+                'type'          => $type,
+                'note'          => $note,
+                'modified_time' => $now,
+                'modified_id'   => $user_id
             ]);
 
         return redirect('asset/type');

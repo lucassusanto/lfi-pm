@@ -24,7 +24,7 @@
         <td>{{ $data->type }}</td>
         <td>{{ $data->note }}</td>
         <td align="center">
-            <button class="btn btn-danger" onclick="modifyModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
+            <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
             <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
         </td>
     </tr>
@@ -32,12 +32,12 @@
 </tbody>
 </table>
 
-
-<!-- Modal -->
+<!-- Delete Data Modal -->
 <div id="modal-konfirmasi" class="modal fade" role="dialog">
 <div class="modal-dialog">
     <div class="modal-content">
 
+    <!-- Delete Data Form -->
     <form class="form-horizontal" method="POST" action="{{ url('asset/type/delete') }}">
         <input type="hidden" id="m_data_id" name="id" value=""></input>
         @csrf
@@ -48,35 +48,36 @@
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                <div class="col-sm-12">
+                    <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                </div>
             </div>
-
+            
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_type">Type:</label>
-                <div class="col-sm-4">
-                    <label id="m_data_type"></label>
+                <label class="control-label col-sm-5" for="m_data_type">Type:</label>
+                <div class="col-sm-5">
+                    <p id="m_data_type"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-5" for="m_data_note">Note:</label>
+                <div class="col-sm-5">
+                    <p id="m_data_note"></p>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_note">Note:</label>
-                <div class="col-sm-4">
-                    <label id="m_data_note"></label>
-                </div>
-            </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
         </div>
     </form>
-
+    
     </div>
 </div>
 </div>
 
-
-<!-- To Edit Data Form -->
+<!-- Edit Data Form -->
 <form method="POST" action="{{ url('asset/type/edit') }}" id="form_edit" style="visibility: hidden;">
     <input type="hidden" id="e_data_id" name="id" value="">
     @csrf
@@ -86,7 +87,7 @@
 
 @section('js')
 <script type="text/javascript">
-function modifyModal(doc) {
+function showModal(doc) {
     var tr = doc.parentNode.parentNode;
     var id = tr.id;
     var type = tr.childNodes[1].innerHTML;

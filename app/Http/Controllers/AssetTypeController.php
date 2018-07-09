@@ -9,7 +9,7 @@ use DateTime;
 
 class AssetTypeController extends Controller
 {
-    private $tableName = 'asset_type2';
+    private $tableName = 'asset_type';
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
     public function index() {

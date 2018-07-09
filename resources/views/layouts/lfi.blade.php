@@ -7,7 +7,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Datatables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
@@ -26,6 +26,7 @@
         }
     </style>
 
+    <!-- Scripts -->
     <script type="text/javascript"> 
         $(document).ready(function() {
             $('#example').DataTable( {
@@ -35,6 +36,8 @@
             } );
         } );
     </script>
+
+    @yield('js')
 </head>
 
 <body>
@@ -60,7 +63,6 @@
 </nav>
 
 <div class="row">
-<!-- SideBar -->
 <div class="col-sm-2 col-md-2 col-md-offset-1">
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -220,8 +222,6 @@
 </div>
 
 <!-- Content Area -->
-@yield('js')
-
 <div class="col-sm-8 col-md-8">
     <div id="content" class="well">
         @yield('content')

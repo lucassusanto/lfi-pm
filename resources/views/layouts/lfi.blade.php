@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!--
-        BUGS ! Line 77
-    -->
-
     <meta charset="utf-8" />
     <title>LFI - SI Data</title>
 
@@ -75,7 +71,6 @@
                     </a>
                 </h4>
             </div>
-            <!-- Bug: Animation -->
             <div id="collapseOne" class="panel-collapse">
                 <div class="panel-body">
                     <table class="table">

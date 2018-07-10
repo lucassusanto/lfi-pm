@@ -29,7 +29,7 @@
         <td>{{ $data->note }}</td>
         <td align="center">
             <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-            <a href="{{ url('asset/edit') }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
+            <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
             <a href="{{ url('asset/view') }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
         </td>
     </tr> 
@@ -37,16 +37,14 @@
 </tbody>
 </table>
 
-
-
 <!-- Modal -->
 <div id="modal-konfirmasi" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
 
-            <form class="form-horizontal" method="POST" action="{{ url('asset/new') }}">
-                <input type="hidden" id="m_data_id" value="">
+            <form class="form-horizontal" method="POST" action="{{ url('asset/delete') }}">
+                <input type="hidden" id="m_data_id" name="id" value="">
                 @csrf
 
                 <div class="modal-header">
@@ -58,33 +56,27 @@
                         <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_no">Asset No:</label>
-                        <div class="col-sm-4">
-                            <p class="control-label col-sm-3" id="m_data_no"></p>
+                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_no">Asset No:</label>
+                        <div class="col-md-7">
+                            <label class="control-label" style="font-weight: normal;" id="m_data_no"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_type">Type:</label>
-                        <div class="col-sm-4">
-                            <p class="control-label col-sm-3" id="m_data_type"></p>
+                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_status">Asset Status:</label>
+                        <div class="col-md-7">
+                            <label class="control-label" style="font-weight: normal;" id="m_data_status"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_status">Asset Status:</label>
-                        <div class="col-sm-4">
-                            <p class="control-label col-sm-3" id="m_data_status"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_cat">Asset Category:</label>
-                        <div class="col-sm-4">
-                            <p class="control-label col-sm-3" id="m_data_cat"></p>
+                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_cat">Asset Category:</label>
+                        <div class="col-md-7">
+                            <label class="control-label" style="font-weight: normal;" id="m_data_cat"></label>
                         </div>
                     </div>        
                     <div class="form-group">
-                        <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_notes">Notes:</label>
-                        <div class="col-sm-4">
-                            <p class="control-label col-sm-3" id="m_data_notes"></p>
+                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_notes">Notes:</label>
+                        <div class="col-md-7">
+                            <label class="control-label" style="font-weight: normal;" id="m_data_notes"></label>
                         </div>
                     </div>
                 </div>
@@ -96,6 +88,12 @@
         </div>
     </div>
 </div>
+
+<!-- Edit Data Form -->
+<form method="POST" action="{{ url('asset/edit') }}" id="form_edit" style="visibility: hidden;">
+    <input type="hidden" id="e_data_id" name="id" value="">
+    @csrf
+</form>
 @endsection
 
 
@@ -106,14 +104,12 @@ function showModal(doc) {
 
     var id = tr.id;
     var no = tr.childNodes[1].innerHTML;
-    var type = tr.childNodes[3].innerHTML;
-    var status = tr.childNodes[5].innerHTML;
-    var cat = tr.childNodes[7].innerHTML;
-    var notes = tr.childNodes[9].innerHTML;
+    var status = tr.childNodes[3].innerHTML;
+    var cat = tr.childNodes[5].innerHTML;
+    var notes = tr.childNodes[7].innerHTML;
     
     document.getElementById('m_data_id').value = id;
     document.getElementById('m_data_no').innerHTML = no;
-    document.getElementById('m_data_type').innerHTML = type;
     document.getElementById('m_data_status').innerHTML = status;
     document.getElementById('m_data_cat').innerHTML = cat;
     document.getElementById('m_data_notes').innerHTML = notes;

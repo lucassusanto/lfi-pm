@@ -12,10 +12,53 @@ class AssetController extends Controller
     private $tableName = 'asset';
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
-    private function queryLists() {
+    private function getLocations() {
+        $loc_id = DB::table('asset_type')
+            ->select('id')
+            ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
+            ->take(1)->get();
 
+        $locations = [];
+        
+        if($loc_id->count()) {
+            $locations = DB::table('asset')
+                ->select('id', 'note')
+                ->where('type_id', '=', $loc_id[0]->id)
+                ->get();
+        }
+
+        return $locations;
     }
 
+    private function listQueries() {
+        $weight_uom = DB::table('uom')
+            ->select('id', 'uom')
+            ->get();
+
+        $locations = $this->getLocations();
+        
+        $vendors = DB::table('vendor')
+            ->select('id', 'vendor')
+            ->get();
+
+        $manufacturers = DB::table('manufacturer')
+            ->select('id', 'manufacturer')
+            ->get();
+
+        $costcodes = DB::table('costcode')
+            ->select('id', 'note')
+            ->get();
+        
+        $depts = DB::table('dept')
+            ->select('id', 'dept')
+            ->get();
+
+        $items = DB::table('inventory')
+            ->select('id', 'in_no')
+            ->get();
+    }
+
+    // PUBLIC
     public function index() {
         $datas = DB::table($this->tableName)
             ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
@@ -36,7 +79,8 @@ class AssetController extends Controller
         // Error! No data in asset_type. Required as foreign key
         if($categories->count() < 1) {
             return view('asset.info', [
-                'msg' => 'I\'m sorry, asset type table does not contain any data :('
+                'title' => 'Error!',
+                'msg' => 'asset_type table seems empty. Please add at least 1 data'
             ]);
         }
 
@@ -44,12 +88,8 @@ class AssetController extends Controller
             ->select('id', 'uom')
             ->get();
 
-        $locations = DB::table('asset')
-            ->select('id', 'note')
-            ->where('category_id', '=', 'as_cat_location')
-            ->orWhere('category_id', '=', 'Location')
-            ->get();
-
+        $locations = $this->getLocations();
+        
         $vendors = DB::table('vendor')
             ->select('id', 'vendor')
             ->get();
@@ -82,7 +122,6 @@ class AssetController extends Controller
         ]);
     }
 
-    // DEBUGGING
     // Menambah data baru | POST
     public function commit_new_data(Request $request) {
         $now = new DateTime();
@@ -151,30 +190,75 @@ class AssetController extends Controller
             ->where('id', '=', $id)
             ->delete();
 
-        return redirect('asset', [
-            'affected' => $affected
-        ]);
+        return redirect('asset');
     }
 
+    // DEBUGGING
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request) {
+        $categories = DB::table('asset_type')
+            ->select('id', 'note')
+            ->get();
+        
+        if($categories->count() < 1) {
+            return view('asset.info', [
+                'title' => 'Error!',
+                'msg' => 'asset_type table seems empty. Please add at least 1 data'
+            ]);
+        }
+
+        $weight_uom = DB::table('uom')
+            ->select('id', 'uom')
+            ->get();
+
+        $locations = $this->getLocations();
+        
+        $vendors = DB::table('vendor')
+            ->select('id', 'vendor')
+            ->get();
+
+        $manufacturers = DB::table('manufacturer')
+            ->select('id', 'manufacturer')
+            ->get();
+
+        $costcodes = DB::table('costcode')
+            ->select('id', 'note')
+            ->get();
+        
+        $depts = DB::table('dept')
+            ->select('id', 'dept')
+            ->get();
+
+        $items = DB::table('inventory')
+            ->select('id', 'in_no')
+            ->get();
+        // -----
+
         $id = $request->id;
 
-        $datas = DB::table($this->tableName)
-            ->select('id', 'type', 'note')
+        $asset_data = DB::table($this->tableName)
+            ->select()
             ->where('id', '=', $id)
             ->get();
 
-        if($datas->count()) {
+        if($asset_data->count()) {
             return view('asset.edit', [
-                'data' => $datas[0]
+                'asset_data'        => $asset_data[0],
+                'categories'        => $categories,
+                'wuoms'             => $weight_uom,
+                'locations'         => $locations,
+                'vendors'           => $vendors,
+                'manufacturers'     => $manufacturers,
+                'costcodes'         => $costcodes,
+                'depts'             => $depts,
+                'items'             => $items
             ]);
-        } else {
-            // Jika $id tidak ditemukan
-            return redirect('asset');
         }
+
+        return dd('Asset data was not found!');
     }
 
+    // DEBUGGING
     // Menyimpan hasil edit | POST
     public function commit_edit(Request $request) {
         $now = new DateTime();

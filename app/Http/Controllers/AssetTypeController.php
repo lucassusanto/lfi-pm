@@ -83,9 +83,10 @@ class AssetTypeController extends Controller
             return view('asset.type.edit', [
                 'data' => $datas[0]
             ]);
-        } else {
-            return redirect('asset/type');  // Jika $id tidak ditemukan
         }
+        
+        // Jika $id tidak ditemukan
+        return redirect('asset/type');
     }
 
     // Menyimpan hasil edit | POST

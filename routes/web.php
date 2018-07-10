@@ -14,9 +14,11 @@
 Route::prefix('asset')->group(function() {
     Route::get('/', 'AssetController@index');
     Route::get('new', 'AssetController@new_data');
-    Route::get('edit', 'AssetController@show_edit');
 
     Route::post('new', 'AssetController@commit_new_data');
+    Route::post('delete', 'AssetController@commit_delete');
+Route::post('edit', 'AssetController@show_edit');
+Route::post('commit_edit', 'AssetController@commit_edit');
 
     // Asset Type
     Route::prefix('type')->group(function() {

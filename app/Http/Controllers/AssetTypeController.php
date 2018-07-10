@@ -31,10 +31,7 @@ class AssetTypeController extends Controller
     public function commit_new_data(Request $request) {
         $now = new DateTime();
         
-        $type = $request->type;
-        $note = $request->note;
-        
-        /* Getting new data ID */
+        // Get ID
         $last_id = DB::table($this->tableName)
             ->select('id')
             ->orderBy('id', 'desc')
@@ -46,12 +43,11 @@ class AssetTypeController extends Controller
         } else {
             $last_id = 1;
         }
-        /* ------------------- */
         
         DB::table($this->tableName)->insert([
             'id'                => $last_id,
-            'type'              => $type,
-            'note'              => $note,
+            'type'              => $request->type,
+            'note'              => $request->note,
             'modified_time'     => $now,
             'modified_id'       => $this->user_id,
             'created_time'      => $now,
@@ -88,24 +84,20 @@ class AssetTypeController extends Controller
                 'data' => $datas[0]
             ]);
         } else {
-            // Jika $id tidak ditemukan
-            return redirect('asset/type');
+            return redirect('asset/type');  // Jika $id tidak ditemukan
         }
     }
 
     // Menyimpan hasil edit | POST
     public function commit_edit(Request $request) {
         $now = new DateTime();
-        
         $id = $request->id;
-        $type = $request->type;
-        $note = $request->note;
         
         $affected = DB::table($this->tableName)
             ->where('id', $id)
             ->update ([
-                'type'          => $type,
-                'note'          => $note,
+                'type'          => $request->type,
+                'note'          => $request->note,
                 'modified_time' => $now,
                 'modified_id'   => $this->user_id
             ]);

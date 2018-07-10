@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,37 +9,58 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('main');
+
+// Asset
+Route::prefix('asset')->group(function() {
+    Route::get('/', 'AssetController@index');
+    Route::get('new', 'AssetController@new_data');
+    Route::get('edit', 'AssetController@show_edit');
+
+    Route::post('new', 'AssetController@commit_new_data');
+
+    // Asset Type
+    Route::prefix('type')->group(function() {
+        Route::get('/',     'AssetTypeController@index');
+        Route::get('new',   'AssetTypeController@new_data');
+
+        Route::post('new',          'AssetTypeController@commit_new_data');
+        Route::post('delete',       'AssetTypeController@commit_delete');
+        Route::post('edit',         'AssetTypeController@show_edit');
+        Route::post('commit_edit',  'AssetTypeController@commit_edit');
+    });
 });
-
-// --------------------------- Asset ----------------------------
-Route::get('/asset', 'AssetController@index');
-Route::get('/asset/new', 'AssetController@new');
-Route::get('/asset/edit', 'AssetController@edit');
-
-
-
-// --------------------------- Asset Part -----------------------
-Route::get('/asset/part/new', 'AssetPartController@new');
-Route::get('/asset/part','AssetPartController@tabel');
-
-// --------------------------- Asset Meter ----------------------
-Route::get('/asset/meter/new', 'AssetMeterController@new');
-
-
-// --------------------------- Asset Contract -------------------
-Route::get('/asset/contract/new', 'AssetContractController@new');
-
-// --------------------------- Asset Depreciation ---------------
-Route::get('/asset/depreciation/new', 'AssetDepreciationController@new');
-
-// --------------------------- Asset Comment --------------------
+// Asset Comment
+Route::get('/asset/comment', 'AssetCommentController@index');
 Route::get('/asset/comment/new', 'AssetCommentController@new');
+Route::get('/asset/comment/edit', 'AssetCommentController@edit');
+// Asset Contract
+Route::get('/asset/contract', 'AssetContractController@index');
+Route::get('/asset/contract/new', 'AssetContractController@new');
+Route::get('/asset/contract/edit', 'AssetContractController@edit');
+// Asset Depreciation
+Route::get('/asset/depreciation', 'AssetDepreciationController@index');
+Route::get('/asset/depreciation/new', 'AssetDepreciationController@new');
+Route::get('/asset/depreciation/edit', 'AssetDepreciationController@edit');
+// Asset Downtime
+Route::get('/asset/downtime', 'AssetDowntimeController@index');
+Route::get('/asset/downtime/new', 'AssetDowntimeController@new');
+Route::get('/asset/downtime/edit', 'AssetDowntimeController@edit');
+// Asset Meter
+Route::get('/asset/meter', 'AssetMeterController@index');
+Route::get('/asset/meter/new', 'AssetMeterController@new');
+Route::get('/asset/meter/edit', 'AssetMeterController@edit');
+// Asset Part
+Route::get('/asset/part', 'AssetPartController@index');
+Route::get('/asset/part/new', 'AssetPartController@new');
+Route::get('/asset/part/edit', 'AssetPartController@edit');
+// Asset Service Log
+Route::get('/asset/slog', 'AssetServiceLogController@index');
+Route::get('/asset/slog/new', 'AssetServiceLogController@new');
+Route::get('/asset/slog/edit', 'AssetServiceLogController@edit');
 
-// --------------------------- Asset Down Time ------------------
-Route::get('/asset/downtime/new', 'AssetDownTimeController@new');
-
-// ---------------------------- Auth ----------------------------
+Route::get('/', function () {
+    return view('welcome');
+});
+// Auth
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

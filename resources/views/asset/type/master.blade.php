@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<table id="table_type" width="100%" class="table">
+<table id="example" width="100%" class="table">
 <thead>
     <tr>
         <th>Type</th>
@@ -54,15 +54,15 @@
             </div>
             
             <div class="form-group">
-                <label class="control-label col-sm-5" for="m_data_type">Type:</label>
-                <div class="col-sm-5">
-                    <p id="m_data_type"></p>
+                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_type">Type:</label>
+                <div class="col-sm-4">
+                    <p class="control-label col-sm-3" id="m_data_type"></p>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-5" for="m_data_note">Note:</label>
-                <div class="col-sm-5">
-                    <p id="m_data_note"></p>
+                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_note">Note:</label>
+                <div class="col-sm-4">
+                    <p class="control-label col-sm-3" id="m_data_note"></p>
                 </div>
             </div>
 
@@ -89,17 +89,14 @@
 <script type="text/javascript">
 function showModal(doc) {
     var tr = doc.parentNode.parentNode;
+    
     var id = tr.id;
     var type = tr.childNodes[1].innerHTML;
     var note = tr.childNodes[3].innerHTML;
     
-    var modal_data_id = document.getElementById('m_data_id');
-    var modal_data_type = document.getElementById('m_data_type');
-    var modal_data_note = document.getElementById('m_data_note');
-
-    modal_data_id.value = id;
-    modal_data_type.innerHTML = type;
-    modal_data_note.innerHTML = note;
+    document.getElementById('m_data_id').value = id;
+    document.getElementById('m_data_type').innerHTML = type;
+    document.getElementById('m_data_note').innerHTML = note;
 }
 
 function editData(doc) {

@@ -10,6 +10,20 @@ class AssetPartController extends Controller
 {
     //
 	private $user_id = '1000000';
+	private $asset_id = '10008';
+
+
+	public function index() {
+
+		$datas = DB::table('asset_part')
+		->join('inventory','asset_part.in_id','=','inventory.id')
+		->select('asset_part.id','asset_part.asset_id','inventory.in_no','asset_part.type_id','asset_part.note')
+		->where('asset_id','=',$this->asset_id)
+		->get();
+		return view('asset.part.tabel',[
+			'datas' => $datas
+		]);
+	}
 
 	public function new() {
 
@@ -30,7 +44,6 @@ class AssetPartController extends Controller
 	public function commit_new(Request $request) {
 
 		$now 			= new DateTime();
-		$asset_id		= '10008';
 
 		$last_id 		= DB::table('asset_part')
 		->select('id')
@@ -47,7 +60,7 @@ class AssetPartController extends Controller
 
 		DB::table('asset_part')->insert([
 			'id'				=> $last_id,
-			'asset_id'			=> $asset_id,
+			'asset_id'			=> $this->asset_id,
 			'in_id'				=> $request ->item,
 			'type_id'			=> $request ->type,
 			'qty'				=> $request ->qty,
@@ -59,11 +72,7 @@ class AssetPartController extends Controller
 			'created_id'        => $this->user_id
 		]);
 
-		return view('asset.part.new');
+		return redirect('asset/part');
 
-	}
-
-	public function tabel() {
-		return view('asset.part.tabel');
 	}
 }

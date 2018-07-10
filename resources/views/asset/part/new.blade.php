@@ -1,5 +1,14 @@
 @extends('layouts.lfi')
 
+@section('js')
+<script type="text/javascript">
+    function setID(doc) {
+        var options = doc.options;
+        return options[options.selectedIndex].id;
+    }
+</script>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -10,21 +19,26 @@
     </div>
 </div><br>
 
-<form class="form-horizontal" action="action.php">
+
+<form class="form-horizontal" onsubmit="setID()" method="POST" action="{{ url('asset/part/new') }}">
+    @csrf
+
     <div class="form-group">
         <label class="control-label col-sm-2" for="category">Item:</label>
         <div class="col-sm-3">
-            <select class="form-control" id="uom" name="dinterval">
-                <option>1000-Pump-Seal</option>
-                <option>100HP-Compressor-Bearing</option>
-                <option>Powertool-1000</option>
+            <input type="text" id="inventory" name="item" value="">
+            <select class="form-control" onchange="document.getElementById('inventory').value = setID(this);" >
+                <option></option>
+                @foreach($item as $item)
+                <option id="{{ $item->id }}">{{ $item->in_no }}</option>
+                @endforeach
             </select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="category">Type:</label>
         <div class="col-sm-3">
-            <select class="form-control" id="uom" name="dinterval">
+            <select class="form-control" id="type" name="type">
                 <option>Major</option>
                 <option>Routine</option>
             </select>
@@ -33,25 +47,25 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="category">QTY:</label>
         <div class="col-sm-3">
-            <input type="number" class="form-control" id="asset_no" name="no" placeholder="qty" required>
+            <input type="number" class="form-control" id="qty" name="qty" placeholder="qty" required>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="category">Weight UOM:</label>
         <div class="col-sm-3">
-            <select class="form-control" id="uom" name="dinterval">
-                <option>Day</option>
-                <option>Each</option>
-                <option>Hour</option>
-                <option>Pound</option>
-                <option>Rotation</option>
+            <input type="text" id="uom" name="weight_uom" value="">
+            <select class="form-control" onchange="document.getElementById('uom').value = setID(this);">
+                <option></option>
+                @foreach($weight_uom as $weight_uom)
+                <option id="{{ $weight_uom->id }}">{{ $weight_uom->uom }}</option>
+                @endforeach
             </select>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="notes">Notes:</label>
         <div class="col-sm-6">
-            <textarea class="form-control" id="asset_notes" name="notes" placeholder="Tuliskan catatan .."></textarea>
+            <textarea class="form-control" id="notes" name="notes" placeholder="Tuliskan catatan .."></textarea>
         </div>
     </div>
     <br>
@@ -60,7 +74,7 @@
     <div class="form-group">
         <div class="col-sm-4 col-sm-offset-4">
             <button class="btn btn-danger"><span class="glyphicon glyphicon-trash" ></span> Delete</button>
-            <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
             <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
         </div>
     </div>

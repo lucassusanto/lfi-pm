@@ -9,20 +9,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 // Asset
 Route::prefix('asset')->group(function() {
     Route::get('/', 'AssetController@index');
     Route::get('new', 'AssetController@new_data');
-    Route::get('edit', 'AssetController@show_edit');
-
     Route::post('new', 'AssetController@commit_new_data');
-
+    Route::post('delete', 'AssetController@commit_delete');
+Route::post('edit', 'AssetController@show_edit');
+Route::post('commit_edit', 'AssetController@commit_edit');
     // Asset Type
     Route::prefix('type')->group(function() {
         Route::get('/',     'AssetTypeController@index');
         Route::get('new',   'AssetTypeController@new_data');
-
         Route::post('new',          'AssetTypeController@commit_new_data');
         Route::post('delete',       'AssetTypeController@commit_delete');
         Route::post('edit',         'AssetTypeController@show_edit');
@@ -53,11 +51,12 @@ Route::get('/asset/meter/edit', 'AssetMeterController@edit');
 Route::get('/asset/part', 'AssetPartController@index');
 Route::get('/asset/part/new', 'AssetPartController@new');
 Route::get('/asset/part/edit', 'AssetPartController@edit');
+Route::get('/asset/part/new', 'AssetPartController@commit_new');
+
 // Asset Service Log
 Route::get('/asset/slog', 'AssetServiceLogController@index');
 Route::get('/asset/slog/new', 'AssetServiceLogController@new');
 Route::get('/asset/slog/edit', 'AssetServiceLogController@edit');
-
 Route::get('/', function () {
     return view('welcome');
 });

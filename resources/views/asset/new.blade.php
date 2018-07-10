@@ -2,7 +2,7 @@
 
 @section('js')
 <script type="text/javascript">
-function setID(doc) {
+function getID(doc) {
     var options = doc.options;
     return options[options.selectedIndex].id;
 }
@@ -10,7 +10,7 @@ function setID(doc) {
 @endsection
 
 @section('content')
-<form class="form-horizontal" onsubmit="setID()" method="POST" action="{{ url('asset/new') }}">
+<form class="form-horizontal" method="POST" action="{{ url('asset/new') }}">
 <!-- Mandatory: asset no, asset priority, status, cat, dep type, dep interval
 Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
 @csrf
@@ -65,8 +65,8 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_category">Asset Category: *</label>
         <div class="col-sm-3">
-            <input type="text" id="asset_category" name="category" value="{{ $categories[0]->id }}">
-            <select class="form-control" onchange="document.getElementById('asset_category').value = setID(this);" required>
+            <input type="hidden" id="asset_category" name="category" value="{{ $categories[0]->id }}">
+            <select class="form-control" onchange="document.getElementById('asset_category').value = getID(this);" required>
                 @foreach($categories as $cat)
                     <option id="{{ $cat->id }}">{{ $cat->note }}</option>
                 @endforeach
@@ -74,8 +74,8 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
         </div>
         <label class="control-label col-sm-3" for="asset_wuom">Weight UOM:</label>
         <div class="col-sm-3">
-            <input type="text" id="asset_wuom" name="wuom" value="">
-            <select class="form-control" onchange="document.getElementById('asset_wuom').value = setID(this);" required>
+            <input type="hidden" id="asset_wuom" name="wuom" value="">
+            <select class="form-control" onchange="document.getElementById('asset_wuom').value = getID(this);">
                 <option></option>
                 @foreach($wuoms as $wuom)
                     <option id="{{ $wuom->id }}">{{ $wuom->uom }}</option>
@@ -86,15 +86,13 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_location">Location:</label>
         <div class="col-sm-3">
-
-            <!-- DEBUG -->
-            <select class="form-control" id="asset_location" name="location">
+            <input type="hidden" id="asset_location" name="location" value="">
+            <select class="form-control" onchange="document.getElementById('asset_location').value = getID(this);" >
                 <option></option>
                 @foreach($locations as $loc)
                     <option id="{{ $loc->id }}">{{ $loc->note }}</option>
                 @endforeach
             </select>
-
         </div>
         <label class="control-label col-sm-3" for="asset_sn">Serial No:</label>
         <div class="col-sm-3">
@@ -102,12 +100,12 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
         </div>
     </div><br>
     
-<div class="form-group">
-    <label class="control-label col-sm-2" for="asset_note">Notes: *</label>
-    <div class="col-sm-9">
-        <textarea class="form-control" id="asset_note" name="note" placeholder="Tuliskan catatan .." required></textarea>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="asset_note">Notes: *</label>
+        <div class="col-sm-9">
+            <textarea class="form-control" id="asset_note" name="note" placeholder="Tuliskan catatan .." required></textarea>
+        </div>
     </div>
-</div>
 
     <div class="col-md-12">
         <h4 align="left">WARRANTY</h4>
@@ -138,24 +136,22 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_vendor">Vendor:</label>
         <div class="col-sm-3">
-
-            <!-- DEBUG -->
-            <select class="form-control" id="asset_vendor" name="vendor">
+            <input type="hidden" id="asset_vendor" name="vendor" value="">
+            <select class="form-control" onchange="document.getElementById('asset_vendor').value = getID(this);" >
                 <option></option>
                 @foreach($vendors as $vendor)
-                    <option>{{ $vendor->vendor }}</option>
+                    <option id="{{ $vendor->id }}">{{ $vendor->vendor }}</option>
                 @endforeach
             </select>
 
         </div>
         <label class="control-label col-sm-3" for="asset_manufacturer">Manufacturer:</label>
         <div class="col-sm-3">
-
-            <!-- DEBUG -->
-            <select class="form-control" id="asset_manufacturer" name="manufacturer">
+            <input type="hidden" id="asset_manufacturer" name="manufacturer" value="">
+            <select class="form-control" onchange="document.getElementById('asset_manufacturer').value = getID(this);" >
                 <option></option>
                 @foreach($manufacturers as $manufacturer)
-                    <option>{{ $manufacturer->manufacturer }}</option>
+                    <option id="{{ $manufacturer->id }}">{{ $manufacturer->manufacturer }}</option>
                 @endforeach
             </select>
 
@@ -202,23 +198,21 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_cc">Cost Code:</label>
         <div class="col-sm-3">
-
-            <!-- DEBUG -->
-            <select class="form-control" id="asset_cc" name="cc">
+            <input type="hidden" id="asset_cc" name="cc" value="">
+            <select class="form-control" onchange="document.getElementById('asset_cc').value = getID(this);" >
                 <option></option>
                 @foreach($costcodes as $costcode)
-                    <option>{{ $costcode->note }}</option>
+                    <option id="{{ $costcode->id }}">{{ $costcode->note }}</option>
                 @endforeach
             </select>
         </div>
         <label class="control-label col-sm-3" for="asset_dept">Department:</label>
         <div class="col-sm-3">
-
-            <!-- DEBUG -->
-            <select class="form-control" id="asset_dept" name="dept">
-            <option></option>
+            <input type="hidden" id="asset_dept" name="dept" value="">
+            <select class="form-control" onchange="document.getElementById('asset_dept').value = getID(this);" >
+                <option></option>
                 @foreach($depts as $dept)
-                    <option>{{ $dept->dept }}</option>
+                    <option id="{{ $dept->id }}">{{ $dept->dept }}</option>
                 @endforeach
             </select>
         </div>
@@ -227,12 +221,11 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_item">Item:</label>
         <div class="col-sm-3">
-
-            <!-- DEBUG -->
-            <select class="form-control" id="asset_item" name="ai">
+            <input type="hidden" id="asset_item" name="ai" value="">
+            <select class="form-control" onchange="document.getElementById('asset_item').value = getID(this);" >
                 <option></option>
                 @foreach($items as $item)
-                    <option>{{ $item->in_no }}</option>
+                    <option id="{{ $item->id }}">{{ $item->in_no }}</option>
                 @endforeach
             </select>
         </div>
@@ -245,8 +238,6 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_dt">Depreciation type:</label>
         <div class="col-sm-3">
-        
-            <!-- DEBUG -->
             <select class="form-control" id="asset_dt" name="dt">
                 <option></option>
                 <option>Straight Line</option>
@@ -262,12 +253,12 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <div class="form-group">
        <label class="control-label col-sm-2" for="asset_di">Depreciation interval:</label>
        <div class="col-sm-3">
-        <select class="form-control" id="asset_di" name="di">
-            <option></option>
-            <option>Annually</option>
-            <option>Quarterly</option>
-        </select>
-    </div>
+            <select class="form-control" id="asset_di" name="di">
+                <option></option>
+                <option>Annually</option>
+                <option>Quarterly</option>
+            </select>
+        </div>
     <label class="control-label col-sm-3" for="asset_dr">Depreciation rate:</label>
     <div class="col-sm-3">
         <input type="text" class="form-control" id="asset_dr" name="dr" placeholder="Rate">

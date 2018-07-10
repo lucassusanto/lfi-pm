@@ -12,10 +12,6 @@ class AssetController extends Controller
     private $tableName = 'asset';
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
-    private function queryLists() {
-
-    }
-
     public function index() {
         $datas = DB::table($this->tableName)
             ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
@@ -36,7 +32,8 @@ class AssetController extends Controller
         // Error! No data in asset_type. Required as foreign key
         if($categories->count() < 1) {
             return view('asset.info', [
-                'msg' => 'I\'m sorry, asset type table does not contain any data :('
+                'title' => 'Error!',
+                'msg' => 'asset_type table seems empty. Please add at least 1 data'
             ]);
         }
 
@@ -44,12 +41,26 @@ class AssetController extends Controller
             ->select('id', 'uom')
             ->get();
 
-        $locations = DB::table('asset')
-            ->select('id', 'note')
-            ->where('category_id', '=', 'as_cat_location')
-            ->orWhere('category_id', '=', 'Location')
-            ->get();
+        /*
+        |    ------------ Get Locations ------------
+        */
+        $loc_id = DB::table('asset_type')
+            ->select('id')
+            ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
+            ->take(1)->get();
 
+        $locations = [];
+        
+        if($loc_id->count()) {
+            $locations = DB::table('asset')
+                ->select('id', 'note')
+                ->where('type_id', '=', $loc_id[0]->id)
+                ->get();
+        }
+        /*
+        |   ----------------------------------------
+        */
+        
         $vendors = DB::table('vendor')
             ->select('id', 'vendor')
             ->get();
@@ -82,7 +93,6 @@ class AssetController extends Controller
         ]);
     }
 
-    // DEBUGGING
     // Menambah data baru | POST
     public function commit_new_data(Request $request) {
         $now = new DateTime();
@@ -143,6 +153,7 @@ class AssetController extends Controller
         return redirect('asset');
     }
 
+    // DEBUGGING
     // Menghapus data | POST
     public function commit_delete(Request $request) {
         $id = $request->id;
@@ -156,6 +167,7 @@ class AssetController extends Controller
         ]);
     }
 
+    // DEBUGGING
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request) {
         $id = $request->id;
@@ -175,6 +187,7 @@ class AssetController extends Controller
         }
     }
 
+    // DEBUGGING
     // Menyimpan hasil edit | POST
     public function commit_edit(Request $request) {
         $now = new DateTime();

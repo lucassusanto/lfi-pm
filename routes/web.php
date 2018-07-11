@@ -12,19 +12,23 @@
 
 // Asset
 Route::prefix('asset')->group(function() {
-    Route::get('/', 'AssetController@index');
-    Route::get('new', 'AssetController@new_data');
+    Route::get('/',     'AssetController@index');
+    Route::get('new',   'AssetController@new_data');
 
-    Route::post('new', 'AssetController@commit_new_data');
-    Route::post('delete', 'AssetController@commit_delete');
-    Route::post('edit', 'AssetController@show_edit');
-    Route::post('commit_edit', 'AssetController@commit_edit');
+    Route::post('new',          'AssetController@commit_new_data');
+    Route::post('delete',       'AssetController@commit_delete');
+    Route::post('edit',         'AssetController@show_edit');
+    Route::post('commit_edit',  'AssetController@commit_edit');
 
     // Comment
-    Route::prefix('comment')->group(function() {
-        Route::get('/', 'AssetCommentController@index');
-        Route::get('new', 'AssetCommentController@new');
-        Route::get('edit', 'AssetCommentController@edit');
+    Route::prefix('{id}/comment')->group(function() {
+        Route::get('/',      'AssetCommentController@index');
+        Route::get('new',  'AssetCommentController@new_data');
+
+        Route::post('new',         'AssetCommentController@commit_new_data');
+        Route::post('delete',      'AssetCommentController@commit_delete');
+        Route::post('edit',        'AssetCommentController@show_edit');
+        Route::post('commit_edit', 'AssetCommentController@commit_edit');
     });
 
     // Type

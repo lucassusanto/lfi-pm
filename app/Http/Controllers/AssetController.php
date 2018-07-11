@@ -93,7 +93,8 @@ class AssetController extends Controller
         if($categories->count() < 1) 
             return view('asset.info', [
                 'title' => 'Error!',
-                'msg' => 'asset_type table seems empty. Please add at least 1 data'
+                'msg' => 'asset_type table seems empty. Please add at least 1 data',
+                'link' => 'asset'
             ]);
 
         $this->listQueries();

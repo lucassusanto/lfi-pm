@@ -5,5 +5,5 @@
     <b>{{ $title }}</b> {{ $msg }}
 </div>
 
-<a class="btn btn-default" href="{{ url('asset') }}">Go Back</a>
+<a class="btn btn-default" href="{{ $link }}">Go Back</a>
 @endsection

@@ -12,6 +12,22 @@ class AssetTypeController extends Controller
     private $tableName = 'asset_type';
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
+    // Get last data ID
+    private function getID() {
+        $last_id = DB::table($this->tableName)
+            ->select('id')->orderBy('id', 'desc')
+            ->take(1)->get();
+
+        if($last_id->count()) {
+            $last_id = $last_id[0]->id + 1;
+        } else {
+            $last_id = 1;
+        }
+
+        return $last_id;
+    }
+
+
     public function index() {
         $datas = DB::table($this->tableName)
             ->select('id', 'type', 'note')
@@ -30,19 +46,7 @@ class AssetTypeController extends Controller
     // Menambah data baru | POST
     public function commit_new_data(Request $request) {
         $now = new DateTime();
-        
-        // Get ID
-        $last_id = DB::table($this->tableName)
-            ->select('id')
-            ->orderBy('id', 'desc')
-            ->take(1)
-            ->get();
-
-        if($last_id->count()) {
-            $last_id = $last_id[0]->id + 1;
-        } else {
-            $last_id = 1;
-        }
+        $last_id = $this->getID();
         
         DB::table($this->tableName)->insert([
             'id'                => $last_id,
@@ -61,13 +65,11 @@ class AssetTypeController extends Controller
     public function commit_delete(Request $request) {
         $id = $request->id;
 
-        $affected = DB::table($this->tableName)
+        DB::table($this->tableName)
             ->where('id', '=', $id)
             ->delete();
 
-        return redirect('asset/type', [
-            'affected' => $affected
-        ]);
+        return redirect('asset/type');
     }
 
     // Menampilkan detil data edit | POST
@@ -86,6 +88,13 @@ class AssetTypeController extends Controller
         } else {
             return redirect('asset/type');  // Jika $id tidak ditemukan
         }
+        
+        // Jika $id tidak ditemukan
+        return view('asset.info', [
+            'title' => 'Error!',
+            'msg' => 'Asset data id was not found!',
+            'link' => 'asset/type'
+        ]);
     }
 
     // Menyimpan hasil edit | POST
@@ -93,17 +102,15 @@ class AssetTypeController extends Controller
         $now = new DateTime();
         $id = $request->id;
         
-        $affected = DB::table($this->tableName)
+        DB::table($this->tableName)
             ->where('id', $id)
-            ->update ([
+            ->update([
                 'type'          => $request->type,
                 'note'          => $request->note,
                 'modified_time' => $now,
                 'modified_id'   => $this->user_id
             ]);
 
-        return redirect('asset/type', [
-            'affected' => $affected
-        ]);
+        return redirect('asset/type');
     }
 }

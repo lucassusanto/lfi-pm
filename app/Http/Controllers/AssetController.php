@@ -12,6 +12,9 @@ class AssetController extends Controller
     private $tableName = 'asset';
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
+    // Mendapat list asset tipe lokasi
+    // - Dari tabel asset_type
+    // - Untuk data dropdowns di form new/edit data
     private function getLocations() {
         $loc_id = DB::table('asset_type')
             ->select('id')
@@ -30,32 +33,25 @@ class AssetController extends Controller
         return $locations;
     }
 
+    // Get last data ID
+    private function getID() {
+        $last_id = DB::table($this->tableName)
+            ->select('id')->orderBy('id', 'desc')
+            ->take(1)->get();
+
+        if($last_id->count()) {
+            $last_id = $last_id[0]->id + 1;
+        } else {
+            $last_id = 1;
+        }
+
+        return $last_id;
+    }
+
+    // Query utk data dropdowns di form new/edit data
     private function listQueries() {
-        $weight_uom = DB::table('uom')
-            ->select('id', 'uom')
-            ->get();
-
         $locations = $this->getLocations();
-        
-        $vendors = DB::table('vendor')
-            ->select('id', 'vendor')
-            ->get();
 
-        $manufacturers = DB::table('manufacturer')
-            ->select('id', 'manufacturer')
-            ->get();
-
-        $costcodes = DB::table('costcode')
-            ->select('id', 'note')
-            ->get();
-        
-        $depts = DB::table('dept')
-            ->select('id', 'dept')
-            ->get();
-
-        $items = DB::table('inventory')
-            ->select('id', 'in_no')
-            ->get();
     }
 
     // PUBLIC
@@ -125,17 +121,7 @@ class AssetController extends Controller
     // Menambah data baru | POST
     public function commit_new_data(Request $request) {
         $now = new DateTime();
-        
-        // Get ID
-        $last_id = DB::table($this->tableName)
-            ->select('id')->orderBy('id', 'desc')
-            ->take(1)->get();
-
-        if($last_id->count()) {
-            $last_id = $last_id[0]->id + 1;
-        } else {
-            $last_id = 1;
-        }
+        $last_id = $this->getID();
 
         DB::table($this->tableName)->insert([
             'id'                => $last_id,
@@ -193,7 +179,6 @@ class AssetController extends Controller
         return redirect('asset');
     }
 
-    // DEBUGGING
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request) {
         $categories = DB::table('asset_type')
@@ -255,29 +240,54 @@ class AssetController extends Controller
             ]);
         }
 
-        return dd('Asset data was not found!');
+        // Jika $id tidak ditemukan
+        return view('asset.info', [
+            'title' => 'Error!',
+            'msg' => 'Asset data id was not found!',
+            'link' => 'asset'
+        ]);
     }
 
-    // DEBUGGING
     // Menyimpan hasil edit | POST
     public function commit_edit(Request $request) {
         $now = new DateTime();
-        
         $id = $request->id;
-        $type = $request->type;
-        $note = $request->note;
         
-        $affected = DB::table($this->tableName)
+        DB::table($this->tableName)
             ->where('id', $id)
-            ->update ([
-                'type'          => $type,
-                'note'          => $note,
-                'modified_time' => $now,
-                'modified_id'   => $this->user_id
-            ]);
-
-        return redirect('asset', [
-            'affected' => $affected
+            ->update([
+                'asset_no'          => $request->no,
+                'note'              => $request->note,
+                'priority_id'       => $request->priority,
+                'status_id'         => $request->status,
+                'type_id'           => $request->category,
+                'location_id'       => $request->location,
+                'weight'            => $request->weight,
+                'weight_uom_id'     => $request->wuom,
+                'serial_no'         => $request->sn,
+                'owner_user_id'     => $this->user_id,
+                'start_date'        => $request->sd,
+                'purchase_date'     => $request->pd,
+                'original_cost'     => $request->ori_cost,
+                'manufacturer_id'   => $request->manufacturer,
+                'vendor_id'         => $request->vendor,
+                'warranty_start_date'       => $request->ws,
+                'warranty_end_date'         => $request->we,
+                'maint_labor_hours'         => $request->mlh,
+                'maint_labor_cost'          => $request->mlc,
+                'maint_material_cost'       => $request->mmc,
+                'maint_cost'                => $request->mc,
+                'costcode_id'               => $request->cc,
+                'dept_id'                   => $request->dept,
+                'in_id'                     => $request->ai,
+                'depreciation_type_id'      => $request->dt,
+                'depreciation_start'        => $request->ds,
+                'depreciation_time_id'      => $request->di, // Depreciation interval
+                'depreciation_rate'         => $request->dr,
+                'modified_time'             => $now,
+                'modified_id'               => $this->user_id
         ]);
+        
+        return redirect('asset');
     }
 }

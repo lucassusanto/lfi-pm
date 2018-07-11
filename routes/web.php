@@ -22,8 +22,8 @@ Route::prefix('asset')->group(function() {
 
     // Comment
     Route::prefix('{id}/comment')->group(function() {
-        Route::get('/',      'AssetCommentController@index');
-        Route::get('new',  'AssetCommentController@new_data');
+        Route::get('/',            'AssetCommentController@index');
+        Route::get('new',          'AssetCommentController@new_data');
 
         Route::post('new',         'AssetCommentController@commit_new_data');
         Route::post('delete',      'AssetCommentController@commit_delete');
@@ -64,7 +64,10 @@ Route::get('/asset/meter/edit', 'AssetMeterController@edit');
 Route::get('/asset/part', 'AssetPartController@index');
 Route::get('/asset/part/new', 'AssetPartController@new');
 Route::post('/asset/part/new', 'AssetPartController@commit_new');
-Route::get('/asset/part/edit', 'AssetPartController@edit');
+Route::post('/asset/part/delete','AssetPartController@commit_delete');
+Route::post('/asset/part/edit','AssetPartController@show_edit');
+Route::post('/asset/part/commit_edit','AssetPartController@commit_edit');
+
 // Asset Service Log
 Route::get('/asset/slog', 'AssetServiceLogController@index');
 Route::get('/asset/slog/new', 'AssetServiceLogController@new');

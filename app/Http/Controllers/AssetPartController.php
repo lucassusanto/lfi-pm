@@ -75,4 +75,72 @@ class AssetPartController extends Controller
 		return redirect('asset/part');
 
 	}
+
+	public function commit_delete(Request $request) {
+
+		$id = $request->id;
+
+		$affected = DB::table('asset_part')
+		->where('id','=',$id)
+		->delete();
+
+		return redirect('asset/part');
+	}
+
+
+	public function show_edit(Request $request)
+	{
+		$item = DB::table('inventory')
+		->select('id','in_no')
+		->get();
+
+		$weight_uom	= DB::table('uom')
+		->select('id', 'uom')
+		->get();
+
+
+		$id = $request->id;
+
+		$asset_part = DB::table('asset_part')
+		->select()
+		->where('id','=', $id)
+		->get();
+
+		if($asset_part->count()) {
+			return view ('asset.part.edit', [
+				'asset_part'	=> $asset_part[0],
+				'item'			=> $item,
+				'weight_uom'	=> $weight_uom
+			]);
+		}
+
+		return view('asset.info', [
+			'title' => 'Error!',
+			'msg' => 'Asset data id was not found!',
+			'link' => 'asset'
+		]);
+	}
+
+	public function commit_edit(Request $request) {
+
+		$now = new DateTime();
+		$id = $request->id;
+
+		DB::table('asset_part')
+		->where('id', $id)
+		->update ([
+			'asset_id'			=> $this->asset_id,
+			'in_id'				=> $request ->item,
+			'type_id'			=> $request ->type,
+			'qty'				=> $request ->qty,
+			'uom_id'			=> $request ->weight_uom,
+			'note'				=> $request ->notes,
+			'modified_time'     => $now,
+			'modified_id'       => $this->user_id,
+			'created_time'      => $now,
+			'created_id'        => $this->user_id
+		]);
+
+		return redirect('asset/part');
+	}
 }

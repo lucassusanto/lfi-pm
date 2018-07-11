@@ -22,6 +22,10 @@ class AssetTypeController extends Controller
         ]);
     }
 
+    private function baru() {
+        
+    }
+
     // Menampilkan form data baru | GET
     public function new_data() {
         return view('asset.type.new');

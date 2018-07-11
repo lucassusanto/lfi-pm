@@ -18,16 +18,13 @@ class AssetTypeController extends Controller
             ->select('id')->orderBy('id', 'desc')
             ->take(1)->get();
 
-        if($last_id->count()) {
-            $last_id = $last_id[0]->id + 1;
-        } else {
-            $last_id = 1;
-        }
-
+        if($last_id->count())   $last_id = $last_id[0]->id + 1;
+        else                    $last_id = 1;
+        
         return $last_id;
     }
 
-
+    // PUBLIC
     public function index() {
         $datas = DB::table($this->tableName)
             ->select('id', 'type', 'note')
@@ -81,19 +78,15 @@ class AssetTypeController extends Controller
             ->where('id', '=', $id)
             ->get();
 
-        if($datas->count()) {
-            return view('asset.type.edit', [
-                'data' => $datas[0]
+        if($datas->count() < 1)
+            return view('asset.info', [
+                'title' => 'Error!',
+                'msg'   => 'Asset data id was not found!',
+                'link'  => 'asset/type'
             ]);
-        } else {
-            return redirect('asset/type');  // Jika $id tidak ditemukan
-        }
         
-        // Jika $id tidak ditemukan
-        return view('asset.info', [
-            'title' => 'Error!',
-            'msg' => 'Asset data id was not found!',
-            'link' => 'asset/type'
+        return view('asset.type.edit', [
+            'data' => $datas[0]
         ]);
     }
 
@@ -110,7 +103,7 @@ class AssetTypeController extends Controller
                 'modified_time' => $now,
                 'modified_id'   => $this->user_id
             ]);
-
+        
         return redirect('asset/type');
     }
 }

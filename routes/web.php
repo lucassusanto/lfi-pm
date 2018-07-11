@@ -12,15 +12,26 @@
 
 // Asset
 Route::prefix('asset')->group(function() {
-    Route::get('/', 'AssetController@index');
-    Route::get('new', 'AssetController@new_data');
+    Route::get('/',     'AssetController@index');
+    Route::get('new',   'AssetController@new_data');
 
-    Route::post('new', 'AssetController@commit_new_data');
-    Route::post('delete', 'AssetController@commit_delete');
-    Route::post('edit', 'AssetController@show_edit');
-    Route::post('commit_edit', 'AssetController@commit_edit');
+    Route::post('new',          'AssetController@commit_new_data');
+    Route::post('delete',       'AssetController@commit_delete');
+    Route::post('edit',         'AssetController@show_edit');
+    Route::post('commit_edit',  'AssetController@commit_edit');
 
-    // Asset Type
+    // Comment
+    Route::prefix('{id}/comment')->group(function() {
+        Route::get('/',      'AssetCommentController@index');
+        Route::get('new',  'AssetCommentController@new_data');
+
+        Route::post('new',         'AssetCommentController@commit_new_data');
+        Route::post('delete',      'AssetCommentController@commit_delete');
+        Route::post('edit',        'AssetCommentController@show_edit');
+        Route::post('commit_edit', 'AssetCommentController@commit_edit');
+    });
+
+    // Type
     Route::prefix('type')->group(function() {
         Route::get('/',     'AssetTypeController@index');
         Route::get('new',   'AssetTypeController@new_data');
@@ -31,10 +42,8 @@ Route::prefix('asset')->group(function() {
         Route::post('commit_edit',  'AssetTypeController@commit_edit');
     });
 });
-// Asset Comment
-Route::get('/asset/comment', 'AssetCommentController@index');
-Route::get('/asset/comment/new', 'AssetCommentController@new');
-Route::get('/asset/comment/edit', 'AssetCommentController@edit');
+
+
 // Asset Contract
 Route::get('/asset/contract', 'AssetContractController@index');
 Route::get('/asset/contract/new', 'AssetContractController@new');

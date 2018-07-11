@@ -31,6 +31,17 @@ Route::prefix('asset')->group(function() {
         Route::post('commit_edit', 'AssetCommentController@commit_edit');
     });
 
+    // Asset Part
+    Route::prefix('{id}/part')->group(function() {
+        Route::get('/',            'AssetPartController@index');
+        Route::get('new',          'AssetPartController@new');
+
+        Route::post('new',         'AssetPartController@commit_new');
+        Route::post('delete',      'AssetPartController@commit_delete');
+        Route::post('edit',        'AssetPartController@show_edit');
+        Route::post('commit_edit', 'AssetPartController@commit_edit');
+    });
+
     // Type
     Route::prefix('type')->group(function() {
         Route::get('/',     'AssetTypeController@index');
@@ -60,22 +71,7 @@ Route::get('/asset/downtime/edit', 'AssetDowntimeController@edit');
 Route::get('/asset/meter', 'AssetMeterController@index');
 Route::get('/asset/meter/new', 'AssetMeterController@new');
 Route::get('/asset/meter/edit', 'AssetMeterController@edit');
-// Asset Part
-Route::get('/asset/part', 'AssetPartController@index');
-Route::get('/asset/part/new', 'AssetPartController@new');
-Route::post('/asset/part/new', 'AssetPartController@commit_new');
-<<<<<<< HEAD
-Route::post('/asset/part/delete','AssetPartController@commit_delete');
-Route::post('/asset/part/edit','AssetPartController@show_edit');
-Route::post('/asset/part/commit_edit','AssetPartController@commit_edit');
 
-||||||| merged common ancestors
-Route::get('/asset/part/edit', 'AssetPartController@edit');
-=======
-Route::post('/asset/part/delete','AssetPartController@commit_delete');
-Route::post('/asset/part/edit','AssetPartController@show_edit');
-Route::post('/asset/part/commit_edit','AssetPartController@commit_edit');
->>>>>>> ef1d8b0e167d7d307d6be166d9b896af6e0da912
 // Asset Service Log
 Route::get('/asset/slog', 'AssetServiceLogController@index');
 Route::get('/asset/slog/new', 'AssetServiceLogController@new');

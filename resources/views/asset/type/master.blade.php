@@ -52,17 +52,17 @@
                     <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                 </div>
             </div>
-            
+        
             <div class="form-group">
                 <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_type">Type:</label>
                 <div class="col-sm-4">
-                    <p class="control-label col-sm-3" id="m_data_type"></p>
+                    <label class="control-label" style="font-weight: normal;" id="m_data_type"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_note">Note:</label>
-                <div class="col-sm-4">
-                    <p class="control-label col-sm-3" id="m_data_note"></p>
+                <div class="col-md-7">
+                    <label class="control-label" style="font-weight: normal;" id="m_data_note"></label>
                 </div>
             </div>
 

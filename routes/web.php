@@ -20,7 +20,14 @@ Route::prefix('asset')->group(function() {
     Route::post('edit', 'AssetController@show_edit');
     Route::post('commit_edit', 'AssetController@commit_edit');
 
-    // Asset Type
+    // Comment
+    Route::prefix('comment')->group(function() {
+        Route::get('/', 'AssetCommentController@index');
+        Route::get('new', 'AssetCommentController@new');
+        Route::get('edit', 'AssetCommentController@edit');
+    });
+
+    // Type
     Route::prefix('type')->group(function() {
         Route::get('/',     'AssetTypeController@index');
         Route::get('new',   'AssetTypeController@new_data');
@@ -31,10 +38,8 @@ Route::prefix('asset')->group(function() {
         Route::post('commit_edit',  'AssetTypeController@commit_edit');
     });
 });
-// Asset Comment
-Route::get('/asset/comment', 'AssetCommentController@index');
-Route::get('/asset/comment/new', 'AssetCommentController@new');
-Route::get('/asset/comment/edit', 'AssetCommentController@edit');
+
+
 // Asset Contract
 Route::get('/asset/contract', 'AssetContractController@index');
 Route::get('/asset/contract/new', 'AssetContractController@new');

@@ -9,12 +9,11 @@ use DateTime;
 
 class AssetCommentController extends Controller
 {
-    private $tableName = 'asset_comment';
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
     // Get last data ID
     private function getID() {
-        $last_id = DB::table($this->tableName)
+        $last_id = DB::table('asset_comment')
             ->select('id')->orderBy('id', 'desc')
             ->take(1)->get();
 
@@ -47,7 +46,7 @@ class AssetCommentController extends Controller
                 'link' => 'asset'
             ]);
 
-        $datas = DB::table($this->tableName)
+        $datas = DB::table('asset_comment')
             ->select('id', 'comment', 'modified_time')
             ->where('asset_id', '=', $id)
             ->get();
@@ -81,7 +80,7 @@ class AssetCommentController extends Controller
         $now = new DateTime();
         $last_id = $this->getID();
         
-        DB::table($this->tableName)->insert([
+        DB::table('asset_comment')->insert([
             'id'                => $last_id,
             'asset_id'          => $id,
             'comment'           => $request->comment,
@@ -98,7 +97,7 @@ class AssetCommentController extends Controller
     public function commit_delete(Request $request, $id) {
         $comment_id = $request->id;
 
-        DB::table($this->tableName)
+        DB::table('asset_comment')
             ->where('id', '=', $comment_id)
             ->delete();
 
@@ -109,7 +108,7 @@ class AssetCommentController extends Controller
     public function show_edit(Request $request, $id) {
         $comment_id = $request->id;
 
-        $datas = DB::table($this->tableName)
+        $datas = DB::table('asset_comment')
             ->select('id', 'comment')
             ->where('id', '=', $comment_id)
             ->get();
@@ -142,7 +141,7 @@ class AssetCommentController extends Controller
         $now = new DateTime();
         $comment_id = $request->id;
         
-        DB::table($this->tableName)
+        DB::table('asset_comment')
             ->where('id', $comment_id)
             ->update([
                 'comment'       => $request->comment,

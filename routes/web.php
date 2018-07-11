@@ -31,6 +31,18 @@ Route::prefix('asset')->group(function() {
         Route::post('commit_edit', 'AssetCommentController@commit_edit');
     });
 
+    // DEBUG
+    // Asset Contract
+    Route::prefix('{id}/contract')->group(function() {
+        Route::get('/',            'AssetContractController@index');
+        Route::get('new',          'AssetContractController@new_data');
+
+        Route::post('new',         'AssetContractController@commit_new_data');
+        Route::post('delete',      'AssetContractController@commit_delete');
+        Route::post('edit',        'AssetContractController@show_edit');
+        Route::post('commit_edit', 'AssetContractController@commit_edit');
+    });
+
     // Asset Part
     Route::prefix('{id}/part')->group(function() {
         Route::get('/',            'AssetPartController@index');
@@ -54,11 +66,6 @@ Route::prefix('asset')->group(function() {
     });
 });
 
-
-// Asset Contract
-Route::get('/asset/contract', 'AssetContractController@index');
-Route::get('/asset/contract/new', 'AssetContractController@new');
-Route::get('/asset/contract/edit', 'AssetContractController@edit');
 // Asset Depreciation
 Route::get('/asset/depreciation', 'AssetDepreciationController@index');
 Route::get('/asset/depreciation/new', 'AssetDepreciationController@new');

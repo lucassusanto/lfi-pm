@@ -60,7 +60,7 @@ class AssetContractController extends Controller
         $this->loadData($id);
 
         $datas = DB::table('asset_contract')
-            ->select('asset_contract.id', 'contract.contract', 'asset_contract.start_date', 'asset_contract.end_date')
+            ->select('asset_contract.id', 'contract.contract', 'asset_contract.status_id', 'asset_contract.start_date', 'asset_contract.end_date')
             ->join('contract', 'contract.id', '=', 'asset_contract.contract_id')
             ->where('asset_contract.asset_id', '=', $id)
             ->get();

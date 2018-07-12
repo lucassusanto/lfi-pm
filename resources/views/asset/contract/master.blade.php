@@ -18,6 +18,7 @@
     <tr>
         <th>#</th>
         <th>Contract</th>
+        <th>Status</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Action</th>
@@ -28,6 +29,7 @@
     <tr id="{{ $data->id }}">
         <td>{{ $data->id }}</td>
         <td>{{ $data->contract }}</td>
+        <td>{{ $data->status_id }}</td>
         <td>{{ $data->start_date }}</td>
         <td>{{ $data->end_date }}</td>
         <td align="center">
@@ -67,6 +69,12 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_status">Status:</label>
+                <div class="col-md-7">
+                    <label class="control-label" style="font-weight: normal;" id="m_data_status"></label>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_sd">Start Date:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_sd"></label>
@@ -78,7 +86,6 @@
                     <label class="control-label" style="font-weight: normal;" id="m_data_ed"></label>
                 </div>
             </div>
-
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -105,11 +112,13 @@ function showModal(doc) {
     
     var id = tr.id;
     var contract = tr.childNodes[3].innerHTML;
-    var start_date = tr.childNodes[5].innerHTML;
-    var end_date = tr.childNodes[7].innerHTML;
+    var status_id = tr.childNodes[5].innerHTML;
+    var start_date = tr.childNodes[7].innerHTML;
+    var end_date = tr.childNodes[9].innerHTML;
     
     document.getElementById('m_data_id').value = id;
     document.getElementById('m_data_contract').innerHTML = contract;
+    document.getElementById('m_data_status').innerHTML = status_id;
     document.getElementById('m_data_sd').innerHTML = start_date;
     document.getElementById('m_data_ed').innerHTML = end_date;
 }

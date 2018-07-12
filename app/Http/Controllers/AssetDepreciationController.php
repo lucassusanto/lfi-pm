@@ -35,7 +35,7 @@ class AssetDepreciationController extends Controller
         return $note[0]->note;
 	}
 	
-	private function show_error($id, $msg) {
+	private function show_error($msg) {
 		return view('asset.info', [
 			'title' => 'Error!',
 			'msg'   => $msg,
@@ -48,7 +48,7 @@ class AssetDepreciationController extends Controller
 		$note = $this->getNote($id);
 
 		if($note == false)
-			return $this->show_error($id, 'Asset data '.$id.' was not found!');
+			return $this->show_error('Asset data '.$id.' was not found!');
 
         $datas = DB::table('asset_depreciation')
             ->select('id', 'start_date', 'end_date', 'end_value', 'note' ,'depreciation_rate')
@@ -67,7 +67,7 @@ class AssetDepreciationController extends Controller
         $note = $this->getNote($id);
 
 		if($note == false)
-			return $this->show_error($id, 'Asset data '.$id.' was not found!');
+			return $this->show_error('Asset data '.$id.' was not found!');
 
         return view('asset.depreciation.new', [
             'asset_id'      => $id,
@@ -114,7 +114,7 @@ class AssetDepreciationController extends Controller
         $note = $this->getNote($id);
 
 		if($note == false)
-			return $this->show_error($id, 'Asset data '.$id.' was not found!');
+			return $this->show_error('Asset data '.$id.' was not found!');
 
         $dep_id = $request->id;
 

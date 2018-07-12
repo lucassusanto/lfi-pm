@@ -23,28 +23,32 @@ class AssetCommentController extends Controller
         return $last_id;
     }
 
-    // Get asset note
-    private function getAssetNote($asset_id) {
-        $asset_data = DB::table('asset')->select('note')
-            ->where('id', '=', $asset_id)
+   // Check asset ID if the asset exists or not
+   private function getNote($id) {
+        $note = DB::table('asset')
+            ->select('note')
+            ->where('id', '=', $id)
             ->get();
 
-        if($asset_data->count() < 1)
-            return false;
+        if($note->count() < 1) return false;
+        
+        return $note[0]->note;
+    }
 
-        return $asset_data[0]->note;  
+    private function show_error($msg) {
+        return view('asset.info', [
+            'title' => 'Error!',
+            'msg'   => $msg,
+            'link'  => 'asset'
+        ]);
     }
 
     // PUBLIC
     public function index($id) {
-        $note = $this->getAssetNote($id);
+        $note = $this->getNote($id);
 
         if($note == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg' => 'Asset data '.$id.' was not found!',
-                'link' => 'asset'
-            ]);
+            return $this->show_error('Asset data '.$id.' was not found!');
 
         $datas = DB::table('asset_comment')
             ->select('id', 'comment', 'modified_time')
@@ -60,14 +64,10 @@ class AssetCommentController extends Controller
 
     // Menampilkan form data baru | GET
     public function new_data($id) {
-        $note = $this->getAssetNote($id);
+        $note = $this->getNote($id);
 
         if($note == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg'   => 'Asset data '.$id.' was not found!',
-                'link'  => 'asset'
-            ]);
+            return $this->show_error('Asset data '.$id.' was not found!');
 
         return view('asset.comment.new', [
             'asset_id'      => $id,
@@ -106,6 +106,11 @@ class AssetCommentController extends Controller
 
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request, $id) {
+        $note = $this->getNote($id);
+
+        if($note == false)
+            return $this->show_error('Asset data '.$id.' was not found!');
+
         $comment_id = $request->id;
 
         $datas = DB::table('asset_comment')
@@ -120,15 +125,6 @@ class AssetCommentController extends Controller
                 'link'  => 'asset/comment'.$id
             ]);
 
-        $note = $this->getAssetNote($id);
-
-        if($note == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg'   => 'Asset data '.$id.' was not found!',
-                'link'  => 'asset'
-            ]);
-        
         return view('asset.comment.edit', [
             'asset_id'      => $id,
             'asset_note'    => $note,

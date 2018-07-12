@@ -31,7 +31,6 @@ Route::prefix('asset')->group(function() {
         Route::post('commit_edit', 'AssetCommentController@commit_edit');
     });
 
-    // DEBUG
     // Asset Contract
     Route::prefix('{id}/contract')->group(function() {
         Route::get('/',            'AssetContractController@index');

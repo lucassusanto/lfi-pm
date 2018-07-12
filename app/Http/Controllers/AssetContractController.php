@@ -10,6 +10,7 @@ use DateTime;
 class AssetContractController extends Controller
 {
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
+    private $asset_note, $contracts;
 
     // Get last data ID
     private function getID() {
@@ -23,79 +24,62 @@ class AssetContractController extends Controller
         return $last_id;
     }
 
-    // Get asset note
-    private function getAssetNote($asset_id) {
-        $asset_data = DB::table('asset')->select('note')
-            ->where('id', '=', $asset_id)
+    private function loadData($id) {
+        // Check asset ID if the asset exists or not
+        $note = DB::table('asset')
+            ->select('note')
+            ->where('id', '=', $id)
             ->get();
 
-        if($asset_data->count() < 1)
-            return false;
-
-        return $asset_data[0]->note;  
-    }
-
-    // Get contracts from contract table
-    private function getAvailContract() {
-        $contracts = DB::table('contract')
-            ->select('id', 'contract')
-            ->get();
-
-        if($contracts->count() < 1)
-            return false;
-
-        return $contracts;
-    }
-
-
-    // PUBLIC
-    public function index($id) {
-        $note = $this->getAssetNote($id);
-
-        if($note == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg' => 'Asset data '.$id.' was not found!',
-                'link' => 'asset/'.$id.'/contract'
-            ]);
-
-        $datas = DB::table('asset_contract')
-            ->select('asset_contract.id', 'contract.contract', 'asset_contract.start_date', 'asset_contract.end_date')
-            ->join('contract', 'contract.id', '=', 'asset_contract.contract_id')
-            ->where('asset_id', '=', $id)
-            ->get();
-            
-        return view('asset.contract.master', [
-            'asset_id'      => $id,
-            'asset_note'    => $note,
-            'datas'         => $datas
-        ]);
-    }
-
-    // Menampilkan form data baru | GET
-    public function new_data($id) {
-        $note = $this->getAssetNote($id);
-
-        if($note == false)
+        if($note->count() < 1)
             return view('asset.info', [
                 'title' => 'Error!',
                 'msg'   => 'Asset data '.$id.' was not found!',
                 'link'  => 'asset/'.$id.'/contract'
             ]);
+        
+        $this->asset_note = $note[0]->note;
 
-        $contracts = $this->getAvailContract();
+        // Check contracts table if any data exists (required as fk in asset_contract)
+        $contracts = DB::table('contract')
+            ->select('id', 'contract')
+            ->get();
 
-        if($contracts == false)
+        if($contracts->count() < 1)
             return view('asset.info', [
                 'title' => 'Error!',
                 'msg'   => 'Contract data was not found! Please add at least 1 data in contract (not asset contract) table',
                 'link'  => 'asset/'.$id.'/contract'
             ]);
 
+        $this->contracts = $contracts;
+    }
+
+    // PUBLIC
+    public function index($id) {
+        $this->loadData($id);
+
+        $datas = DB::table('asset_contract')
+            ->select('asset_contract.id', 'contract.contract', 'asset_contract.start_date', 'asset_contract.end_date')
+            ->join('contract', 'contract.id', '=', 'asset_contract.contract_id')
+            ->where('asset_contract.asset_id', '=', $id)
+            ->get();
+            
+        return view('asset.contract.master', [
+            'asset_id'      => $id,
+            'asset_note'    => $this->asset_note,
+            'datas'         => $datas
+        ]);
+    }
+
+    // Menampilkan form data baru | GET
+    public function new_data($id) {
+        $this->loadData($id);
+
         return view('asset.contract.new', [
             'asset_id'      => $id,
-            'asset_note'    => $note,
-            'contracts'     => $contracts
+            'asset_note'    => $this->asset_note,
+            'contracts'     => $this->contracts
         ]);
     }
 
@@ -135,23 +119,7 @@ class AssetContractController extends Controller
 
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request, $id) {
-        $note = $this->getAssetNote($id);
-
-        if($note == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg'   => 'Asset data '.$id.' was not found!',
-                'link'  => 'asset/'.$id.'/contract'
-            ]);
-
-        $contracts = $this->getAvailContract();
-
-        if($contracts == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg'   => 'Contract data was not found! Please add at least 1 data in contract (not asset contract) table',
-                'link'  => 'asset/'.$id.'/contract'
-            ]);
+        $this->loadData($id);
 
         $contract_id = $request->id;
 
@@ -169,8 +137,8 @@ class AssetContractController extends Controller
         
         return view('asset.contract.edit', [
             'asset_id'      => $id,
-            'asset_note'    => $note,
-            'contracts'     => $contracts,
+            'asset_note'    => $this->asset_note,
+            'contracts'     => $this->contracts,
             'data'          => $datas[0]
         ]);
     }

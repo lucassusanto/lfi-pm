@@ -9,14 +9,12 @@ use DateTime;
 
 class AssetController extends Controller
 {
-    private $tableName = 'asset';
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
-
     private $locations, $weight_uom, $vendors, $manufacturers, $costcodes, $depts, $items;
 
     // Get last data ID
     private function getID() {
-        $last_id = DB::table($this->tableName)
+        $last_id = DB::table('asset')
             ->select('id')->orderBy('id', 'desc')
             ->take(1)->get();
 
@@ -73,7 +71,7 @@ class AssetController extends Controller
 
     // PUBLIC
     public function index() {
-        $datas = DB::table($this->tableName)
+        $datas = DB::table('asset')
             ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
             ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as asset_type_note', 'asset.note')
             ->get();
@@ -116,7 +114,7 @@ class AssetController extends Controller
         $now = new DateTime();
         $last_id = $this->getID();
 
-        DB::table($this->tableName)->insert([
+        DB::table('asset')->insert([
             'id'                => $last_id,
             'asset_no'          => $request->no,
             'note'              => $request->note,
@@ -165,7 +163,7 @@ class AssetController extends Controller
     public function commit_delete(Request $request) {
         $id = $request->id;
 
-        $affected = DB::table($this->tableName)
+        $affected = DB::table('asset')
             ->where('id', '=', $id)
             ->delete();
 
@@ -188,7 +186,7 @@ class AssetController extends Controller
 
         $id = $request->id;
         
-        $asset_data = DB::table($this->tableName)
+        $asset_data = DB::table('asset')
             ->select()
             ->where('id', '=', $id)
             ->get();
@@ -220,7 +218,7 @@ class AssetController extends Controller
         $now = new DateTime();
         $id = $request->id;
         
-        DB::table($this->tableName)
+        DB::table('asset')
             ->where('id', $id)
             ->update([
                 'asset_no'          => $request->no,

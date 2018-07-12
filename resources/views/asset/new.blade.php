@@ -143,7 +143,6 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
                     <option id="{{ $vendor->id }}">{{ $vendor->vendor }}</option>
                 @endforeach
             </select>
-
         </div>
         <label class="control-label col-sm-3" for="asset_manufacturer">Manufacturer:</label>
         <div class="col-sm-3">
@@ -154,7 +153,6 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
                     <option id="{{ $manufacturer->id }}">{{ $manufacturer->manufacturer }}</option>
                 @endforeach
             </select>
-
         </div>
     </div>
 

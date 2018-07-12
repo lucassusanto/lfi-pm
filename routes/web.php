@@ -21,6 +21,8 @@ Route::prefix('asset')->group(function() {
     Route::post('commit_edit',  'AssetController@commit_edit');
     Route::get('{id}',         'AssetController@view');
 
+
+
     // Comment
     Route::prefix('{id}/comment')->group(function() {
         Route::get('/',            'AssetCommentController@index');
@@ -65,6 +67,17 @@ Route::prefix('asset')->group(function() {
         Route::post('commit_edit', 'AssetDepreciationController@commit_edit');
     });
 
+     // Asset Downtime
+     Route::prefix('{id}/downtime')->group(function() {
+        Route::get('/',            'AssetDowntimeController@index');
+        Route::get('new',          'AssetDowntimeController@new_data');
+
+        Route::post('new',         'AssetDowntimeController@commit_new_data');
+        Route::post('delete',      'AssetDowntimeController@commit_delete');
+        Route::post('edit',        'AssetDowntimeController@show_edit');
+        Route::post('commit_edit', 'AssetDowntimeController@commit_edit');
+    });
+
     // Asset Part
     Route::prefix('{id}/part')->group(function() {
         Route::get('/',            'AssetPartController@index');
@@ -88,10 +101,6 @@ Route::prefix('asset')->group(function() {
     });
 });
 
-// Asset Downtime
-Route::get('/asset/downtime', 'AssetDowntimeController@index');
-Route::get('/asset/downtime/new', 'AssetDowntimeController@new');
-Route::get('/asset/downtime/edit', 'AssetDowntimeController@edit');
 // Asset Meter
 
 Route::get('/asset/{id}/meter', 'AssetMeterController@index');
@@ -108,14 +117,10 @@ Route::post('/asset/part/delete','AssetPartController@commit_delete');
 Route::post('/asset/part/edit','AssetPartController@show_edit');
 Route::post('/asset/part/commit_edit','AssetPartController@commit_edit');
 
-// Asset Service Log
-Route::get('/asset/slog', 'AssetServiceLogController@index');
-Route::get('/asset/slog/new', 'AssetServiceLogController@new');
-Route::get('/asset/slog/edit', 'AssetServiceLogController@edit');
-
 Route::get('/', function () {
     return view('welcome');
 });
+
 // Auth
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

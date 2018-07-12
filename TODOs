@@ -1,8 +1,9 @@
 TODOs:
-- Ganti semua link href dan actions jd {{ url('/') }}
 - Layout LFI
 -- BUG: Animasi sidebar
 -- Feature: Ubah desain sidebar
+- Compress line of code controller dari getAssetNote()
+-- Filter di __construct
 
 Notes:
 {{ url('/') }} linknya dari document root

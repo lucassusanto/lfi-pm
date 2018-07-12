@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <h2 align="center">Asset contract</h2>
+        <h2 align="center">Asset Contract</h2>
     </div>
     <div class="col-md-4">
         <a class="btn btn-success" href="{{ url('asset/'.$asset_id.'/contract/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
@@ -16,16 +16,20 @@
 <table id="example" width="100%" class="table">
 <thead>
     <tr>
-        <th>Date Time</th>
-        <th>contract</th>
+        <th>#</th>
+        <th>Contract</th>
+        <th>Start Date</th>
+        <th>End Date</th>
         <th>Action</th>
     </tr>
 </thead>
 <tbody>
     @foreach($datas as $data)
     <tr id="{{ $data->id }}">
-        <td>{{ $data->modified_time }}</td>
+        <td>{{ $data->id }}</td>
         <td>{{ $data->contract }}</td>
+        <td>{{ $data->start_date }}</td>
+        <td>{{ $data->end_date }}</td>
         <td align="center">
             <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
             <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
@@ -55,10 +59,23 @@
                     <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                 </div>
             </div>
+            
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_contract">Komentar:</label>
+                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_contract">Contract:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_contract"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_sd">Start Date:</label>
+                <div class="col-md-7">
+                    <label class="control-label" style="font-weight: normal;" id="m_data_sd"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_ed">End Date:</label>
+                <div class="col-md-7">
+                    <label class="control-label" style="font-weight: normal;" id="m_data_ed"></label>
                 </div>
             </div>
 
@@ -88,9 +105,13 @@ function showModal(doc) {
     
     var id = tr.id;
     var contract = tr.childNodes[3].innerHTML;
+    var start_date = tr.childNodes[5].innerHTML;
+    var end_date = tr.childNodes[7].innerHTML;
     
     document.getElementById('m_data_id').value = id;
     document.getElementById('m_data_contract').innerHTML = contract;
+    document.getElementById('m_data_sd').innerHTML = start_date;
+    document.getElementById('m_data_ed').innerHTML = end_date;
 }
 
 function editData(doc) {

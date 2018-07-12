@@ -19,6 +19,7 @@ Route::prefix('asset')->group(function() {
     Route::post('delete',       'AssetController@commit_delete');
     Route::post('edit',         'AssetController@show_edit');
     Route::post('commit_edit',  'AssetController@commit_edit');
+    Route::get('{id}',         'AssetController@view');
 
     // Comment
     Route::prefix('{id}/comment')->group(function() {
@@ -92,9 +93,20 @@ Route::get('/asset/downtime', 'AssetDowntimeController@index');
 Route::get('/asset/downtime/new', 'AssetDowntimeController@new');
 Route::get('/asset/downtime/edit', 'AssetDowntimeController@edit');
 // Asset Meter
-Route::get('/asset/meter', 'AssetMeterController@index');
-Route::get('/asset/meter/new', 'AssetMeterController@new');
-Route::get('/asset/meter/edit', 'AssetMeterController@edit');
+
+Route::get('/asset/{id}/meter', 'AssetMeterController@index');
+Route::get('/asset/{id}/meter/new', 'AssetMeterController@new');
+Route::post('/asset/{id}/meter/delete','AssetMeterController@commit_delete');
+Route::post('/asset/{id}/meter/new', 'AssetMeterController@commit_new');
+Route::post('/asset/{id}/meter/edit', 'AssetMeterController@show_edit');
+Route::post('/asset/{id}/meter/commit_edit', 'AssetMeterController@commit_edit');
+// Asset Part
+Route::get('/asset/part', 'AssetPartController@index');
+Route::get('/asset/part/new', 'AssetPartController@new');
+Route::post('/asset/part/new', 'AssetPartController@commit_new');
+Route::post('/asset/part/delete','AssetPartController@commit_delete');
+Route::post('/asset/part/edit','AssetPartController@show_edit');
+Route::post('/asset/part/commit_edit','AssetPartController@commit_edit');
 
 // Asset Service Log
 Route::get('/asset/slog', 'AssetServiceLogController@index');

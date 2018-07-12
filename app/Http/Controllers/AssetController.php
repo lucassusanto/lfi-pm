@@ -42,9 +42,9 @@ class AssetController extends Controller
 
         // Mendapat list asset location dari tabel asset_type
         $loc_id = DB::table('asset_type')
-            ->select('id')
-            ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
-            ->take(1)->get();
+        ->select('id')
+        ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
+        ->take(1)->get();
 
         $this->locations = [];
         
@@ -56,32 +56,33 @@ class AssetController extends Controller
 
         // Get others data
         $this->weight_uom = DB::table('uom')
-            ->select('id', 'uom')
-            ->get();
+        ->select('id', 'uom')
+        ->get();
         
         $this->vendors = DB::table('vendor')
-            ->select('id', 'vendor')
-            ->get();
+        ->select('id', 'vendor')
+        ->get();
 
         $this->manufacturers = DB::table('manufacturer')
-            ->select('id', 'manufacturer')
-            ->get();
+        ->select('id', 'manufacturer')
+        ->get();
 
         $this->costcodes = DB::table('costcode')
-            ->select('id', 'note')
-            ->get();
+        ->select('id', 'note')
+        ->get();
         
         $this->depts = DB::table('dept')
-            ->select('id', 'dept')
-            ->get();
+        ->select('id', 'dept')
+        ->get();
 
         $this->items = DB::table('inventory')
-            ->select('id', 'in_no')
-            ->get();
+        ->select('id', 'in_no')
+        ->get();
     }
 
     // PUBLIC
     public function index() {
+
         $datas = DB::table('asset')
             ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
             ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as asset_type_note', 'asset.note')
@@ -171,13 +172,13 @@ class AssetController extends Controller
 
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request) {
+
         $id = $request->id;
-        
         $asset_data = DB::table('asset')
             ->select()
             ->where('id', '=', $id)
             ->get();
-            
+
         if($asset_data->count() < 1)
             return view('asset.info', [
                 'title' => 'Error!',
@@ -204,7 +205,7 @@ class AssetController extends Controller
     public function commit_edit(Request $request) {
         $now = new DateTime();
         $id = $request->id;
-        
+
         DB::table('asset')
             ->where('id', $id)
             ->update([
@@ -238,8 +239,52 @@ class AssetController extends Controller
                 'depreciation_rate'         => $request->dr,
                 'modified_time'             => $now,
                 'modified_id'               => $this->user_id
-        ]);
+            ]);
         
         return redirect('asset');
+    }
+
+    public function view(Request $request) {
+
+        $categories = DB::table('asset_type')
+        ->select('id', 'note')
+        ->get();
+        
+        // Error! No data in asset_type. Required as foreign key
+        if($categories->count() < 1)
+            return view('asset.info', [
+                'title' => 'Error!',
+                'msg'   => 'asset_type table seems empty. Please add at least 1 data',
+                'link'  => 'asset'
+            ]);
+
+        $id = $request->id;
+        
+        $asset_data = DB::table($this->tableName)
+        ->select()
+        ->where('id', '=', $id)
+        ->get();
+
+        if($asset_data->count() < 1)
+            return view('asset.info', [
+                'title' => 'Error!',
+                'msg'   => 'Asset data id was not found!',
+                'link'  => 'asset'
+            ]);
+
+        $this->listQueries();
+
+        return view('asset.view', [
+            'asset_data'        => $asset_data[0],
+            'categories'        => $categories,
+            'locations'         => $this->locations,
+            'wuoms'             => $this->weight_uom,
+            'vendors'           => $this->vendors,
+            'manufacturers'     => $this->manufacturers,
+            'costcodes'         => $this->costcodes,
+            'depts'             => $this->depts,
+            'items'             => $this->items
+        ]);
+
     }
 }

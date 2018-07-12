@@ -3,19 +3,19 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <h2 align="center">Asset</h2>
+        <h2 align="center">Asset Meter</h2>
     </div>
     <div class="col-md-4">
-        <a class="btn btn-success" href="asset/new"><span class="glyphicon glyphicon-plus"></span> Add</a>
+        <a class="btn btn-success" href="{{ url('asset/'.$asset_id.'/meter/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
     </div>
 </div>
 
 <table id="example" width="100%" height="100%" class="table">
     <thead>
         <tr>
-            <th>Asset No</th>
-            <th>Asset Status</th>
-            <th>Asset Category</th>
+            <th>Meter No</th>
+            <th>Reading</th>
+            <th>Time Taken</th>
             <th>Note</th>
             <th>Action</th>
         </tr>
@@ -23,14 +23,14 @@
     <tbody>
         @foreach($datas as $data)
         <tr id="{{ $data->id }}">
-            <td>{{ $data->asset_no }}</td>
-            <td>{{ $data->status_id }}</td>
-            <td>{{ $data->asset_type_note }}</td>
+            <td>{{ $data->meter_no }}</td>
+            <td>{{ $data->reading }}</td>
+            <td>{{ $data->time_taken }}</td>
             <td>{{ $data->note }}</td>
             <td align="center">
                 <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
                 <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
-                <a class="btn btn-default" href="asset/{{ $data->id }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                <a href="{{ url('asset/view') }}" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
             </td>
         </tr> 
         @endforeach
@@ -43,7 +43,7 @@
         <!-- Modal content-->
         <div class="modal-content">
 
-            <form class="form-horizontal" method="POST" action="{{ url('asset/delete') }}">
+            <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/meter/delete') }}">
                 <input type="hidden" id="m_data_id" name="id" value="">
                 @csrf
 
@@ -56,27 +56,27 @@
                         <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-5" for="m_data_no">Asset No:</label>
+                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_no">Meter No.:</label>
                         <div class="col-md-7">
                             <label class="control-label" style="font-weight: normal;" id="m_data_no"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-5" for="m_data_status">Asset Status:</label>
+                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_reading">Reading:</label>
                         <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_status"></label>
+                            <label class="control-label" style="font-weight: normal;" id="m_data_reading"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-5" for="m_data_cat">Asset Category:</label>
+                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_timetaken">Time Taken:</label>
                         <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_cat"></label>
+                            <label class="control-label" style="font-weight: normal;" id="m_data_timetaken"></label>
                         </div>
                     </div>        
                     <div class="form-group">
-                        <label class="control-label col-md-5" for="m_data_notes">Notes:</label>
+                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_note">Note:</label>
                         <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_notes"></label>
+                            <label class="control-label" style="font-weight: normal;" id="m_data_note"></label>
                         </div>
                     </div>
                 </div>
@@ -89,8 +89,8 @@
     </div>
 </div>
 
-<!-- Edit Data Form -->
-<form method="POST" action="{{ url('asset/edit') }}" id="form_edit" style="visibility: hidden;">
+
+<form method="POST" action="{{ url('asset/'.$asset_id.'/meter/edit') }}" id="form_edit" style="visibility: hidden;">
     <input type="hidden" id="e_data_id" name="id" value="">
     @csrf
 </form>
@@ -104,16 +104,16 @@
         var tr = doc.parentNode.parentNode;
 
         var id = tr.id;
-        var no = tr.childNodes[1].innerHTML;
-        var status = tr.childNodes[3].innerHTML;
-        var cat = tr.childNodes[5].innerHTML;
-        var notes = tr.childNodes[7].innerHTML;
+        var meter_no = tr.childNodes[1].innerHTML;
+        var reading = tr.childNodes[3].innerHTML;
+        var time_taken = tr.childNodes[5].innerHTML;
+        var note = tr.childNodes[7].innerHTML;
 
         document.getElementById('m_data_id').value = id;
-        document.getElementById('m_data_no').innerHTML = no;
-        document.getElementById('m_data_status').innerHTML = status;
-        document.getElementById('m_data_cat').innerHTML = cat;
-        document.getElementById('m_data_notes').innerHTML = notes;
+        document.getElementById('m_data_no').innerHTML = meter_no;
+        document.getElementById('m_data_reading').innerHTML = reading;
+        document.getElementById('m_data_timetaken').innerHTML = time_taken;
+        document.getElementById('m_data_note').innerHTML = note;
     }
 
     function editData(doc) {
@@ -126,20 +126,6 @@
         edit_data_id.value = id;
 
         form_edit.submit();
-    }
-
-    function viewData(doc)
-    {
-
-        var tr = doc.parentNode.parentNode;
-        var id = tr.id;
-
-        var form_edit = document.getElementById('form_view');
-        var edit_data_id = document.getElementById('v_data_id');
-
-        edit_data_id.value = id;
-
-        form_edit.submit();   
     }
 </script>
 @endsection

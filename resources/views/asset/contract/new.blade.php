@@ -60,7 +60,7 @@
 <div class="form-group">
     <label class="control-label col-sm-3" for="ac_note">Note:</label>
     <div class="col-sm-6">
-        <textarea class="form-control" id="ac_note" name="note"></textarea>
+        <textarea class="form-control" id="ac_note" name="note" placeholder="Tuliskan catatan.."></textarea>
     </div>
 </div>
 

@@ -56,25 +56,25 @@
                         <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_no">Asset No:</label>
+                        <label class="control-label col-md-5" for="m_data_no">Asset No:</label>
                         <div class="col-md-7">
                             <label class="control-label" style="font-weight: normal;" id="m_data_no"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_status">Asset Status:</label>
+                        <label class="control-label col-md-5" for="m_data_status">Asset Status:</label>
                         <div class="col-md-7">
                             <label class="control-label" style="font-weight: normal;" id="m_data_status"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_cat">Asset Category:</label>
+                        <label class="control-label col-md-5" for="m_data_cat">Asset Category:</label>
                         <div class="col-md-7">
                             <label class="control-label" style="font-weight: normal;" id="m_data_cat"></label>
                         </div>
                     </div>        
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_notes">Notes:</label>
+                        <label class="control-label col-md-5" for="m_data_notes">Notes:</label>
                         <div class="col-md-7">
                             <label class="control-label" style="font-weight: normal;" id="m_data_notes"></label>
                         </div>

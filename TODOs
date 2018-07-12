@@ -2,8 +2,10 @@ TODOs:
 - Layout LFI
 -- BUG: Animasi sidebar
 -- Feature: Ubah desain sidebar
-- Compress line of code controller dari getAssetNote()
--- Filter di __construct
-
-Notes:
-{{ url('/') }} linknya dari document root
+- Compress line of codes controller AssetComment
+- Bug: batch queries don't return error view
+-- Samakan Asset, AssetContract kyk assetdepreciation
+- Test: return error view
+-- Set go back urls
+- Bug tampilan
+-- Label modal auto align right

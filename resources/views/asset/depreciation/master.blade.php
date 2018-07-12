@@ -6,7 +6,7 @@
         <h2 align="center">Asset Depreciation</h2>
     </div>
     <div class="col-md-4">
-        <a class="btn btn-success" href="{{ url('asset/'.$asset_id.'/contract/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
+        <a class="btn btn-success" href="{{ url('asset/'.$asset_id.'/depreciation/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
     </div>
     <div class="col-md-4" align="center">
         {{ $asset_note }}
@@ -17,21 +17,23 @@
 <thead>
     <tr>
         <th>#</th>
-        <th>Contract</th>
-        <th>Status</th>
         <th>Start Date</th>
         <th>End Date</th>
+        <th>Depreciation Rate</th>
+        <th>End Value</th>
+        <th>Note</th>
         <th>Action</th>
     </tr>
 </thead>
 <tbody>
     @foreach($datas as $data)
     <tr id="{{ $data->id }}">
-        <td>{{ $data->id }}</td>
-        <td>{{ $data->contract }}</td>
-        <td>{{ $data->status_id }}</td>
+        <td>{{ $loop->iteration }}</td>
         <td>{{ $data->start_date }}</td>
         <td>{{ $data->end_date }}</td>
+        <td>{{ $data->depreciation_rate }}</td>
+        <td>{{ $data->end_value }}</td>
+        <td>{{ $data->note }}</td>
         <td align="center">
             <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
             <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
@@ -47,7 +49,7 @@
     <div class="modal-content">
 
     <!-- Delete Data Form -->
-    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/contract/delete') }}">
+    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/depreciation/delete') }}">
         <input type="hidden" id="m_data_id" name="id" value=""></input>
         @csrf
 
@@ -63,27 +65,33 @@
             </div>
             
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_contract">Contract:</label>
-                <div class="col-md-7">
-                    <label class="control-label" style="font-weight: normal;" id="m_data_contract"></label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_status">Status:</label>
-                <div class="col-md-7">
-                    <label class="control-label" style="font-weight: normal;" id="m_data_status"></label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_sd">Start Date:</label>
+                <label class="control-label col-sm-5" for="m_data_sd">Start Date:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_sd"></label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_ed">End Date:</label>
+                <label class="control-label col-sm-5" for="m_data_ed">End Date:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_ed"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-5" for="m_data_dr">Depreciation Rate:</label>
+                <div class="col-md-7">
+                    <label class="control-label" style="font-weight: normal;" id="m_data_dr"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-5" for="m_data_ev">End Value:</label>
+                <div class="col-md-7">
+                    <label class="control-label" style="font-weight: normal;" id="m_data_ev"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-5" for="m_data_note">Note:</label>
+                <div class="col-md-7">
+                    <label class="control-label" style="font-weight: normal;" id="m_data_note"></label>
                 </div>
             </div>
         </div>
@@ -98,7 +106,7 @@
 </div>
 
 <!-- Edit Data Form -->
-<form method="POST" action="{{ url('asset/'.$asset_id.'/contract/edit') }}" id="form_edit" style="visibility: hidden;">
+<form method="POST" action="{{ url('asset/'.$asset_id.'/depreciation/edit') }}" id="form_edit" style="visibility: hidden;">
     <input type="hidden" id="e_data_id" name="id" value="">
     @csrf
 </form>
@@ -109,18 +117,20 @@
 <script type="text/javascript">
 function showModal(doc) {
     var tr = doc.parentNode.parentNode;
-    
+
     var id = tr.id;
-    var contract = tr.childNodes[3].innerHTML;
-    var status_id = tr.childNodes[5].innerHTML;
-    var start_date = tr.childNodes[7].innerHTML;
-    var end_date = tr.childNodes[9].innerHTML;
+    var start_date = tr.childNodes[3].innerHTML;
+    var end_date = tr.childNodes[5].innerHTML;
+    var depreciation_rate = tr.childNodes[7].innerHTML;
+    var end_value = tr.childNodes[9].innerHTML;
+    var note = tr.childNodes[11].innerHTML;
     
     document.getElementById('m_data_id').value = id;
-    document.getElementById('m_data_contract').innerHTML = contract;
-    document.getElementById('m_data_status').innerHTML = status_id;
     document.getElementById('m_data_sd').innerHTML = start_date;
     document.getElementById('m_data_ed').innerHTML = end_date;
+    document.getElementById('m_data_dr').innerHTML = depreciation_rate;
+    document.getElementById('m_data_ev').innerHTML = end_value;
+    document.getElementById('m_data_note').innerHTML = note;
 }
 
 function editData(doc) {

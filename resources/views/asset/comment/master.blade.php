@@ -16,6 +16,7 @@
 <table id="example" width="100%" class="table">
 <thead>
     <tr>
+        <th>#</th>
         <th>Date Time</th>
         <th>Comment</th>
         <th>Action</th>
@@ -24,6 +25,7 @@
 <tbody>
     @foreach($datas as $data)
     <tr id="{{ $data->id }}">
+        <td>{{ $loop->iteration }}</td>
         <td>{{ $data->modified_time }}</td>
         <td>{{ $data->comment }}</td>
         <td align="center">
@@ -56,7 +58,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_comment">Komentar:</label>
+                <label class="control-label col-sm-5" for="m_data_comment">Komentar:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_comment"></label>
                 </div>
@@ -87,7 +89,7 @@ function showModal(doc) {
     var tr = doc.parentNode.parentNode;
     
     var id = tr.id;
-    var comment = tr.childNodes[3].innerHTML;
+    var comment = tr.childNodes[5].innerHTML;
     
     document.getElementById('m_data_id').value = id;
     document.getElementById('m_data_comment').innerHTML = comment;

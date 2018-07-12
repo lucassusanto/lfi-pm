@@ -27,7 +27,7 @@
 <tbody>
     @foreach($datas as $data)
     <tr id="{{ $data->id }}">
-        <td>{{ $data->id }}</td>
+        <td>{{ $loop->iteration }}</td>
         <td>{{ $data->contract }}</td>
         <td>{{ $data->status_id }}</td>
         <td>{{ $data->start_date }}</td>
@@ -63,25 +63,25 @@
             </div>
             
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_contract">Contract:</label>
+                <label class="control-label col-sm-5" for="m_data_contract">Contract:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_contract"></label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_status">Status:</label>
+                <label class="control-label col-sm-5" for="m_data_status">Status:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_status"></label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_sd">Start Date:</label>
+                <label class="control-label col-sm-5" for="m_data_sd">Start Date:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_sd"></label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_ed">End Date:</label>
+                <label class="control-label col-sm-5" for="m_data_ed">End Date:</label>
                 <div class="col-md-7">
                     <label class="control-label" style="font-weight: normal;" id="m_data_ed"></label>
                 </div>

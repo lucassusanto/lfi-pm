@@ -17,8 +17,8 @@ class AssetController extends Controller
     // Get last data ID
     private function getID() {
         $last_id = DB::table($this->tableName)
-            ->select('id')->orderBy('id', 'desc')
-            ->take(1)->get();
+        ->select('id')->orderBy('id', 'desc')
+        ->take(1)->get();
 
         if($last_id->count())   $last_id = $last_id[0]->id + 1;
         else                    $last_id = 1;
@@ -29,17 +29,17 @@ class AssetController extends Controller
     // Mendapat list asset location dari tabel asset_type
     private function getLocations() {
         $loc_id = DB::table('asset_type')
-            ->select('id')
-            ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
-            ->take(1)->get();
+        ->select('id')
+        ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
+        ->take(1)->get();
 
         $this->locations = [];
         
         if($loc_id->count())
             $this->locations = DB::table('asset')
-                ->select('id', 'note')
-                ->where('type_id', '=', $loc_id[0]->id)
-                ->get();
+        ->select('id', 'note')
+        ->where('type_id', '=', $loc_id[0]->id)
+        ->get();
     }
 
     // Query utk data dropdowns di form new/edit data
@@ -47,36 +47,36 @@ class AssetController extends Controller
         $this->getLocations();
 
         $this->weight_uom = DB::table('uom')
-            ->select('id', 'uom')
-            ->get();
+        ->select('id', 'uom')
+        ->get();
         
         $this->vendors = DB::table('vendor')
-            ->select('id', 'vendor')
-            ->get();
+        ->select('id', 'vendor')
+        ->get();
 
         $this->manufacturers = DB::table('manufacturer')
-            ->select('id', 'manufacturer')
-            ->get();
+        ->select('id', 'manufacturer')
+        ->get();
 
         $this->costcodes = DB::table('costcode')
-            ->select('id', 'note')
-            ->get();
+        ->select('id', 'note')
+        ->get();
         
         $this->depts = DB::table('dept')
-            ->select('id', 'dept')
-            ->get();
+        ->select('id', 'dept')
+        ->get();
 
         $this->items = DB::table('inventory')
-            ->select('id', 'in_no')
-            ->get();
+        ->select('id', 'in_no')
+        ->get();
     }
 
     // PUBLIC
     public function index() {
         $datas = DB::table($this->tableName)
-            ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
-            ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as asset_type_note', 'asset.note')
-            ->get();
+        ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
+        ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as asset_type_note', 'asset.note')
+        ->get();
 
         return view('asset.master', [
             'datas' => $datas
@@ -86,8 +86,8 @@ class AssetController extends Controller
     // Menampilkan form data baru | GET
     public function new_data() {
         $categories = DB::table('asset_type')
-            ->select('id', 'note')
-            ->get();
+        ->select('id', 'note')
+        ->get();
         
         // Error! No data in asset_type. Required as foreign key
         if($categories->count() < 1) 
@@ -166,8 +166,8 @@ class AssetController extends Controller
         $id = $request->id;
 
         $affected = DB::table($this->tableName)
-            ->where('id', '=', $id)
-            ->delete();
+        ->where('id', '=', $id)
+        ->delete();
 
         return redirect('asset');
     }
@@ -175,8 +175,8 @@ class AssetController extends Controller
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request) {
         $categories = DB::table('asset_type')
-            ->select('id', 'note')
-            ->get();
+        ->select('id', 'note')
+        ->get();
         
         // Error! No data in asset_type. Required as foreign key
         if($categories->count() < 1)
@@ -189,10 +189,10 @@ class AssetController extends Controller
         $id = $request->id;
         
         $asset_data = DB::table($this->tableName)
-            ->select()
-            ->where('id', '=', $id)
-            ->get();
-            
+        ->select()
+        ->where('id', '=', $id)
+        ->get();
+
         if($asset_data->count() < 1)
             return view('asset.info', [
                 'title' => 'Error!',
@@ -221,40 +221,84 @@ class AssetController extends Controller
         $id = $request->id;
         
         DB::table($this->tableName)
-            ->where('id', $id)
-            ->update([
-                'asset_no'          => $request->no,
-                'note'              => $request->note,
-                'priority_id'       => $request->priority,
-                'status_id'         => $request->status,
-                'type_id'           => $request->category,
-                'location_id'       => $request->location,
-                'weight'            => $request->weight,
-                'weight_uom_id'     => $request->wuom,
-                'serial_no'         => $request->sn,
-                'owner_user_id'     => $this->user_id,
-                'start_date'        => $request->sd,
-                'purchase_date'     => $request->pd,
-                'original_cost'     => $request->ori_cost,
-                'manufacturer_id'   => $request->manufacturer,
-                'vendor_id'         => $request->vendor,
-                'warranty_start_date'       => $request->ws,
-                'warranty_end_date'         => $request->we,
-                'maint_labor_hours'         => $request->mlh,
-                'maint_labor_cost'          => $request->mlc,
-                'maint_material_cost'       => $request->mmc,
-                'maint_cost'                => $request->mc,
-                'costcode_id'               => $request->cc,
-                'dept_id'                   => $request->dept,
-                'in_id'                     => $request->ai,
-                'depreciation_type_id'      => $request->dt,
-                'depreciation_start'        => $request->ds,
+        ->where('id', $id)
+        ->update([
+            'asset_no'          => $request->no,
+            'note'              => $request->note,
+            'priority_id'       => $request->priority,
+            'status_id'         => $request->status,
+            'type_id'           => $request->category,
+            'location_id'       => $request->location,
+            'weight'            => $request->weight,
+            'weight_uom_id'     => $request->wuom,
+            'serial_no'         => $request->sn,
+            'owner_user_id'     => $this->user_id,
+            'start_date'        => $request->sd,
+            'purchase_date'     => $request->pd,
+            'original_cost'     => $request->ori_cost,
+            'manufacturer_id'   => $request->manufacturer,
+            'vendor_id'         => $request->vendor,
+            'warranty_start_date'       => $request->ws,
+            'warranty_end_date'         => $request->we,
+            'maint_labor_hours'         => $request->mlh,
+            'maint_labor_cost'          => $request->mlc,
+            'maint_material_cost'       => $request->mmc,
+            'maint_cost'                => $request->mc,
+            'costcode_id'               => $request->cc,
+            'dept_id'                   => $request->dept,
+            'in_id'                     => $request->ai,
+            'depreciation_type_id'      => $request->dt,
+            'depreciation_start'        => $request->ds,
                 'depreciation_time_id'      => $request->di, // Depreciation interval
                 'depreciation_rate'         => $request->dr,
                 'modified_time'             => $now,
                 'modified_id'               => $this->user_id
-        ]);
+            ]);
         
         return redirect('asset');
+    }
+
+    public function view(Request $request) {
+
+        $categories = DB::table('asset_type')
+        ->select('id', 'note')
+        ->get();
+        
+        // Error! No data in asset_type. Required as foreign key
+        if($categories->count() < 1)
+            return view('asset.info', [
+                'title' => 'Error!',
+                'msg'   => 'asset_type table seems empty. Please add at least 1 data',
+                'link'  => 'asset'
+            ]);
+
+        $id = $request->id;
+        
+        $asset_data = DB::table($this->tableName)
+        ->select()
+        ->where('id', '=', $id)
+        ->get();
+
+        if($asset_data->count() < 1)
+            return view('asset.info', [
+                'title' => 'Error!',
+                'msg'   => 'Asset data id was not found!',
+                'link'  => 'asset'
+            ]);
+
+        $this->listQueries();
+
+        return view('asset.view', [
+            'asset_data'        => $asset_data[0],
+            'categories'        => $categories,
+            'locations'         => $this->locations,
+            'wuoms'             => $this->weight_uom,
+            'vendors'           => $this->vendors,
+            'manufacturers'     => $this->manufacturers,
+            'costcodes'         => $this->costcodes,
+            'depts'             => $this->depts,
+            'items'             => $this->items
+        ]);
+
     }
 }

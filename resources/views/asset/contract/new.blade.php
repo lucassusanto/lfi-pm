@@ -19,8 +19,6 @@
     </div>
 </div><br>
 
-<!-- view: contract (fk), status (valid, expired, canceled), note, start date, end date, comment -->
-
 <div class="form-group">
     <label class="control-label col-sm-3" for="ac_contract">Contract: *</label>
     <div class="col-sm-3">

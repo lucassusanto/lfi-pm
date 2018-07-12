@@ -187,6 +187,5 @@ class AssetMeterController extends Controller
 		return redirect('asset/'.$id.'/meter');
 	}
 
-
 }
 

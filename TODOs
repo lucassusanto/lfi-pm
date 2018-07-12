@@ -1,8 +1,6 @@
 TODOs:
-- Ganti semua link href dan actions jd {{ url('/') }}
 - Layout LFI
 -- BUG: Animasi sidebar
 -- Feature: Ubah desain sidebar
-
-Notes:
-{{ url('/') }} linknya dari document root
+- Bug tampilan
+-- Label modal auto align right

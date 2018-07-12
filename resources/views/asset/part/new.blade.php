@@ -1,5 +1,5 @@
 @extends('layouts.lfi')
-
+ 
 @section('js')
 <script type="text/javascript">
     function setID(doc) {
@@ -15,12 +15,12 @@
         <h2 align="center">Asset Part</h2>
     </div>
     <div class="col-md-4">
-        <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+        <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/part') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
     </div>
 </div><br>
 
 
-<form class="form-horizontal" onsubmit="setID()" method="POST" action="{{ url('asset/part/new') }}">
+<form class="form-horizontal" onsubmit="setID()" method="POST" action="{{ url('asset/'.$asset_id.'/part/new') }}">
     @csrf
 
     <div class="form-group">

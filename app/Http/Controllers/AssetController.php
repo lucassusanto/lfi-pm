@@ -10,7 +10,7 @@ use DateTime;
 class AssetController extends Controller
 {
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
-    private $locations, $weight_uom, $vendors, $manufacturers, $costcodes, $depts, $items;
+    private $categories, $locations, $weight_uom, $vendors, $manufacturers, $costcodes, $depts, $items;
 
     // Get last data ID
     private function getID() {
@@ -23,9 +23,24 @@ class AssetController extends Controller
 
         return $last_id;
     }
+    
+    // Query utk data dropdowns di form new/edit data
+    private function listQueries() {
+        // Cek asset_type. Required as foreign key
+        $categories = DB::table('asset_type')
+            ->select('id', 'note')
+            ->get();
+        
+        if($categories->count() < 1) 
+            return view('asset.info', [
+                'title' => 'Error!',
+                'msg' => 'asset_type table seems empty. Please add at least 1 data',
+                'link' => 'asset'
+            ]);
 
-    // Mendapat list asset location dari tabel asset_type
-    private function getLocations() {
+        $this->categories = $categories;
+
+        // Mendapat list asset location dari tabel asset_type
         $loc_id = DB::table('asset_type')
             ->select('id')
             ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
@@ -38,12 +53,8 @@ class AssetController extends Controller
                 ->select('id', 'note')
                 ->where('type_id', '=', $loc_id[0]->id)
                 ->get();
-    }
 
-    // Query utk data dropdowns di form new/edit data
-    private function listQueries() {
-        $this->getLocations();
-
+        // Get others data
         $this->weight_uom = DB::table('uom')
             ->select('id', 'uom')
             ->get();
@@ -83,22 +94,10 @@ class AssetController extends Controller
 
     // Menampilkan form data baru | GET
     public function new_data() {
-        $categories = DB::table('asset_type')
-            ->select('id', 'note')
-            ->get();
-        
-        // Error! No data in asset_type. Required as foreign key
-        if($categories->count() < 1) 
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg' => 'asset_type table seems empty. Please add at least 1 data',
-                'link' => 'asset'
-            ]);
-
         $this->listQueries();
         
         return view('asset.new', [
-            'categories'        => $categories,
+            'categories'        => $this->categories,
             'locations'         => $this->locations,
             'wuoms'             => $this->weight_uom,
             'vendors'           => $this->vendors,
@@ -172,18 +171,6 @@ class AssetController extends Controller
 
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request) {
-        $categories = DB::table('asset_type')
-            ->select('id', 'note')
-            ->get();
-        
-        // Error! No data in asset_type. Required as foreign key
-        if($categories->count() < 1)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg'   => 'asset_type table seems empty. Please add at least 1 data',
-                'link'  => 'asset'
-            ]);
-
         $id = $request->id;
         
         $asset_data = DB::table('asset')
@@ -202,7 +189,7 @@ class AssetController extends Controller
 
         return view('asset.edit', [
             'asset_data'        => $asset_data[0],
-            'categories'        => $categories,
+            'categories'        => $this->categories,
             'locations'         => $this->locations,
             'wuoms'             => $this->weight_uom,
             'vendors'           => $this->vendors,

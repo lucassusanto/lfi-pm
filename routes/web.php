@@ -42,6 +42,28 @@ Route::prefix('asset')->group(function() {
         Route::post('commit_edit', 'AssetContractController@commit_edit');
     });
 
+    // Asset Contract
+    Route::prefix('{id}/contract')->group(function() {
+        Route::get('/',            'AssetContractController@index');
+        Route::get('new',          'AssetContractController@new_data');
+
+        Route::post('new',         'AssetContractController@commit_new_data');
+        Route::post('delete',      'AssetContractController@commit_delete');
+        Route::post('edit',        'AssetContractController@show_edit');
+        Route::post('commit_edit', 'AssetContractController@commit_edit');
+    });
+
+    // Asset Depreciation
+    Route::prefix('{id}/depreciation')->group(function() {
+        Route::get('/',            'AssetDepreciationController@index');
+        Route::get('new',          'AssetDepreciationController@new_data');
+
+        Route::post('new',         'AssetDepreciationController@commit_new_data');
+        Route::post('delete',      'AssetDepreciationController@commit_delete');
+        Route::post('edit',        'AssetDepreciationController@show_edit');
+        Route::post('commit_edit', 'AssetDepreciationController@commit_edit');
+    });
+
     // Asset Part
     Route::prefix('{id}/part')->group(function() {
         Route::get('/',            'AssetPartController@index');
@@ -65,10 +87,6 @@ Route::prefix('asset')->group(function() {
     });
 });
 
-// Asset Depreciation
-Route::get('/asset/depreciation', 'AssetDepreciationController@index');
-Route::get('/asset/depreciation/new', 'AssetDepreciationController@new');
-Route::get('/asset/depreciation/edit', 'AssetDepreciationController@edit');
 // Asset Downtime
 Route::get('/asset/downtime', 'AssetDowntimeController@index');
 Route::get('/asset/downtime/new', 'AssetDowntimeController@new');

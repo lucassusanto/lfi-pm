@@ -1,12 +1,15 @@
 @extends('layouts.lfi')
-
+ 
 @section('content')
 <div class="row">
     <div class="col-md-12">
         <h2 align="center">Asset Part</h2>
     </div>
     <div class="col-md-4">
-        <a class="btn btn-success" href="{{ url('asset/part/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
+        <a class="btn btn-success" href="{{ url('asset/'.$asset_id.'/part/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
+    </div>
+    <div class="col-md-4" align="center">
+        {{ $asset_note }}
     </div>
 </div>
 
@@ -39,7 +42,7 @@
         <!-- Modal content-->
         <div class="modal-content">
 
-            <form class="form-horizontal" method="POST" action="{{ url('asset/part/delete') }}">
+            <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/part/delete') }}">
                 <input type="hidden" id="id" name="id" value="">
                 @csrf
 
@@ -79,7 +82,7 @@
     </div>
 </div>
 
-<form method="POST" action="{{ url('asset/part/edit') }}" id="edits" style="visibility: hidden;">
+<form method="POST" action="{{ url('asset/'.$asset_id.'/part/edit') }}" id="edits" style="visibility: hidden;">
     <input type="hidden" id="ids" name="id" value="">
     @csrf
 </form>

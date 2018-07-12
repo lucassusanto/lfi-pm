@@ -10,8 +10,8 @@
 @endsection
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/part/commit_edit') }}">
-    <input type="text" name="id" value="{{ $asset_part->id }}">
+<form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/part/commit_edit') }}">
+    <input type="hidden" name="id" value="{{ $asset_part->id }}">
     @csrf
 
     <div class="row">
@@ -19,9 +19,12 @@
             <h2 align="center">Edit Asset Part</h2>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-default" href="{{ url('asset/part') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/part') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
         </div>
-        <div class="col-md-2 col-md-offset-6">
+        <div class="col-md-4" align="center">
+            {{ $asset_note }}
+        </div>
+        <div class="col-md-2 col-md-offset-2">
             <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
         </div>
     </div><br>
@@ -29,7 +32,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="category">Item:</label>
         <div class="col-sm-3">
-            <input type="text" id="inventory" name="item" value="{{ $asset_part->in_id }}">
+            <input type="hidden" id="inventory" name="item" value="{{ $asset_part->in_id }}">
             <select class="form-control" onchange="document.getElementById('inventory').value = setID(this);" >
                 <option></option>
                 @foreach($item as $item)
@@ -56,7 +59,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="category">Weight UOM:</label>
         <div class="col-sm-3">
-            <input type="text" id="uom" name="weight_uom" value="{{ $asset_part->uom_id }}">
+            <input type="hidden" id="uom" name="weight_uom" value="{{ $asset_part->uom_id }}">
             <select class="form-control" onchange="document.getElementById('uom').value = setID(this);">
                 <option></option>
                 @foreach($weight_uom as $weight_uom)

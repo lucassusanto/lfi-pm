@@ -22,7 +22,7 @@
 <div class="form-group">
     <label class="control-label col-sm-3" for="asset_comment">Comment:</label>
     <div class="col-sm-6">
-        <textarea class="form-control" id="asset_comment" name="comment" required></textarea>
+        <textarea class="form-control" id="asset_comment" name="comment" placeholder="Tuliskan komentar.." required></textarea>
     </div>
 </div>
 </form>

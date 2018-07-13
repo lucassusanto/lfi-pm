@@ -129,7 +129,7 @@
 
                         <!-- Asset Service Log -->
                         <tr>
-                            <td @if(Request::is('asset/slog*')) style="background-color: rgb(244,244,244);" @endif>
+                            <td>
                                 <a href="#">Asset Service Log</a>
                             </td>
                         </tr>

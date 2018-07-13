@@ -33,12 +33,12 @@
               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Asset Part</a></li>
+                    <li><a href="{{ $asset_data->id }}/part">Asset Part</a></li>
                     <li><a href="{{ $asset_data->id }}/meter">Asset Meter</a></li>
-                    <li><a href="#">Contract</a></li>
-                    <li><a href="#" onclick="depreciation(this)">Asset Depreciation</a></li>
-                    <li><a href="#" onclick="downtime(this)">Asset Downtime</a></li>
-                    <li><a href="#" onclick="comment(this)">Asset Comment</a></li>
+                    <li><a href="{{ $asset_data->id }}/contract">Contract</a></li>
+                    <li><a href="{{ $asset_data->id }}/depreciation">Asset Depreciation</a></li>
+                    <li><a href="{{ $asset_data->id }}/downtime">Asset Downtime</a></li>
+                    <li><a href="{{ $asset_data->id }}/comment">Asset Comment</a></li>
                 </ul>
             </div>
         </div>

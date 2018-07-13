@@ -10,35 +10,25 @@
 @endsection
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/commit_edit') }}">
-    <input type="hidden" name="id" value="{{ $asset_data->id }}">
-    @csrf
-<!-- Mandatory: asset no, asset priority, status, cat, dep type, dep interval
-    Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
-
+<form class="form-horizontal">
     <div class="row">
         <div class="col-md-12">
             <h2 align="center">Asset</h2>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-1">
             <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
         </div>
-        <div class="col-md-4">
-            <a href=""></a>
-        </div> 
-    </div><br>
-    <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Data Actions
                   <span class="caret"></span></button>
                   <ul class="dropdown-menu">
-                    <li><a href="{{ $asset_data->id }}/part">Asset Part</a></li>
-                    <li><a href="{{ $asset_data->id }}/meter">Asset Meter</a></li>
-                    <li><a href="{{ $asset_data->id }}/contract">Contract</a></li>
+                    <li><a href="{{ $asset_data->id }}/comment">Asset Comment</a></li>
+                    <li><a href="{{ $asset_data->id }}/contract">Asset Contract</a></li>
                     <li><a href="{{ $asset_data->id }}/depreciation">Asset Depreciation</a></li>
                     <li><a href="{{ $asset_data->id }}/downtime">Asset Downtime</a></li>
-                    <li><a href="{{ $asset_data->id }}/comment">Asset Comment</a></li>
+                    <li><a href="{{ $asset_data->id }}/meter">Asset Meter</a></li>
+                    <li><a href="{{ $asset_data->id }}/part">Asset Part</a></li>
                 </ul>
             </div>
         </div>

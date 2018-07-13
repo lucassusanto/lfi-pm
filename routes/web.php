@@ -88,12 +88,12 @@ Route::prefix('asset')->group(function() {
         Route::post('edit',         'AssetTypeController@show_edit');
         Route::post('commit_edit',  'AssetTypeController@commit_edit');
     });
-    
+
     Route::get('{id}',         'AssetController@view');
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();

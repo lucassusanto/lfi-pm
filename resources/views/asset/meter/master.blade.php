@@ -8,6 +8,9 @@
     <div class="col-md-4">
         <a class="btn btn-success" href="{{ url('asset/'.$asset_id.'/meter/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
     </div>
+    <div class="col-md-4" align="center">
+        {{ $asset_note }}
+    </div>
 </div>
 
 <table id="example" width="100%" height="100%" class="table">
@@ -56,27 +59,27 @@
                         <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_no">Meter No.:</label>
-                        <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_no"></label>
+                        <label class="control-label col-md-5" for="m_data_no">Meter No.:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_no"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_reading">Reading:</label>
-                        <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_reading"></label>
+                        <label class="control-label col-md-5" for="m_data_reading">Reading:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_reading"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_timetaken">Time Taken:</label>
-                        <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_timetaken"></label>
+                        <label class="control-label col-md-5" for="m_data_timetaken">Time Taken:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_timetaken"></label>
                         </div>
                     </div>        
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-md-offset-2" for="m_data_note">Note:</label>
-                        <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_note"></label>
+                        <label class="control-label col-md-5" for="m_data_note">Note:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_note"></label>
                         </div>
                     </div>
                 </div>

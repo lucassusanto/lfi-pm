@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <h2 align="center">Asset</h2>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
         <a class="btn btn-success" href="asset/new"><span class="glyphicon glyphicon-plus"></span> Add</a>
     </div>
 </div>
@@ -55,28 +55,29 @@
                     <div class="form-group">
                         <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                     </div>
+
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_no">Asset No:</label>
-                        <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_no"></label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_no"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_status">Asset Status:</label>
-                        <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_status"></label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_status"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_cat">Asset Category:</label>
-                        <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_cat"></label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_cat"></label>
                         </div>
                     </div>        
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_notes">Notes:</label>
-                        <div class="col-md-7">
-                            <label class="control-label" style="font-weight: normal;" id="m_data_notes"></label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_notes"></label>
                         </div>
                     </div>
                 </div>

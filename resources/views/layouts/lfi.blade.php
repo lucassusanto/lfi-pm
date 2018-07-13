@@ -24,6 +24,9 @@
         #content {
             background-color: white;
         }
+        .form-horizontal .control-label.text-left {
+            text-align: left;
+        }
     </style>
 
     <!-- Scripts -->
@@ -85,55 +88,50 @@
                             ><a href="{{ url('asset') }}">Asset</a></td>
                         </tr>
 
-                        <!-- Asset Comment -->
+                        <!--
                         <tr>
                             <td @if(Request::is('asset/*/comment*')) style="background-color: rgb(244,244,244);" @endif>
                                 <a href="{{ url('asset/10008/comment') }}">Asset Comment</a>
                             </td>
                         </tr>
 
-                        <!-- Asset Contract -->
                         <tr>
                             <td @if(Request::is('asset/*/contract*')) style="background-color: rgb(244,244,244);" @endif>
                                 <a href="{{ url('asset/10008/contract') }}">Asset Contract</a>
                             </td>
                         </tr>
 
-                        <!-- Asset Depreciation -->
                         <tr>
                             <td @if(Request::is('asset/*/depreciation*')) style="background-color: rgb(244,244,244);" @endif>
                                 <a href="{{ url('asset/10008/depreciation') }}">Asset Depreciation</a>
                             </td>
                         </tr>
 
-                        <!-- Asset Downtime -->
                         <tr>
                             <td @if(Request::is('asset/*/downtime*')) style="background-color: rgb(244,244,244);" @endif>
                                 <a href="{{ url('asset/10008/downtime') }}">Asset Downtime</a>
                             </td>
                         </tr>
 
-                        <!-- Asset Meter -->
                         <tr>
                             <td @if(Request::is('asset/*/meter*')) style="background-color: rgb(244,244,244);" @endif>
                                 <a href="{{ url('asset/10008/meter') }}">Asset Meter</a>
                             </td>
                         </tr>
 
-                        <!-- Asset Part -->
                         <tr>
                             <td @if(Request::is('asset/*/part*')) style="background-color: rgb(244,244,244);" @endif>
                                 <a href="{{ url('asset/10008/part') }}">Asset Part</a>
                             </td>
                         </tr>
 
-                        <!-- Asset Service Log -->
                         <tr>
                             <td>
                                 <a href="#">Asset Service Log</a>
                             </td>
                         </tr>
-
+                        -->
+                        
                         <!-- Asset Type -->
                         <tr>
                             <td @if(Request::is('asset/type*')) style="background-color: rgb(244,244,244);" @endif>

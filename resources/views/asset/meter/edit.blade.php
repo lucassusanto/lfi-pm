@@ -22,7 +22,7 @@
             <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/meter') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
         </div>
         <div class="col-md-4" align="center">
-            <!-- <a href="">{{ $asset_note }}</a> -->
+            {{ $asset_note }}
         </div>
         <div class="col-md-2 col-md-offset-2">
             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>

@@ -64,26 +64,26 @@
             
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_contract">Contract:</label>
-                <div class="col-md-7">
-                    <label class="control-label" style="font-weight: normal;" id="m_data_contract"></label>
+                <div class="col-md-6">
+                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_contract"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_status">Status:</label>
-                <div class="col-md-7">
-                    <label class="control-label" style="font-weight: normal;" id="m_data_status"></label>
+                <div class="col-md-6">
+                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_status"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_sd">Start Date:</label>
-                <div class="col-md-7">
-                    <label class="control-label" style="font-weight: normal;" id="m_data_sd"></label>
+                <div class="col-md-6">
+                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_sd"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_ed">End Date:</label>
-                <div class="col-md-7">
-                    <label class="control-label" style="font-weight: normal;" id="m_data_ed"></label>
+                <div class="col-md-6">
+                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_ed"></label>
                 </div>
             </div>
         </div>

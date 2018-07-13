@@ -25,6 +25,9 @@
         #content {
             background-color: white;
         }
+        .form-horizontal .control-label.text-left {
+            text-align: left;
+        }
     </style>
 
     <!-- Scripts -->

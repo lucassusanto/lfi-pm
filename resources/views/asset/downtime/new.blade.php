@@ -1,5 +1,14 @@
 @extends('layouts.lfi')
 
+@section('js')
+<script type="text/javascript">
+    function getID(doc) {
+        var options = doc.options;
+        return options[options.selectedIndex].id;
+    }
+</script>
+@endsection
+
 @section('content')
 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/downtime/new') }}">
 @csrf
@@ -18,44 +27,34 @@
     </div>
 </div><br>
 
-<!-- start time (input: date time)
-end time (input: date time)
-hours
-downtime: emergency, planned maintenance, project, other
-downtime cause: operation, maintenence, other
-Wo no -> work order
-reported by -> users
-reported at (input: date time)
-note -->
-
 <div class="form-group">
-    <label class="control-label col-sm-3" for="ad_sd">Start Time: *</label>
+    <label class="control-label col-sm-3" for="ad_st_date">Start Time: *</label>
     <div class="col-sm-2">
-        <input type="date" class="form-control" id="ad_sd" name="sd" required>
+        <input type="date" class="form-control" id="ad_st_date" name="st_date" required>
     </div>
     <div class="col-sm-2">
-        <input type="time" class="form-control" id="ad_sd" name="sd" required>
+        <input type="time" class="form-control" id="ad_st_time" name="st_time" required>
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3" for="ad_ed">End Time: *</label>
+    <label class="control-label col-sm-3" for="ad_et_date">End Time: *</label>
     <div class="col-sm-2">
-        <input type="date" class="form-control" id="ad_ed" name="ed" required>
+        <input type="date" class="form-control" id="ad_et_date" name="et_date" required>
     </div>
     <div class="col-sm-2">
-        <input type="time" class="form-control" id="ad_sd" name="sd" required>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-sm-3" for="ad_rate">Hours: *</label>
-    <div class="col-sm-2">
-        <input type="text" class="form-control" id="ad_rate" name="rate" required>
+        <input type="time" class="form-control" id="ad_et_time" name="et_time" required>
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3" for="ad_sv">Downtime: *</label>
+    <label class="control-label col-sm-3" for="ad_hours">Hours: *</label>
+    <div class="col-sm-2">
+        <input type="text" class="form-control" id="ad_hours" name="hours" required>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-3" for="ad_downtime">Downtime: *</label>
     <div class="col-sm-3">
-        <select class="form-control">
+        <select class="form-control" id="ad_downtime" name="downtime">
             <option>Emergency</option>
             <option>Planned Maintenance</option>
             <option>Project</option>
@@ -64,9 +63,9 @@ note -->
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3" for="ad_ev">Downtime Cause: *</label>
+    <label class="control-label col-sm-3" for="ad_dcause">Downtime Cause: *</label>
     <div class="col-sm-3">
-        <select class="form-control">
+        <select class="form-control" id="ad_dcause" name="dcause">
             <option>Operation</option>
             <option>Maintenance</option>
             <option>Other</option>
@@ -74,40 +73,34 @@ note -->
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3" for="ad_note">Work Order:</label>
+    <label class="control-label col-sm-3">Work Order: *</label>
     <div class="col-sm-6">
-
-        <!-- DEBUGGING -->
-        <input type="text" id="a" name="wo" value="">
-            <select class="form-control" onchange="document.getElementById('asset_manufacturer').value = getID(this);" >
-                <option></option>
-                @foreach($wos as $wo)
-                    <option id="{{ $wo->id }}">{{ $wo->name }}</option>
-                @endforeach
-            </select>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-sm-3" for="ad_ev">Reported by: *</label>
-    <div class="col-sm-2">
-
-        <!-- DEBUGGING -->
-        <input type="text" id="asset_manufacturer" name="manufacturer" value="{{ $users->id }}">
-        <select class="form-control" onchange="document.getElementById('asset_manufacturer').value = getID(this);" >
-            @foreach($users as $user)
-                <option id="{{ $user->id }}">{{ $user->name }}</option>
+        <input type="hidden" id="ad_wo" name="wo" value="{{ $wos[0]->id }}">
+        <select class="form-control" onchange="document.getElementById('ad_wo').value = getID(this);">
+            @foreach($wos as $wo)
+                <option id="{{ $wo->id }}">{{ $wo->note }}</option>
             @endforeach
         </select>
-
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3" for="ad_note">Reported at:</label>
+    <label class="control-label col-sm-3">Reported by: *</label>
     <div class="col-sm-2">
-        <input type="date" class="form-control" id="ad_sd" name="sd" required>
+        <input type="hidden" id="ad_user" name="user" value="{{ $users[0]->id }}">
+        <select class="form-control" onchange="document.getElementById('ad_user').value = getID(this);">
+            @foreach($users as $user)
+                <option id="{{ $user->id }}">{{ $user->full_name }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-3" for="ad_ra_date">Reported at: *</label>
+    <div class="col-sm-2">
+        <input type="date" class="form-control" id="ad_ra_date" name="ra_date" required>
     </div>
     <div class="col-sm-2">
-        <input type="time" class="form-control" id="ad_sd" name="sd" required>
+        <input type="time" class="form-control" id="ad_ra_time" name="ra_time" required>
     </div>
 </div>
 

@@ -260,7 +260,7 @@ class AssetController extends Controller
 
         $id = $request->id;
         
-        $asset_data = DB::table($this->tableName)
+        $asset_data = DB::table('asset')
         ->select()
         ->where('id', '=', $id)
         ->get();

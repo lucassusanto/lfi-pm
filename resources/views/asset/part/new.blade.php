@@ -26,7 +26,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="category">Item:</label>
         <div class="col-sm-3">
-            <input type="text" id="inventory" name="item" value="">
+            <input type="hidden" id="inventory" name="item" value="">
             <select class="form-control" onchange="document.getElementById('inventory').value = setID(this);" >
                 <option></option>
                 @foreach($item as $item)
@@ -53,7 +53,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="category">Weight UOM:</label>
         <div class="col-sm-3">
-            <input type="text" id="uom" name="weight_uom" value="">
+            <input type="hidden" id="uom" name="weight_uom" value="">
             <select class="form-control" onchange="document.getElementById('uom').value = setID(this);">
                 <option></option>
                 @foreach($weight_uom as $weight_uom)

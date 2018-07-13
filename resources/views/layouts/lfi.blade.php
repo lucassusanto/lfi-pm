@@ -130,7 +130,7 @@
                         <!-- Asset Service Log -->
                         <tr>
                             <td @if(Request::is('asset/slog*')) style="background-color: rgb(244,244,244);" @endif>
-                                <a href="{{ url('asset/slog') }}">Asset Service Log</a>
+                                <a href="#">Asset Service Log</a>
                             </td>
                         </tr>
 

@@ -19,7 +19,7 @@
             <h2 align="center">Tambah Asset Meter</h2>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-default" href="}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/meter') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
         </div>
         <div class="col-md-4" align="center">
             <!-- <a href="">{{ $asset_note }}</a> -->

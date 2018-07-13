@@ -90,6 +90,12 @@ class AssetController extends Controller
             ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
             ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as asset_type_note', 'asset.note')
             ->get();
+        /*
+        $comments = DB::table('asset_comment')
+            ->select('id', 'comment', 'modified_time')
+            ->where('asset_id', '=', $id)
+            ->get();
+        */
 
         return view('asset.master', [
             'datas' => $datas

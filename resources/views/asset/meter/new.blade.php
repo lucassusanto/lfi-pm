@@ -21,7 +21,7 @@
             <a class="btn btn-default" href="}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
         </div>
         <div class="col-md-4" align="center">
-            <a href="">{{ $asset_note }}</a>
+            <!-- <a href="">{{ $asset_note }}</a> -->
         </div>
         <div class="col-md-2 col-md-offset-2">
             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
@@ -37,7 +37,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="meter_type">Type:</label>
         <div class="col-sm-3">
-            <input type="text" id="meter_type" name="type" value="">
+            <input type="hidden" id="meter_type" name="type" value="">
             <select class="form-control" onchange="document.getElementById('meter_type').value = setID(this);">
                 <option></option>
                 @foreach($meter_type as $m_type)
@@ -49,7 +49,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="meter_uom">Reading Unit:</label>
         <div class="col-sm-3">
-            <input type="text" id="meter_uom" name="uom" value="">
+            <input type="hidden" id="meter_uom" name="uom" value="">
             <select class="form-control" onchange="document.getElementById('meter_uom').value = setID(this);">
                 <option></option>
                 @foreach($meter_uom as $m_uom)

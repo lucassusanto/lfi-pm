@@ -11,7 +11,7 @@
 
 @section('content')
 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/meter/commit_edit') }}">
-     <input type="text" name="id" value="{{ $data->id }}">
+     <input type="hidden" name="id" value="{{ $data->id }}">
     @csrf
 
     <div class="row">
@@ -22,7 +22,7 @@
             <a class="btn btn-default" href="}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
         </div>
         <div class="col-md-4" align="center">
-            <a href="">{{ $asset_note }}</a>
+            <!-- <a href="">{{ $asset_note }}</a> -->
         </div>
         <div class="col-md-2 col-md-offset-2">
             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
@@ -38,7 +38,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="meter_type">Type:</label>
         <div class="col-sm-3">
-            <input type="text" id="meter_type" name="type" value="{{ $data->type_id }}">
+            <input type="hidden" id="meter_type" name="type" value="{{ $data->type_id }}">
             <select class="form-control" onchange="document.getElementById('meter_type').value = setID(this);">
                 <option></option>
                 @foreach($meter_type as $m_type)
@@ -50,7 +50,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="meter_uom">Reading Unit:</label>
         <div class="col-sm-3">
-            <input type="text" id="meter_uom" name="uom" value="{{ $data->reading_uom_id }}">
+            <input type="hidden" id="meter_uom" name="uom" value="{{ $data->reading_uom_id }}">
             <select class="form-control" onchange="document.getElementById('meter_uom').value = setID(this);">
                 @foreach($meter_uom as $m_uom)
                 <option id="{{ $m_uom->id }}" @if($data->reading_uom_id == $m_uom->id) selected @endif>{{ $m_uom->uom }}</option>

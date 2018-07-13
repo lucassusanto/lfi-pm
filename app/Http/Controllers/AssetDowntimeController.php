@@ -181,7 +181,7 @@ class AssetDownTimeController extends Controller
             ->get();
 
         if($datas->count() < 1)
-            return $this->show_error('Sorry, the data you are going to edit was not found');
+            return $this->show_error('Asset Downtime data was not found');
 
 
         $datas = $datas[0];

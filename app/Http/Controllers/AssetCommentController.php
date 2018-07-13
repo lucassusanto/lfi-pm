@@ -119,11 +119,7 @@ class AssetCommentController extends Controller
             ->get();
 
         if($datas->count() < 1)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg'   => 'Comment data was not found!',
-                'link'  => 'asset/comment'.$id
-            ]);
+            return $this->show_error('Comment data was not found!');
 
         return view('asset.comment.edit', [
             'asset_id'      => $id,

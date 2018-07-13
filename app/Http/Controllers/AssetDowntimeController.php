@@ -34,6 +34,28 @@ class AssetDownTimeController extends Controller
 		if($note->count() < 1) return false;
 		
         return $note[0]->note;
+    }
+    
+    // Required as foreign key (Work order)
+    private function getWO() {
+        $wos = DB::table('workorder')
+			->select('id', 'note')
+            ->get();
+
+		if($wos->count() < 1) return false;
+		
+        return $wos;
+    }
+    
+    // Required as foreign key (reported_by_id)
+    private function getUsers() {
+        $users = DB::table('users')
+			->select('id', 'full_name')
+            ->get();
+
+		if($users->count() < 1) return false;
+		
+        return $users;
 	}
 	
 	private function show_error($msg) {
@@ -42,12 +64,23 @@ class AssetDownTimeController extends Controller
 			'msg'   => $msg,
 			'link'  => 'asset'
 		]);
-	}
+    }
+    
+    // Split Date and Time
+    private function splitDT($dt) {
+        $arrDT = explode(' ', $dt);
+
+        $tmp = explode(':', $arrDT[1]);
+        $arrDT[1] = $tmp[0] . ':' . $tmp[1];
+
+        return $arrDT;
+    }
+
 
 	// PUBLIC
     public function index($id) {
-		$note = $this->getNote($id);
-
+        $note = $this->getNote($id);
+        
 		if($note == false)
 			return $this->show_error('Asset data '.$id.' was not found!');
 
@@ -66,25 +99,21 @@ class AssetDownTimeController extends Controller
     // Menampilkan form data baru | GET
     public function new_data($id) {
         $note = $this->getNote($id);
-
 		if($note == false)
 			return $this->show_error('Asset data '.$id.' was not found!');
 
+		$wos = $this->getWO();
+        if($wos == false)
+			return $this->show_error('Work order table seems empty');
 
-		$wos = DB::table('work_order')
-			->select('id', 'note')
-			->get();
-
-		$users = DB::table('work_order')
-			->select('id', 'note')
-			->get();
-
-
+		$users = $this->getUsers();
+        if($users == false)
+			return $this->show_error('Users table seems empty');
 
         return view('asset.downtime.new', [
             'asset_id'      => $id,
 			'asset_note'    => $note,
-			'work_orders'	=> $wos,
+			'wos'	        => $wos,
 			'users'			=> $users
         ]);
 	}
@@ -93,20 +122,20 @@ class AssetDownTimeController extends Controller
     public function commit_new_data(Request $request, $id) {
         $now = new DateTime();
 		$last_id = $this->getID();
-
+        
         DB::table('asset_downtime')->insert([
             'id'                => $last_id,
-			'asset_id'          => $id,
-			'downtime_type_id'	=> '',
-			'downtime_cause_id'	=> '',
-            'start_time'        => $request->sd,
-			'shift_id'          => $request->ed,
-            'end_time' 			=> $request->rate,
-			'hours'       		=> $request->sv,
-			'wo_id'         	=> $request->ev,
-			'reported_by_id'    => $request->note,
-			'reported_time'		=> '',
-			'note'				=> '',
+            'asset_id'          => $id,
+            'start_time'        => $request->st_date.' '.$request->st_time,
+            'end_time' 			=> $request->et_date.' '.$request->et_time,
+            'hours'       		=> $request->hours,
+			'downtime_type_id'	=> $request->downtime,
+            'downtime_cause_id'	=> $request->dcause,
+			'wo_id'         	=> $request->wo,
+            'reported_by_id'    => $request->user,
+            'reported_time'		=> $request->ra_date.' '.$request->ra_time,
+			'note'				=> $request->note,
+			'shift_id'          => '',
             'modified_time'     => $now,
             'modified_id'       => $this->user_id,
             'created_time'      => $now,
@@ -118,10 +147,10 @@ class AssetDownTimeController extends Controller
 
     // Menghapus data | POST
     public function commit_delete(Request $request, $id) {
-        $dep_id = $request->id;
+        $downtime_id = $request->id;
 
         DB::table('asset_downtime')
-            ->where('id', '=', $dep_id)
+            ->where('id', '=', $downtime_id)
             ->delete();
 
         return redirect('asset/'.$id.'/downtime');
@@ -130,20 +159,34 @@ class AssetDownTimeController extends Controller
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request, $id) {
         $note = $this->getNote($id);
-
 		if($note == false)
 			return $this->show_error('Asset data '.$id.' was not found!');
 
-        $dep_id = $request->id;
+		$wos = $this->getWO();
+        if($wos == false)
+			return $this->show_error('Work order table seems empty');
+
+		$users = $this->getUsers();
+        if($users == false)
+            return $this->show_error('Users table seems empty');
+            
+
+        $downtime_id = $request->id;
 
         $datas = DB::table('asset_downtime')
-            ->select('id', 'start_date', 'end_date', 'depreciation_rate', 'start_value', 'end_value', 'note')
-            ->where('id', '=', $dep_id)
+            ->select('id', 'start_time', 'end_time', 'hours', 'downtime_type_id', 'downtime_cause_id', 'wo_id', 'reported_by_id', 'reported_time', 'note')
+            ->where('id', '=', $downtime_id)
             ->get();
         
+        $datas[0]->start_time = $this->splitDT($datas[0]->start_time);
+        $datas[0]->end_time = $this->splitDT($datas[0]->end_time);
+        $datas[0]->reported_time = $this->splitDT($datas[0]->reported_time);
+
         return view('asset.downtime.edit', [
             'asset_id'      => $id,
             'asset_note'    => $note,
+            'wos'	        => $wos,
+			'users'			=> $users,
             'data'          => $datas[0]
         ]);
     }
@@ -151,19 +194,20 @@ class AssetDownTimeController extends Controller
     // Menyimpan hasil edit | POST
     public function commit_edit(Request $request, $id) {
         $now = new DateTime();
-        $contract_id = $request->id;
+        $downtime_id = $request->id;
 
         DB::table('asset_downtime')
-            ->where('id', $contract_id)
+            ->where('id', $downtime_id)
             ->update([
-				'start_date'        => $request->sd,
-				'end_date'          => $request->ed,
-				'depreciation_rate' => $request->rate,
-				'start_value'       => $request->sv,
-				'end_value'         => $request->ev,
-				'note'           	=> $request->note,
-				'modified_time'     => $now,
-				'modified_id'       => $this->user_id,
+                'start_time'        => $request->st_date.' '.$request->st_time,
+                'end_time' 			=> $request->et_date.' '.$request->et_time,
+                'hours'       		=> $request->hours,
+                'downtime_type_id'	=> $request->downtime,
+                'downtime_cause_id'	=> $request->dcause,
+                'wo_id'         	=> $request->wo,
+                'reported_by_id'    => $request->user,
+                'reported_time'		=> $request->ra_date.' '.$request->ra_time,
+                'note'				=> $request->note,
             ]);
         
         return redirect('asset/'.$id.'/downtime');

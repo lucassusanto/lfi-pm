@@ -18,8 +18,6 @@
     </div>
 </div><br>
 
-<!-- Input: start date*, end date*, dep rate*, start val*, end val*, note -->
-
 <div class="form-group">
     <label class="control-label col-sm-3" for="ad_sd">Start Date: *</label>
     <div class="col-sm-3">

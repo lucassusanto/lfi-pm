@@ -19,7 +19,6 @@ Route::prefix('asset')->group(function() {
     Route::post('delete',       'AssetController@commit_delete');
     Route::post('edit',         'AssetController@show_edit');
     Route::post('commit_edit',  'AssetController@commit_edit');
-    Route::get('{id}',         'AssetController@view');
 
 
 
@@ -68,7 +67,7 @@ Route::prefix('asset')->group(function() {
     });
 
      // Asset Downtime
-     Route::prefix('{id}/downtime')->group(function() {
+    Route::prefix('{id}/downtime')->group(function() {
         Route::get('/',            'AssetDowntimeController@index');
         Route::get('new',          'AssetDowntimeController@new_data');
 
@@ -99,6 +98,9 @@ Route::prefix('asset')->group(function() {
         Route::post('edit',         'AssetTypeController@show_edit');
         Route::post('commit_edit',  'AssetTypeController@commit_edit');
     });
+
+    Route::get('{id}',         'AssetController@view');
+
 });
 
 // Asset Meter

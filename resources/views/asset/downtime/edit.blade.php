@@ -31,7 +31,7 @@
 
 <div class="form-group">
     <label class="control-label col-sm-3" for="ad_st_date">Start Time: *</label>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <input type="date" class="form-control" id="ad_st_date" name="st_date" value="{{ $data->start_time[0] }}" required>
     </div>
     <div class="col-sm-2">
@@ -40,7 +40,7 @@
 </div>
 <div class="form-group">
     <label class="control-label col-sm-3" for="ad_et_date">End Time: *</label>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <input type="date" class="form-control" id="ad_et_date" name="et_date" value="{{ $data->end_time[0] }}" required>
     </div>
     <div class="col-sm-2">
@@ -98,7 +98,7 @@
 </div>
 <div class="form-group">
     <label class="control-label col-sm-3" for="ad_ra_date">Reported at: *</label>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <input type="date" class="form-control" id="ad_ra_date" name="ra_date" value="{{ $data->reported_time[0] }}" required>
     </div>
     <div class="col-sm-2">

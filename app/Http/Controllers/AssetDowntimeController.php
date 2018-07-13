@@ -68,12 +68,14 @@ class AssetDownTimeController extends Controller
     
     // Split Date and Time
     private function splitDT($dt) {
-        $arrDT = explode(' ', $dt);
+        if(empty($dt)) return ['', ''];
 
-        $tmp = explode(':', $arrDT[1]);
-        $arrDT[1] = $tmp[0] . ':' . $tmp[1];
+        $datetime = new DateTime($dt);
 
-        return $arrDT;
+        $date = $datetime->format('Y-m-d');
+        $time = $datetime->format('H:i');
+
+        return [$date, $time];
     }
 
 
@@ -177,17 +179,24 @@ class AssetDownTimeController extends Controller
             ->select('id', 'start_time', 'end_time', 'hours', 'downtime_type_id', 'downtime_cause_id', 'wo_id', 'reported_by_id', 'reported_time', 'note')
             ->where('id', '=', $downtime_id)
             ->get();
-        
-        $datas[0]->start_time = $this->splitDT($datas[0]->start_time);
-        $datas[0]->end_time = $this->splitDT($datas[0]->end_time);
-        $datas[0]->reported_time = $this->splitDT($datas[0]->reported_time);
+
+        if($datas->count() < 1)
+            return $this->show_error('Sorry, the data you are going to edit was not found');
+
+
+        $datas = $datas[0];
+
+        $datas->start_time      = $this->splitDT($datas->start_time);
+        $datas->end_time        = $this->splitDT($datas->end_time);
+        $datas->reported_time   = $this->splitDT($datas->reported_time);
+
 
         return view('asset.downtime.edit', [
             'asset_id'      => $id,
             'asset_note'    => $note,
             'wos'	        => $wos,
 			'users'			=> $users,
-            'data'          => $datas[0]
+            'data'          => $datas
         ]);
     }
 

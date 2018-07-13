@@ -74,7 +74,7 @@
 </div>
 <div class="form-group">
     <label class="control-label col-sm-3">Work Order: *</label>
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <input type="hidden" id="ad_wo" name="wo" value="{{ $wos[0]->id }}">
         <select class="form-control" onchange="document.getElementById('ad_wo').value = getID(this);">
             @foreach($wos as $wo)
@@ -85,7 +85,7 @@
 </div>
 <div class="form-group">
     <label class="control-label col-sm-3">Reported by: *</label>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <input type="hidden" id="ad_user" name="user" value="{{ $users[0]->id }}">
         <select class="form-control" onchange="document.getElementById('ad_user').value = getID(this);">
             @foreach($users as $user)
@@ -95,18 +95,18 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3" for="ad_ra_date">Reported at: *</label>
+    <label class="control-label col-sm-3" for="ad_ra_date">Reported at:</label>
     <div class="col-sm-2">
-        <input type="date" class="form-control" id="ad_ra_date" name="ra_date" required>
+        <input type="date" class="form-control" id="ad_ra_date" name="ra_date">
     </div>
     <div class="col-sm-2">
-        <input type="time" class="form-control" id="ad_ra_time" name="ra_time" required>
+        <input type="time" class="form-control" id="ad_ra_time" name="ra_time">
     </div>
 </div>
 
 <div class="form-group">
     <label class="control-label col-sm-3" for="ad_note">Note:</label>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
         <textarea class="form-control" id="ad_note" name="note" placeholder="Tuliskan catatan.."></textarea>
     </div>
 </div>

@@ -59,25 +59,25 @@
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_no">Asset No:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_no"></label>
+                            <label class="control-label text-left" id="m_data_no"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_status">Asset Status:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_status"></label>
+                            <label class="control-label text-left" id="m_data_status"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_cat">Asset Category:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_cat"></label>
+                            <label class="control-label text-left" id="m_data_cat"></label>
                         </div>
                     </div>        
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_notes">Notes:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_notes"></label>
+                            <label class="control-label text-left" id="m_data_notes"></label>
                         </div>
                     </div>
                 </div>

@@ -60,7 +60,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-4" for="m_data_comment">Komentar:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_comment"></label>
+                    <label class="control-label text-left" id="m_data_comment"></label>
                 </div>
             </div>
 

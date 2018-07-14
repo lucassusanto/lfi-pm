@@ -67,31 +67,31 @@
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_sd">Start Date:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_sd"></label>
+                    <label class="control-label text-left" id="m_data_sd"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_ed">End Date:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_ed"></label>
+                    <label class="control-label text-left" id="m_data_ed"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_dr">Depreciation Rate:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_dr"></label>
+                    <label class="control-label text-left" id="m_data_dr"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_ev">End Value:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_ev"></label>
+                    <label class="control-label text-left" id="m_data_ev"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_note">Note:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_note"></label>
+                    <label class="control-label text-left" id="m_data_note"></label>
                 </div>
             </div>
         </div>

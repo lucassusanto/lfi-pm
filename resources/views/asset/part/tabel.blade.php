@@ -58,19 +58,19 @@
                     <div class="form-group">
                         <label class="control-label col-md-5" for="item">Item:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="item"></label>
+                            <label class="control-label text-left" id="item"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-5" for="type">Type:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="type"></label>
+                            <label class="control-label text-left" id="type"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-5" for="note">Note:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="note"></label>
+                            <label class="control-label text-left" id="note"></label>
                         </div>
                     </div>        
                 </div>

@@ -86,16 +86,18 @@ class AssetController extends Controller
 
     // PUBLIC
     public function index() {
+        $categories = DB::table('asset_type')
+            ->select('id', 'note')
+            ->get();
+        
+        if($categories->count() < 1)
+            return $this->show_error('asset_type table seems empty. Please add at least 1 data');
+
+
         $datas = DB::table('asset')
             ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
             ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as asset_type_note', 'asset.note')
             ->get();
-        /*
-        $comments = DB::table('asset_comment')
-            ->select('id', 'comment', 'modified_time')
-            ->where('asset_id', '=', $id)
-            ->get();
-        */
 
         return view('asset.master', [
             'datas' => $datas
@@ -197,6 +199,7 @@ class AssetController extends Controller
         if(!empty($out)) return $out;
 
         return view('asset.edit', [
+            'asset_id'          => $id,
             'asset_data'        => $asset_data[0],
             'categories'        => $this->categories,
             'locations'         => $this->locations,
@@ -217,7 +220,6 @@ class AssetController extends Controller
         DB::table('asset')
             ->where('id', $id)
             ->update([
-                'asset_no'          => $request->no,
                 'note'              => $request->note,
                 'priority_id'       => $request->priority,
                 'status_id'         => $request->status,
@@ -252,21 +254,14 @@ class AssetController extends Controller
         return redirect('asset');
     }
 
+    // DEBUG
     public function view(Request $request) {
-        $categories = DB::table('asset_type')
-            ->select('id', 'note')
-            ->get();
-        
-        if($categories->count() < 1)
-            return $this->show_error('asset_type table seems empty. Please add at least 1 data');
-
-
         $id = $request->id;
         
         $asset_data = DB::table('asset')
-        ->select()
-        ->where('id', '=', $id)
-        ->get();
+            ->select()
+            ->where('id', '=', $id)
+            ->get();
 
         if($asset_data->count() < 1)
             return $this->show_error('Asset data id was not found!');
@@ -276,8 +271,34 @@ class AssetController extends Controller
         if(!empty($out)) return $out;
 
         return view('asset.view', [
+            'asset_id'          => $id,
             'asset_data'        => $asset_data[0],
-            'categories'        => $categories,
+            'categories'        => $this->categories,
+            'locations'         => $this->locations,
+            'wuoms'             => $this->weight_uom
+        ]);
+    }
+
+    // DEBUG
+    public function view_details(Request $request) {
+        $id = $request->id;
+        
+        $asset_data = DB::table('asset')
+            ->select()
+            ->where('id', '=', $id)
+            ->get();
+
+        if($asset_data->count() < 1)
+            return $this->show_error('Asset data id was not found!');
+
+        
+        $out = $this->listQueries();
+        if(!empty($out)) return $out;
+
+        return view('asset.view_details', [
+            'asset_id'          => $id,
+            'asset_data'        => $asset_data[0],
+            'categories'        => $this->categories,
             'locations'         => $this->locations,
             'wuoms'             => $this->weight_uom,
             'vendors'           => $this->vendors,
@@ -286,6 +307,5 @@ class AssetController extends Controller
             'depts'             => $this->depts,
             'items'             => $this->items
         ]);
-
     }
 }

@@ -90,6 +90,7 @@ Route::prefix('asset')->group(function() {
     });
 
     Route::get('{id}',         'AssetController@view');
+    Route::get('{id}/details',         'AssetController@view_details');
 });
 
 Route::get('/', function () {

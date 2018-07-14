@@ -13,18 +13,17 @@ function getID(doc) {
 <form class="form-horizontal" method="POST" action="{{ url('asset/commit_edit') }}">
 <input type="hidden" name="id" value="{{ $asset_data->id }}">
 @csrf
-<!-- Mandatory: asset no, asset priority, status, cat, dep type, dep interval
-Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
 
 <div class="row">
     <div class="col-md-12">
         <h2 align="center">Edit Asset</h2>
     </div>
     <div class="col-md-4">
-        <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+        <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/details' ) }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+        <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
     </div>
     <div class="col-md-2 col-md-offset-6">
-        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
     </div>
 </div><br>
 
@@ -32,9 +31,9 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <h4 align="left">ASSET</h4>
 </div><br><br><br>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="asset_no">Asset No: </label>
+        <label class="control-label col-sm-2" for="asset_no">Asset No: *</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="asset_no" name="no" placeholder="Asset No" value="{{ $asset_data->asset_no }}" required>
+            <textbox type="text" class="form-control" disabled>{{ $asset_data->asset_no }}</textbox>
         </div>
 
         <label class="control-label col-sm-3" for="asset_priority">Asset Priority: *</label>

@@ -16,7 +16,7 @@
             {{ $asset_note }}
         </div>
         <div class="col-md-2 col-md-offset-2">
-            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
         </div>
     </div><br>
 

@@ -97,8 +97,7 @@
 </div>
 </div>
 
-
-<ul class="nav nav-tabs nav-justified">
+<ul class="nav nav-tabs">
     <li class="active"><a data-toggle="pill" href="#comment">Comment</a></li>
     <li><a data-toggle="pill" href="#contract">Contract</a></li>
     <li><a data-toggle="pill" href="#depreciation">Depreciation</a></li>
@@ -109,6 +108,99 @@
 
 <div class="tab-content">
     <div id="comment" class="tab-pane fade in active">
+        <div class="col-md-4">
+            <a class="btn btn-success" href="{{ url('asset/'.$asset_id.'/comment/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
+        </div>
+
+        <table id="example" width="100%" class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Date Time</th>
+                <th>Comment</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($comment_datas as $comment_data)
+            <tr id="{{ $comment_data->id }}">
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $comment_data->modified_time }}</td>
+                <td>{{ $comment_data->comment }}</td>
+                <td align="center">
+                    <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
+                    <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+        </table>
+
+
+        <!-- Delete Data Modal -->
+        <div id="modal-konfirmasi" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+            <!-- Delete Data Form -->
+            <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
+                <input type="hidden" id="comment_modal_id" name="id" value=""></input>
+                @csrf
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Konfirmasi</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="comment_modal_comment">Komentar:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="comment_modal_comment"></label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                </div>
+            </form>
+
+            <!-- Edit Data Form -->
+            <form method="POST" action="{{ url('asset/'.$asset_id.'/comment/edit') }}" id="comment_form_edit" style="visibility: hidden;">
+                <input type="hidden" id="e_data_id" name="id" value="">
+                @csrf
+            </form>
+
+            <script type="text/javascript">
+            function showModal(doc) {
+                var tr = doc.parentNode.parentNode;
+                
+                var id = tr.id;
+                var comment = tr.childNodes[5].innerHTML;
+                
+                document.getElementById('comment_modal_id').value = id;
+                document.getElementById('comment_modal_comment').innerHTML = comment;
+            }
+            function editData(doc) {
+                var tr = doc.parentNode.parentNode;
+                var id = tr.id;
+                var form_edit = document.getElementById('comment_form_edit');
+                var edit_data_id = document.getElementById('e_data_id');
+                edit_data_id.value = id;
+                form_edit.submit();
+            }
+            </script>
+            
+            </div>
+        </div>
+        </div>
+
 
     </div>
     <div id="contract" class="tab-pane fade">

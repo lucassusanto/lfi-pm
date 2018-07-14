@@ -270,16 +270,25 @@ class AssetController extends Controller
         $out = $this->listQueries();
         if(!empty($out)) return $out;
 
+        // Comment
+        $comment_datas = DB::table('asset_comment')
+            ->select('id', 'comment', 'modified_time')
+            ->where('asset_id', '=', $id)
+            ->get();
+
+
         return view('asset.view', [
             'asset_id'          => $id,
             'asset_data'        => $asset_data[0],
             'categories'        => $this->categories,
             'locations'         => $this->locations,
-            'wuoms'             => $this->weight_uom
+            'wuoms'             => $this->weight_uom,
+            
+            // Sub modules
+            'comment_datas'     => $comment_datas
         ]);
     }
 
-    // DEBUG
     public function view_details(Request $request) {
         $id = $request->id;
         

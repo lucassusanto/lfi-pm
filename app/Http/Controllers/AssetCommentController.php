@@ -90,7 +90,8 @@ class AssetCommentController extends Controller
             'created_id'        => $this->user_id
         ]);
         
-        return redirect('asset/'.$id.'/comment');
+        // return redirect('asset/'.$id.'/comment');    // ORIGINAL
+        return redirect('asset/'.$id.'#comment');
     }
 
     // Menghapus data | POST
@@ -101,7 +102,8 @@ class AssetCommentController extends Controller
             ->where('id', '=', $comment_id)
             ->delete();
 
-        return redirect('asset/'.$id.'/comment');
+        // return redirect('asset/'.$id.'/comment');    // ORIGINAL
+        return redirect('asset/'.$id.'#comment');
     }
 
     // Menampilkan detil data edit | POST
@@ -141,6 +143,7 @@ class AssetCommentController extends Controller
                 'modified_id'   => $this->user_id
             ]);
         
-        return redirect('asset/'.$id.'/comment');
+        // return redirect('asset/'.$id.'/comment');    // ORIGINAL
+        return redirect('asset/'.$id.'#comment'); 
     }
 }

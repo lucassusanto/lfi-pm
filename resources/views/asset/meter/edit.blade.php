@@ -11,7 +11,7 @@
 
 @section('content')
 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/meter/commit_edit') }}">
-     <input type="hidden" name="id" value="{{ $data->id }}">
+    <input type="hidden" name="id" value="{{ $data->id }}">
     @csrf
 
     <div class="row">
@@ -25,7 +25,7 @@
             {{ $asset_note }}
         </div>
         <div class="col-md-2 col-md-offset-2">
-            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Update</button>
         </div>
     </div><br>
 

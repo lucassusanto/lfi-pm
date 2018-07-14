@@ -61,25 +61,25 @@
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_no">Meter No.:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_no"></label>
+                            <label class="control-label text-left" id="m_data_no"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_reading">Reading:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_reading"></label>
+                            <label class="control-label text-left" id="m_data_reading"></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_timetaken">Time Taken:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_timetaken"></label>
+                            <label class="control-label text-left" id="m_data_timetaken"></label>
                         </div>
                     </div>        
                     <div class="form-group">
                         <label class="control-label col-md-5" for="m_data_note">Note:</label>
                         <div class="col-md-6">
-                            <label class="control-label text-left" style="font-weight: normal;" id="m_data_note"></label>
+                            <label class="control-label text-left" id="m_data_note"></label>
                         </div>
                     </div>
                 </div>

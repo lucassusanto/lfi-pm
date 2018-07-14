@@ -65,25 +65,25 @@
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_st">Start Time:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_st"></label>
+                    <label class="control-label text-left" id="m_data_st"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_et">End Time:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_et"></label>
+                    <label class="control-label text-left" id="m_data_et"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_hours">Hours:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_hours"></label>
+                    <label class="control-label text-left" id="m_data_hours"></label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="m_data_note">Note:</label>
                 <div class="col-md-6">
-                    <label class="control-label text-left" style="font-weight: normal;" id="m_data_note"></label>
+                    <label class="control-label text-left" id="m_data_note"></label>
                 </div>
             </div>
         </div>

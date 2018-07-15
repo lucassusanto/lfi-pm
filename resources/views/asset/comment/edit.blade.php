@@ -10,7 +10,8 @@
             <h2 align="center">Edit Komentar Asset</h2>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/comment') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+            <!-- href="{{ url('asset/'.$asset_id.'/comment') }}" --> <!-- href original -->
+            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'#comment') }}" ><span class="glyphicon glyphicon-menu-left"></span> Back</a>
         </div>
         <div class="col-md-4" align="center">
             {{ $asset_note }}

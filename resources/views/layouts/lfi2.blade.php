@@ -5,19 +5,17 @@
     <title>LFI - SI Data</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" href="{{ asset('bootstrap-3.3.7/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="{{ asset('bootstrap-3.3.7/jquery.min.js') }}"></script>
+    <script src="{{ asset('bootstrap-3.3.7/bootstrap.min.js') }}"></script>
+    
     <!-- Datatables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('datatables/jquery.dataTables.min.css') }}">
+    <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         body {
             background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));
@@ -27,6 +25,7 @@
         }
         .form-horizontal .control-label.text-left {
             text-align: left;
+            font-weight: normal;
         }
     </style>
 

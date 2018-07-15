@@ -93,6 +93,11 @@ Route::prefix('asset')->group(function() {
     Route::get('{id}/details',         'AssetController@view_details');
 });
 
+// AJAX
+Route::prefix('ajax')->group(function() {
+    Route::get('comment/create', 'AssetAJAXController@create');
+});
+
 Route::get('/', function () {
     return view('index');
 });

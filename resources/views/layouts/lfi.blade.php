@@ -5,6 +5,7 @@
     <title>LFI - SI Data</title>
     
     <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('bootstrap-3.3.7/w3.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap-3.3.7/bootstrap.min.css') }}">
     <script src="{{ asset('bootstrap-3.3.7/jquery.min.js') }}"></script>
     <script src="{{ asset('bootstrap-3.3.7/bootstrap.min.js') }}"></script>
@@ -15,7 +16,7 @@
     <script type="text/javascript" src="{{ asset('datatables/datatables.min.js') }}"></script>
 
     <!-- Styles -->
-    <style type="text/css">
+    <style>
         body {
             background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));
         }

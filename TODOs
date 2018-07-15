@@ -1,5 +1,9 @@
 TODOs:
 - Layout LFI
--- BUG: Animasi sidebar
--- Feature: Ubah desain sidebar
+-- Offline w3 css
+-- Sidebar
+--- BUG: Animasi, pake nav saja
+--- Feature: Ubah desain sidebar
 - Optimize Asset backend
+- Pake konsep modal + js utk form add/edit sub-modul
+- Coba view source utk plain php di proyek lain

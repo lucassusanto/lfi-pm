@@ -3,6 +3,31 @@
 @section('content')
 <h2 align="center">Asset</h2>
 
+<!-- Script utk mengganti halaman -->
+<!--
+    <a id="tmp_link" data-toggle="pill" href="#{{ $redi }}">#{{ $redi }}</a>
+    <script type="text/javascript">
+        window.onload = function() {
+                document.getElementById('tmp_link').click();
+        }
+    </script>
+-->
+
+<!-- Script AJAX -->
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("POST", "{{ url('ajax/comment/create') }}", true);
+  xhttp.send();
+}
+</script>
+
+
 <div class="row">
     <div class="col-md-1">
         <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>

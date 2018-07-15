@@ -276,7 +276,6 @@ class AssetController extends Controller
             ->where('asset_id', '=', $id)
             ->get();
 
-
         return view('asset.view', [
             'asset_id'          => $id,
             'asset_data'        => $asset_data[0],

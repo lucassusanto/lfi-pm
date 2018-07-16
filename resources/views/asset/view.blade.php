@@ -268,8 +268,8 @@
                             <td>{{ $contract_datas->note }}</td>
                             <td>{{ $contract_datas->status_id }}</td>
                             <td align="center">
-                                <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                                <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-danger" onclick="showModal2(this)" data-toggle="modal" data-target="#modal-konfirmasi-2"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button class="btn btn-primary" onclick="editData2(this)"><span class="glyphicon glyphicon-edit"></span></button>
                             </td>
                         </tr>
                         @endforeach
@@ -368,13 +368,13 @@
         </div>
 
         <!-- Delete Data Modal -->
-        <div id="modal-konfirmasi" class="modal fade" role="dialog">
+        <div id="modal-konfirmasi-2" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
-                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
-                        <input type="hidden" id="comment_modal_id" name="id" value=""></input>
+                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/contract/delete') }}">
+                        <input type="hidden" id="m_data_id" name="id" value=""></input>
                         @csrf
 
                         <div class="modal-header">
@@ -387,13 +387,31 @@
                                     <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="control-label col-sm-4" for="comment_modal_comment">Komentar:</label>
+                                <label class="control-label col-sm-5" for="m_data_contract">Contract:</label>
                                 <div class="col-md-6">
-                                    <label class="control-label text-left" id="comment_modal_comment"></label>
+                                    <label class="control-label text-left" id="m_data_contract"></label>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_status">Status:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_status"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_sd">Start Date:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_sd"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_ed">End Date:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_ed"></label>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -411,21 +429,31 @@
         </form>
 
         <script type="text/javascript">
-            function showModal(doc) {
+            function showModal2(doc) {
                 var tr = doc.parentNode.parentNode;
-                
+
                 var id = tr.id;
-                var comment = tr.childNodes[5].innerHTML;
-                
-                document.getElementById('comment_modal_id').value = id;
-                document.getElementById('comment_modal_comment').innerHTML = comment;
+                var contract = tr.childNodes[3].innerHTML;
+                var status_id = tr.childNodes[5].innerHTML;
+                var start_date = tr.childNodes[7].innerHTML;
+                var end_date = tr.childNodes[9].innerHTML;
+
+                document.getElementById('m_data_id').value = id;
+                document.getElementById('m_data_contract').innerHTML = contract;
+                document.getElementById('m_data_status').innerHTML = status_id;
+                document.getElementById('m_data_sd').innerHTML = start_date;
+                document.getElementById('m_data_ed').innerHTML = end_date;
             }
-            function editData(doc) {
+
+            function editData2(doc) {
                 var tr = doc.parentNode.parentNode;
                 var id = tr.id;
-                var form_edit = document.getElementById('comment_form_edit');
+
+                var form_edit = document.getElementById('form_edit');
                 var edit_data_id = document.getElementById('e_data_id');
+
                 edit_data_id.value = id;
+
                 form_edit.submit();
             }
         </script>
@@ -460,8 +488,8 @@
                             <td>{{ $depreciation_datas->note }}</td>
                             <td>{{ $depreciation_datas->depreciation_rate }}</td>
                             <td align="center">
-                                <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                                <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-danger" onclick="showModal3(this)" data-toggle="modal" data-target="#modal-konfirmasi3"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button class="btn btn-primary" onclick="editData3(this)"><span class="glyphicon glyphicon-edit"></span></button>
                             </td>
                         </tr>
                         @endforeach
@@ -553,13 +581,13 @@
         </div>
 
         <!-- Delete Data Modal -->
-        <div id="modal-konfirmasi" class="modal fade" role="dialog">
+        <div id="modal-konfirmasi3" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
                     <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
-                        <input type="hidden" id="comment_modal_id" name="id" value=""></input>
+                        <input type="hidden" id="m_data_id" name="id" value=""></input>
                         @csrf
 
                         <div class="modal-header">
@@ -572,13 +600,37 @@
                                     <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="control-label col-sm-4" for="comment_modal_comment">Komentar:</label>
+                                <label class="control-label col-sm-5" for="m_data_sd_2">Start Date:</label>
                                 <div class="col-md-6">
-                                    <label class="control-label text-left" id="comment_modal_comment"></label>
+                                    <label class="control-label text-left" id="m_data_sd_2"></label>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_ed_2">End Date:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_ed_2"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_dr_2">Depreciation Rate:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_dr_2"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_ev_2">End Value:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_ev_2"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_note_2">Note:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_note_2"></label>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -596,21 +648,33 @@
         </form>
 
         <script type="text/javascript">
-            function showModal(doc) {
+            function showModal3(doc) {
                 var tr = doc.parentNode.parentNode;
 
                 var id = tr.id;
-                var comment = tr.childNodes[5].innerHTML;
+                var start_date = tr.childNodes[3].innerHTML;
+                var end_date = tr.childNodes[5].innerHTML;
+                var depreciation_rate = tr.childNodes[7].innerHTML;
+                var end_value = tr.childNodes[9].innerHTML;
+                var note = tr.childNodes[11].innerHTML;
 
-                document.getElementById('comment_modal_id').value = id;
-                document.getElementById('comment_modal_comment').innerHTML = comment;
+                document.getElementById('m_data_id').value = id;
+                document.getElementById('m_data_sd_2').innerHTML = start_date;
+                document.getElementById('m_data_ed_2').innerHTML = end_date;
+                document.getElementById('m_data_dr_2').innerHTML = depreciation_rate;
+                document.getElementById('m_data_ev_2').innerHTML = end_value;
+                document.getElementById('m_data_note_2').innerHTML = note;
             }
-            function editData(doc) {
+
+            function editData3(doc) {
                 var tr = doc.parentNode.parentNode;
                 var id = tr.id;
-                var form_edit = document.getElementById('comment_form_edit');
+
+                var form_edit = document.getElementById('form_edit');
                 var edit_data_id = document.getElementById('e_data_id');
+
                 edit_data_id.value = id;
+
                 form_edit.submit();
             }
         </script>
@@ -642,8 +706,8 @@
                             <td>{{ $downtime_datas->hours }}</td>
                             <td>{{ $downtime_datas->note }}</td>
                             <td align="center">
-                                <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                                <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-danger" onclick="showModal4(this)" data-toggle="modal" data-target="#modal-konfirmasi4"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button class="btn btn-primary" onclick="editData4(this)"><span class="glyphicon glyphicon-edit"></span></button>
                             </td>
                         </tr>
                         @endforeach
@@ -784,13 +848,13 @@
         </div>
 
         <!-- Delete Data Modal -->
-        <div id="modal-konfirmasi" class="modal fade" role="dialog">
+        <div id="modal-konfirmasi4" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
                     <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
-                        <input type="hidden" id="comment_modal_id" name="id" value=""></input>
+                        <input type="hidden" id="m_data_id" name="id" value=""></input>
                         @csrf
 
                         <div class="modal-header">
@@ -803,13 +867,31 @@
                                     <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="control-label col-sm-4" for="comment_modal_comment">Komentar:</label>
+                                <label class="control-label col-sm-5" for="m_data_st_1">Start Time:</label>
                                 <div class="col-md-6">
-                                    <label class="control-label text-left" id="comment_modal_comment"></label>
+                                    <label class="control-label text-left" id="m_data_st_1"></label>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_et_1">End Time:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_et_1"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_hours_1">Hours:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_hours_1"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="m_data_note_1">Note:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_note_1"></label>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -827,21 +909,31 @@
         </form>
 
         <script type="text/javascript">
-            function showModal(doc) {
+            function showModal4(doc) {
                 var tr = doc.parentNode.parentNode;
 
                 var id = tr.id;
-                var comment = tr.childNodes[5].innerHTML;
+                var start_time = tr.childNodes[3].innerHTML;
+                var end_time = tr.childNodes[5].innerHTML;
+                var hours = tr.childNodes[7].innerHTML;
+                var note = tr.childNodes[9].innerHTML;
 
-                document.getElementById('comment_modal_id').value = id;
-                document.getElementById('comment_modal_comment').innerHTML = comment;
+                document.getElementById('m_data_id').value = id;
+                document.getElementById('m_data_st_1').innerHTML = start_time;
+                document.getElementById('m_data_et_1').innerHTML = end_time;
+                document.getElementById('m_data_hours_1').innerHTML = hours;
+                document.getElementById('m_data_note_1').innerHTML = note;
             }
-            function editData(doc) {
+
+            function editData4(doc) {
                 var tr = doc.parentNode.parentNode;
                 var id = tr.id;
-                var form_edit = document.getElementById('comment_form_edit');
+
+                var form_edit = document.getElementById('form_edit');
                 var edit_data_id = document.getElementById('e_data_id');
+
                 edit_data_id.value = id;
+
                 form_edit.submit();
             }
         </script>
@@ -874,8 +966,8 @@
                             <td>{{ $meter_datas->time_taken }}</td>
                             <td>{{ $meter_datas->note }}</td>
                             <td align="center">
-                                <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                                <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-danger" onclick="showModal5(this)" data-toggle="modal" data-target="#modal-konfirmasi5"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button class="btn btn-primary" onclick="editData5(this)"><span class="glyphicon glyphicon-edit"></span></button>
                             </td>
                         </tr>
                         @endforeach
@@ -982,13 +1074,13 @@
         </div>
 
         <!-- Delete Data Modal -->
-        <div id="modal-konfirmasi" class="modal fade" role="dialog">
+        <div id="modal-konfirmasi5" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
                     <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
-                        <input type="hidden" id="comment_modal_id" name="id" value=""></input>
+                        <input type="hidden" id="m_data_id" name="id" value="">
                         @csrf
 
                         <div class="modal-header">
@@ -997,17 +1089,32 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                                <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-5" for="m_data_no_1">Meter No.:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_no_1"></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-4" for="comment_modal_comment">Komentar:</label>
+                                <label class="control-label col-md-5" for="m_data_reading_1">Reading:</label>
                                 <div class="col-md-6">
-                                    <label class="control-label text-left" id="comment_modal_comment"></label>
+                                    <label class="control-label text-left" id="m_data_reading_1"></label>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="control-label col-md-5" for="m_data_timetaken_1">Time Taken:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_timetaken_1"></label>
+                                </div>
+                            </div>        
+                            <div class="form-group">
+                                <label class="control-label col-md-5" for="m_data_note_1">Note:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="m_data_note_1"></label>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -1025,23 +1132,34 @@
         </form>
 
         <script type="text/javascript">
-            function showModal(doc) {
+            function showModal5(doc) {
                 var tr = doc.parentNode.parentNode;
 
                 var id = tr.id;
-                var comment = tr.childNodes[5].innerHTML;
+                var meter_no = tr.childNodes[1].innerHTML;
+                var reading = tr.childNodes[3].innerHTML;
+                var time_taken = tr.childNodes[5].innerHTML;
+                var note = tr.childNodes[7].innerHTML;
 
-                document.getElementById('comment_modal_id').value = id;
-                document.getElementById('comment_modal_comment').innerHTML = comment;
+                document.getElementById('m_data_id').value = id;
+                document.getElementById('m_data_no_1').innerHTML = meter_no;
+                document.getElementById('m_data_reading_1').innerHTML = reading;
+                document.getElementById('m_data_timetaken_1').innerHTML = time_taken;
+                document.getElementById('m_data_note_1').innerHTML = note;
             }
-            function editData(doc) {
+
+            function editData5(doc) {
                 var tr = doc.parentNode.parentNode;
                 var id = tr.id;
-                var form_edit = document.getElementById('comment_form_edit');
+
+                var form_edit = document.getElementById('form_edit');
                 var edit_data_id = document.getElementById('e_data_id');
+
                 edit_data_id.value = id;
+
                 form_edit.submit();
             }
+
         </script>
     </div>
 
@@ -1069,8 +1187,8 @@
                             <td>{{ $part_datas->type_id }}</td>
                             <td>{{ $part_datas->note }}</td>
                             <td align="center">
-                                <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                                <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                                <button class="btn btn-danger" onclick="showModal6(this)" data-toggle="modal" data-target="#modal-konfirmasi6"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button class="btn btn-primary" onclick="editData6(this)"><span class="glyphicon glyphicon-edit"></span></button>
                             </td>
                         </tr>
                         @endforeach
@@ -1167,13 +1285,13 @@
         </div>
 
         <!-- Delete Data Modal -->
-        <div id="modal-konfirmasi" class="modal fade" role="dialog">
+        <div id="modal-konfirmasi6" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
                     <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
-                        <input type="hidden" id="comment_modal_id" name="id" value=""></input>
+                        <input type="hidden" id="id" name="id" value="">
                         @csrf
 
                         <div class="modal-header">
@@ -1182,17 +1300,27 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <div class="col-sm-12">
-                                    <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                                <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-5" for="item">Item:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="item"></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-4" for="comment_modal_comment">Komentar:</label>
+                                <label class="control-label col-md-5" for="type_1">Type:</label>
                                 <div class="col-md-6">
-                                    <label class="control-label text-left" id="comment_modal_comment"></label>
+                                    <label class="control-label text-left" id="type_1"></label>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="control-label col-md-5" for="note">Note:</label>
+                                <div class="col-md-6">
+                                    <label class="control-label text-left" id="note"></label>
+                                </div>
+                            </div>        
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -1210,25 +1338,34 @@
         </form>
 
         <script type="text/javascript">
-            function showModal(doc) {
+            function showModal6(doc) {
                 var tr = doc.parentNode.parentNode;
 
                 var id = tr.id;
-                var comment = tr.childNodes[5].innerHTML;
+                var item = tr.childNodes[1].innerHTML;
+                var type = tr.childNodes[3].innerHTML;
+                var note = tr.childNodes[5].innerHTML;
 
-                document.getElementById('comment_modal_id').value = id;
-                document.getElementById('comment_modal_comment').innerHTML = comment;
+                document.getElementById('id').value = id;
+                document.getElementById('item').innerHTML = item;
+                document.getElementById('type_1').innerHTML = type;
+                document.getElementById('note').innerHTML = note;
             }
-            function editData(doc) {
+
+            function editData6(doc) {
                 var tr = doc.parentNode.parentNode;
                 var id = tr.id;
-                var form_edit = document.getElementById('comment_form_edit');
-                var edit_data_id = document.getElementById('e_data_id');
+
+                var form_edit = document.getElementById('edits');
+                var edit_data_id = document.getElementById('ids');
+
                 edit_data_id.value = id;
+
                 form_edit.submit();
             }
-        </script>
-    </div>
+
+    </script>
+</div>
 </div>
 
 @endsection

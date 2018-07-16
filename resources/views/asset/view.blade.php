@@ -285,7 +285,7 @@
                             <h2 align="center">Tambah Kontrak Asset</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/contract') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" href="contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-4" align="center">
 

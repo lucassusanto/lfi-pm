@@ -91,8 +91,7 @@ class AssetMeterController extends Controller
 			'created_time'      => $now,
 			'created_id'        => $this->user_id
 		]);
-
-		return redirect('asset/'.$id.'/meter/');
+		return redirect('asset/'.$id);
 	}
 
 	public function index($id) {

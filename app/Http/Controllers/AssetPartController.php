@@ -11,45 +11,45 @@ class AssetPartController extends Controller
 	private $user_id = '1000000';
 
 	// Get last data ID
-    private function getID() {
-        $last_id = DB::table('asset_part')
-            ->select('id')->orderBy('id', 'desc')
-            ->take(1)->get();
+	private function getID() {
+		$last_id = DB::table('asset_part')
+		->select('id')->orderBy('id', 'desc')
+		->take(1)->get();
 
-        if($last_id->count())   $last_id = $last_id[0]->id + 1;
-        else                    $last_id = 1;
-        
-        return $last_id;
+		if($last_id->count())   $last_id = $last_id[0]->id + 1;
+		else                    $last_id = 1;
+		
+		return $last_id;
 	}
 
 	// Get asset note
-    private function getAssetNote($asset_id) {
-        $asset_data = DB::table('asset')->select('note')
-            ->where('id', '=', $asset_id)
-            ->get();
+	private function getAssetNote($asset_id) {
+		$asset_data = DB::table('asset')->select('note')
+		->where('id', '=', $asset_id)
+		->get();
 
-        if($asset_data->count() < 1)
-            return false;
+		if($asset_data->count() < 1)
+			return false;
 
-        return $asset_data[0]->note;  
-    }
+		return $asset_data[0]->note;  
+	}
 	
 	// PUBLIC
 	public function index($id) {
 		$note = $this->getAssetNote($id);
 
-        if($note == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg' => 'Asset data '.$id.' was not found!',
-                'link' => 'asset'
+		if($note == false)
+			return view('asset.info', [
+				'title' => 'Error!',
+				'msg' => 'Asset data '.$id.' was not found!',
+				'link' => 'asset'
 			]);
-			
+		
 		$datas = DB::table('asset_part')
-			->join('inventory','asset_part.in_id','=','inventory.id')
-			->select('asset_part.id','asset_part.asset_id','inventory.in_no','asset_part.type_id','asset_part.note')
-			->where('asset_id','=', $id)
-			->get();
+		->join('inventory','asset_part.in_id','=','inventory.id')
+		->select('asset_part.id','asset_part.asset_id','inventory.in_no','asset_part.type_id','asset_part.note')
+		->where('asset_id','=', $id)
+		->get();
 
 		return view('asset.part.tabel', [
 			'asset_id' 		=> $id,
@@ -61,20 +61,20 @@ class AssetPartController extends Controller
 	public function new($id) {
 		$note = $this->getAssetNote($id);
 
-        if($note == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg' => 'Asset data '.$id.' was not found!',
-                'link' => 'asset'
+		if($note == false)
+			return view('asset.info', [
+				'title' => 'Error!',
+				'msg' => 'Asset data '.$id.' was not found!',
+				'link' => 'asset'
 			]);
 
 		$item = DB::table('inventory')
-			->select('id','in_no')
-			->get();
+		->select('id','in_no')
+		->get();
 
 		$weight_uom	= DB::table('uom')
-			->select('id', 'uom')
-			->get();
+		->select('id', 'uom')
+		->get();
 
 		return view('asset.part.new', [
 			'asset_id' 		=> $id,
@@ -121,11 +121,11 @@ class AssetPartController extends Controller
 	{
 		$note = $this->getAssetNote($id);
 
-        if($note == false)
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg' => 'Asset data '.$id.' was not found!',
-                'link' => 'asset'
+		if($note == false)
+			return view('asset.info', [
+				'title' => 'Error!',
+				'msg' => 'Asset data '.$id.' was not found!',
+				'link' => 'asset'
 			]);
 
 
@@ -181,7 +181,6 @@ class AssetPartController extends Controller
 			'created_time'      => $now,
 			'created_id'        => $this->user_id
 		]);
-
-		return redirect('asset/'.$id.'/part');
+		return redirect('asset/'.$id);
 	}
 }

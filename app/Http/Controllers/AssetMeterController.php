@@ -91,6 +91,8 @@ class AssetMeterController extends Controller
 			'created_time'      => $now,
 			'created_id'        => $this->user_id
 		]);
+		
+		// return redirect('asset/'.$id.'/meter'); // ORI
 		return redirect('asset/'.$id);
 	}
 
@@ -118,7 +120,8 @@ class AssetMeterController extends Controller
 		->where('id', '=', $meter_id)
 		->delete();
 
-		return redirect('asset/'.$id.'/meter');
+		// return redirect('asset/'.$id.'/meter'); // ORI
+		return redirect('asset/'.$id);
 
 	}
 
@@ -183,7 +186,8 @@ class AssetMeterController extends Controller
 			'created_id'        => $this->user_id
 		]);
 
-		return redirect('asset/'.$id.'/meter');
+		// return redirect('asset/'.$id.'/meter'); // ORI
+		return redirect('asset/'.$id);
 	}
 
 }

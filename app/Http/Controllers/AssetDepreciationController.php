@@ -94,6 +94,8 @@ public function commit_new_data(Request $request, $id) {
         'created_time'      => $now,
         'created_id'        => $this->user_id
     ]);
+
+    // return redirect('asset/'.$id.'/depreciation'); // ORI
     return redirect('asset/'.$id);
 }
 
@@ -105,7 +107,8 @@ public function commit_delete(Request $request, $id) {
     ->where('id', '=', $dep_id)
     ->delete();
 
-    return redirect('asset/'.$id.'/depreciation');
+    // return redirect('asset/'.$id.'/depreciation'); // ORI
+    return redirect('asset/'.$id);
 }
 
     // Menampilkan detil data edit | POST
@@ -147,6 +150,7 @@ public function commit_edit(Request $request, $id) {
         'modified_id'       => $this->user_id,
     ]);
     
-    return redirect('asset/'.$id.'/depreciation');
+    // return redirect('asset/'.$id.'/depreciation'); // ORI
+    return redirect('asset/'.$id);
 }
 }

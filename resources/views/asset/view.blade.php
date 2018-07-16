@@ -156,7 +156,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h2>
+                            <h2 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -279,7 +279,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Tambah Kontrak Asset</h2>
+                            <h2 align="center">Tambah Kontrak Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -329,9 +329,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="ac_note">Note:</label>
+                        <label class="control-label col-sm-3" for="ac_note">Note: *</label>
                         <div class="col-sm-6">
-                            <textarea class="form-control" id="ac_note" name="note" placeholder="Tuliskan catatan.."></textarea>
+                            <textarea class="form-control" id="ac_note" name="note" placeholder="Tuliskan catatan.." required></textarea>
                         </div>
                     </div>
                 </form>
@@ -344,7 +344,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h2>
+                            <h2 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -471,7 +471,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Tambah Asset Depreciation</h2>
+                            <h2 align="center">Tambah Asset Depreciation</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#depreciation_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -529,7 +529,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h2>
+                            <h2 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#depreciation_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -653,7 +653,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Tambah Asset Downtime</h2>
+                            <h2 align="center">Tambah Asset Downtime</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#downtime_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -760,7 +760,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h2>
+                            <h2 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#downtime_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -885,7 +885,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Tambah Asset Meter</h2>
+                            <h2 align="center">Tambah Asset Meter</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#meter_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -958,7 +958,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h2>
+                            <h2 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#meter_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -1078,12 +1078,24 @@
             <div id="part_new" class="tab-pane fade">
                 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/part/new') }}">
                     @csrf
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 align="center">Tambah Asset Part</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="btn btn-default" data-toggle="pill" href="#part_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                        </div>
+                        <div class="col-md-2 col-md-offset-6">
+                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                        </div>
+                    </div><br>
+
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="category">Item:</label>
-                        <div class="col-sm-3">
-                            <input type="text" id="inventory" name="item" value="">
-                            <select class="form-control" onchange="document.getElementById('inventory').value = getID(this);" >
-                                <option></option>
+                        <label class="control-label col-sm-3" for="category">Item: *</label>
+                        <div class="col-sm-4">
+                            <input type="hidden" id="inventory" name="item" value="{{ $item[0]->id }}">
+                            <select class="form-control" onchange="document.getElementById('inventory').value = getID(this);">
                                 @foreach($item as $item)
                                 <option id="{{ $item->id }}">{{ $item->in_no }}</option>
                                 @endforeach
@@ -1091,7 +1103,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="category">Type:</label>
+                        <label class="control-label col-sm-3" for="category">Type: *</label>
                         <div class="col-sm-3">
                             <select class="form-control" id="type" name="type">
                                 <option>Major</option>
@@ -1100,17 +1112,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="category">QTY:</label>
+                        <label class="control-label col-sm-3" for="category">QTY:</label>
                         <div class="col-sm-3">
-                            <input type="number" class="form-control" id="qty" name="qty" placeholder="qty" required>
+                            <input type="number" class="form-control" id="qty" name="qty" placeholder="qty">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="category">Weight UOM:</label>
+                        <label class="control-label col-sm-3" for="category">Weight UOM: *</label>
                         <div class="col-sm-3">
-                            <input type="text" id="uom" name="weight_uom" value="">
+                            <input type="hidden" id="uom" name="weight_uom" value="{{ $weight_uom[0]->id }}">
                             <select class="form-control" onchange="document.getElementById('uom').value = getID(this);">
-                                <option></option>
                                 @foreach($weight_uom as $weight_uom)
                                 <option id="{{ $weight_uom->id }}">{{ $weight_uom->uom }}</option>
                                 @endforeach
@@ -1118,21 +1129,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="notes">Notes:</label>
+                        <label class="control-label col-sm-3" for="notes">Notes: *</label>
                         <div class="col-sm-6">
-                            <textarea class="form-control" id="notes" name="notes" placeholder="Tuliskan catatan .."></textarea>
+                            <textarea class="form-control" id="notes" name="notes" placeholder="Tuliskan catatan .." required></textarea>
                         </div>
                     </div>
                     <br>
-
-
-                    <div class="form-group">
-                        <div class="col-sm-4 col-sm-offset-4">
-                            <button class="btn btn-danger"><span class="glyphicon glyphicon-trash" ></span> Delete</button>
-                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                            <button class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                        </div>
-                    </div>
                 </form>
             </div>
 
@@ -1143,7 +1145,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h2>
+                            <h2 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#part_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>

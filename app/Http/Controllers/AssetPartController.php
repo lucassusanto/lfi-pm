@@ -102,7 +102,8 @@ class AssetPartController extends Controller
 			'created_id'        => $this->user_id
 		]);
 
-		return redirect('asset/'.$id.'/part');
+		// return redirect('asset/'.$id.'/part'); // ORI
+		return redirect('asset/'.$id);
 	}
 
 	public function commit_delete(Request $request, $id) {
@@ -113,7 +114,8 @@ class AssetPartController extends Controller
 		->where('id','=',$part_id)
 		->delete();
 
-		return redirect('asset/'.$id.'/part');
+		// return redirect('asset/'.$id.'/part'); // ORI
+		return redirect('asset/'.$id);
 	}
 
 
@@ -181,6 +183,7 @@ class AssetPartController extends Controller
 			'created_time'      => $now,
 			'created_id'        => $this->user_id
 		]);
+		// return redirect('asset/'.$id.'/part'); // ORI
 		return redirect('asset/'.$id);
 	}
 }

@@ -95,7 +95,11 @@ Route::prefix('asset')->group(function() {
 
 // AJAX
 Route::prefix('ajax')->group(function() {
-    Route::get('comment/create', 'AssetAJAXController@create');
+    Route::post('comment/load', 'AssetCommentAJAXController@load');
+    Route::post('comment/create', 'AssetCommentAJAXController@create');
+    Route::post('comment/del', 'AssetCommentAJAXController@del');
+    Route::post('comment/show_edit', 'AssetCommentAJAXController@show_edit');
+    Route::post('comment/commit_edit', 'AssetCommentAJAXController@commit_edit');
 });
 
 Route::get('/', function () {

@@ -32,7 +32,7 @@
     <!-- Scripts -->
     <script type="text/javascript"> 
         $(document).ready(function() {
-            $('#example').DataTable( {
+            $('#tabel_comment').DataTable( {
                 "scrollY":        "400px",
                 "scrollCollapse": true,
                 "paging":         false

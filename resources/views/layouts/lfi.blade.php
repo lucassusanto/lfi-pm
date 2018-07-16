@@ -29,13 +29,14 @@
     }
 </style>
 
-<!-- Scripts -->
-<script type="text/javascript"> 
-    $(document).ready(function() {
-        $('#example').DataTable( {
-            "scrollY":        "400px",
-            "scrollCollapse": true,
-            "paging":         false
+    <!-- Scripts -->
+    <script type="text/javascript"> 
+        $(document).ready(function() {
+            $('#tabel_comment').DataTable( {
+                "scrollY":        "400px",
+                "scrollCollapse": true,
+                "paging":         false
+            } );
         } );
         $('#example2').DataTable( {
             "scrollY":        "400px",
@@ -62,8 +63,6 @@
             "scrollCollapse": true,
             "paging":         false
         } );
-        
-        
     } );
 </script>
 

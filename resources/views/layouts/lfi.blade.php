@@ -17,17 +17,17 @@
 
     <!-- Styles -->
     <style>
-        body {
-            background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));
-        }
-        #content {
-            background-color: white;
-        }
-        .form-horizontal .control-label.text-left {
-            text-align: left;
-            font-weight: normal;
-        }
-    </style>
+    body {
+        background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));
+    }
+    #content {
+        background-color: white;
+    }
+    .form-horizontal .control-label.text-left {
+        text-align: left;
+        font-weight: normal;
+    }
+</style>
 
     <!-- Scripts -->
     <script type="text/javascript"> 
@@ -38,97 +38,123 @@
                 "paging":         false
             } );
         } );
-    </script>
+        $('#example2').DataTable( {
+            "scrollY":        "400px",
+            "scrollCollapse": true,
+            "paging":         false
+        } );
+        $('#example3').DataTable( {
+            "scrollY":        "400px",
+            "scrollCollapse": true,
+            "paging":         false
+        } );
+        $('#example4').DataTable( {
+            "scrollY":        "400px",
+            "scrollCollapse": true,
+            "paging":         false
+        } );
+        $('#example5').DataTable( {
+            "scrollY":        "400px",
+            "scrollCollapse": true,
+            "paging":         false
+        } );
+        $('#example6').DataTable( {
+            "scrollY":        "400px",
+            "scrollCollapse": true,
+            "paging":         false
+        } );
+    } );
+</script>
 
-    @yield('js')
+@yield('js')
 </head>
 
 <body>
-<!-- NavBar -->
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>                        
-            </button>
-            <a class="navbar-brand" href="#">PT Lasallefood Indonesia - SI Data</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Administrator</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Ganti Password</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="row">
-<div class="col-sm-2 col-md-2 col-md-offset-1">
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        <span class="glyphicon glyphicon-folder-close"></span> Asset
-                    </a>
-                </h4>
+    <!-- NavBar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                </button>
+                <a class="navbar-brand" href="#">PT Lasallefood Indonesia - SI Data</a>
             </div>
-            <div id="collapseOne" class="panel-collapse">
-                <div class="panel-body">
-                    <table class="table">
-                        <!-- Asset Master -->
-                        <tr>
-                            <td
-                            @if(Request::path() == 'asset' || Request::path() == 'asset/view' || Request::path() == 'asset/edit' || Request::path() == 'asset/new')
-                            style="background-color: rgb(244,244,244);"
-                            @endif
-                            ><a href="{{ url('asset') }}">Asset</a></td>
-                        </tr>
-                        
-                        <!-- Asset Type -->
-                        <tr>
-                            <td @if(Request::is('asset/type*')) style="background-color: rgb(244,244,244);" @endif>
-                                <a href="{{ url('asset/type') }}">Asset Type</a>
-                            </td>
-                        </tr>
-                    </table>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Administrator</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Ganti Password</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-md-offset-1">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                <span class="glyphicon glyphicon-folder-close"></span> Asset
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <!-- Asset Master -->
+                                <tr>
+                                    <td
+                                    @if(Request::path() == 'asset' || Request::path() == 'asset/view' || Request::path() == 'asset/edit' || Request::path() == 'asset/new')
+                                    style="background-color: rgb(244,244,244);"
+                                    @endif
+                                    ><a href="{{ url('asset') }}">Asset</a></td>
+                                </tr>
+
+                                <!-- Asset Type -->
+                                <tr>
+                                    <td @if(Request::is('asset/type*')) style="background-color: rgb(244,244,244);" @endif>
+                                        <a href="{{ url('asset/type') }}">Asset Type</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                <span class="glyphicon glyphicon-file"></span> Maintenance
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <!--span class="glyphicon glyphicon-cog"></span><a href="#"> Ganti Password</a-->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-sm-8 col-md-8">
+                <div id="content" class="well">
+                    @yield('content')
                 </div>
             </div>
         </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                        <span class="glyphicon glyphicon-file"></span> Maintenance
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <table class="table">
-                        <tr>
-                            <td>
-                                <!--span class="glyphicon glyphicon-cog"></span><a href="#"> Ganti Password</a-->
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Content Area -->
-<div class="col-sm-8 col-md-8">
-    <div id="content" class="well">
-        @yield('content')
-    </div>
-</div>
-</div>
-
-</body>
-</html>
+    </body>
+    </html>

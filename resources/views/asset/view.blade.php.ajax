@@ -1,32 +1,142 @@
 @extends('layouts.lfi')
 
 @section('content')
-<h2 align="center">Asset</h2>
-
-<!-- Script utk mengganti halaman -->
-<!--
-    <a id="tmp_link" data-toggle="pill" href="#{{ $redi }}">#{{ $redi }}</a>
-    <script type="text/javascript">
-        window.onload = function() {
-                document.getElementById('tmp_link').click();
-        }
-    </script>
--->
-
 <!-- Script AJAX -->
 <script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML = this.responseText;
+function addComment() {
+    var xhttp = new XMLHttpRequest();
+    var comment = document.getElementById('asset_comment');
+
+    var req = '&_token={{ csrf_token() }}&asset_id={{ $asset_id }}&comment=' + comment.value;
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState && this.status == 200) {
+            getComment();
+            document.getElementById('btn_comment_index').click();
+            comment.value = '';
+        }
+    };
+
+    xhttp.open("POST", "{{ url('ajax/comment/create') }}", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.send(req);
+}
+
+function delComment() {
+    var xhttp = new XMLHttpRequest();
+    var comment = document.getElementById('comment_modal_id').value;
+    var req = 'comment_id=' + comment;
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState && this.status == 200) {
+            getComment();
+        }
+    };
+
+    xhttp.open("POST", "{{ url('ajax/comment/del') }}", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.send(req);
+}
+
+window.onload = getComment();
+
+function getComment() {
+    var xhttp = new XMLHttpRequest();
+    var req = 'asset_id={{ $asset_id }}';
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState && this.status == 200) {
+            obj = JSON.parse(this.responseText);
+            addToTable(obj.datas);
+        }
+    };
+
+    xhttp.open("POST", "{{ url('ajax/comment/load') }}", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.send(req);
+}
+
+function addToTable(comments) {
+    var bd = document.getElementById('tabel_comment').getElementsByTagName('tbody')[0];
+
+    while (bd.firstChild) {
+        bd.removeChild(bd.firstChild);
     }
-  };
-  xhttp.open("POST", "{{ url('ajax/comment/create') }}", true);
-  xhttp.send();
+
+    comments.forEach(appendToTable, bd);
+}
+
+function appendToTable(item, index) {
+    var row = this.insertRow(0);
+    row.id = item.id;
+
+    var no = row.insertCell(0);
+    var dt = row.insertCell(1);
+    var comment = row.insertCell(2);
+    var action = row.insertCell(3);
+
+    no.innerHTML = index + 1;
+    dt.innerHTML = item.modified_time;
+    comment.innerHTML = item.comment;
+    action.innerHTML =
+                "<button class='btn btn-danger' onclick='showModal(this)' data-toggle='modal' data-target='#modal-konfirmasi'><span class='glyphicon glyphicon-trash'></span></button><button class='btn btn-primary' onclick='editData(this)'><span class='glyphicon glyphicon-edit'></span></button>";
+}
+
+function showModal(doc) {
+    var tr = doc.parentNode.parentNode;
+    var id = tr.id;
+    var comment = tr.childNodes[2].innerHTML;
+
+    document.getElementById('comment_modal_id').value = id;
+    document.getElementById('comment_modal_comment').innerHTML = comment;
+}
+
+function editData(doc) {
+    var tr = doc.parentNode.parentNode;
+    var id = tr.id;
+
+    var xhttp = new XMLHttpRequest();
+    var req = 'comment_id=' + id;
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+
+            comment_edit_id.value = id;
+            comment_edit_comment.value = obj.datas.comment;
+
+            document.getElementById('btn_comment_edit').click();
+        }
+    };
+
+    xhttp.open("POST", "{{ url('ajax/comment/show_edit') }}", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.send(req);
+}
+
+function updateComment() {
+    var xhttp = new XMLHttpRequest();
+    
+    var comment_edit_id = document.getElementById('comment_edit_id');
+    var comment_edit_comment = document.getElementById('comment_edit_comment');
+
+    var req = 'comment_id=' + comment_edit_id.value + '&comment_data=' + comment_edit_comment.value;
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState && this.status == 200) {
+            getComment();
+            document.getElementById('btn_comment_index').click();
+            comment_edit_comment.value = '';
+        }
+    };
+
+    xhttp.open("POST", "{{ url('ajax/comment/commit_edit') }}", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.send(req);
 }
 </script>
 
+<h2 align="center">Asset</h2>
 
 <div class="row">
     <div class="col-md-1">
@@ -114,46 +224,37 @@ function loadDoc() {
 
         <div class="tab-content">
             <div id="comment_index" class="tab-pane fade in active">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <a class="btn btn-success" data-toggle="pill" href="#comment_new"><span class="glyphicon glyphicon-plus"></span> Add</a>
+                    <a class="btn btn-primary" onclick="getComment()"><span class="glyphicon glyphicon-repeat"></span></a>
+
+                    <a id="btn_comment_edit" class='btn btn-primary' data-toggle='pill' href='#comment_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
                 </div>
-                <table id="example" width="100%" class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Date Time</th>
-                        <th>Comment</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($comment_datas as $comment_data)
-                    <tr id="{{ $comment_data->id }}">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $comment_data->modified_time }}</td>
-                        <td>{{ $comment_data->comment }}</td>
-                        <td align="center">
-                            <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                            <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
+                <table id="tabel_comment" width="100%" class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date Time</th>
+                            <th>Comment</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_comment">
+                    </tbody>
                 </table>
             </div>
 
             <div id="comment_new" class="tab-pane fade">
-                <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/new') }}">
-                    @csrf
+                <div class="form-horizontal">
                     <div class="row">
                         <div class="col-md-12">
                             <h4 align="center">Tambah Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" id="btn_comment_index" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-2 col-md-offset-6">
-                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                            <button onclick="addComment()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
                         </div>
                     </div><br>
 
@@ -163,33 +264,32 @@ function loadDoc() {
                             <textarea class="form-control" id="asset_comment" name="comment" placeholder="Tuliskan komentar.." required></textarea>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
 
             <div id="comment_edit" class="tab-pane fade">
-                <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/commit_edit') }}">
-                    <input type="hidden" name="id" value="@if(!empty($comment_data)){{ $comment_data->id }}@endif">
-                    @csrf
+                <div class="form-horizontal">
+                    <input type="hidden" id="comment_edit_id" value="">
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h2>
+                            <h4 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
-                        <div class="col-md-2 col-md-offset-2">
-                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
+                        <div class="col-md-2 col-md-offset-6">
+                            <button type="submit" class="btn btn-success" onclick="updateComment()"><span class="glyphicon glyphicon-edit"></span> Update</button>
                         </div>
                     </div><br>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="asset_comment">Note:</label>
+                        <label class="control-label col-sm-3" for="comment_edit_comment">Note:</label>
                         <div class="col-sm-6">
-                            <textarea class="form-control" id="asset_comment" name="comment" required>@if(!empty($comment_data)){{ $comment_data->comment }}@endif</textarea>
+                            <textarea class="form-control" id="comment_edit_comment" name="comment" required></textarea>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -198,10 +298,8 @@ function loadDoc() {
         <div class="modal-dialog">
             <div class="modal-content">
 
-            <!-- Delete Data Form -->
-            <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
+            <div class="form-horizontal">
                 <input type="hidden" id="comment_modal_id" name="id" value=""></input>
-                @csrf
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -219,42 +317,15 @@ function loadDoc() {
                             <label class="control-label text-left" id="comment_modal_comment"></label>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                    <button id="btn_submit_del" class="btn btn-danger" class="close" data-dismiss="modal" onclick="delComment()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                 </div>
-            </form>
+            </div>
             </div>
         </div>
         </div>
-
-        <!-- Edit Data Form -->
-        <form method="POST" action="{{ url('asset/'.$asset_id.'/comment/edit') }}" id="comment_form_edit" style="visibility: hidden;">
-            <input type="hidden" id="e_data_id" name="id" value="">
-            @csrf
-        </form>
-
-        <script type="text/javascript">
-            function showModal(doc) {
-                var tr = doc.parentNode.parentNode;
-                
-                var id = tr.id;
-                var comment = tr.childNodes[5].innerHTML;
-                
-                document.getElementById('comment_modal_id').value = id;
-                document.getElementById('comment_modal_comment').innerHTML = comment;
-            }
-            function editData(doc) {
-                var tr = doc.parentNode.parentNode;
-                var id = tr.id;
-                var form_edit = document.getElementById('comment_form_edit');
-                var edit_data_id = document.getElementById('e_data_id');
-                edit_data_id.value = id;
-                form_edit.submit();
-            }
-        </script>
     </div>
 
     <div id="contract" class="tab-pane fade">
@@ -277,5 +348,4 @@ function loadDoc() {
 
     </div>
 </div>
-
 @endsection

@@ -76,7 +76,6 @@ class AssetCommentController extends Controller
         ]);
     }
 
-    // DEBUG
     // Menambah data baru | POST
     public function commit_new_data(Request $request, $id) {
         $now = new DateTime();
@@ -96,7 +95,6 @@ class AssetCommentController extends Controller
         return redirect('asset/'.$id);
     }
 
-    // DEBUG
     // Menghapus data | POST
     public function commit_delete(Request $request, $id) {
         $comment_id = $request->id;
@@ -109,7 +107,6 @@ class AssetCommentController extends Controller
         return redirect('asset/'.$id);
     }
 
-    // DEBUG
     // Menampilkan detil data edit | POST
     public function show_edit(Request $request, $id) {
         $note = $this->getNote($id);
@@ -134,7 +131,6 @@ class AssetCommentController extends Controller
         ]);
     }
 
-    // DEBUG
     // Menyimpan hasil edit | POST
     public function commit_edit(Request $request, $id) {
         $now = new DateTime();

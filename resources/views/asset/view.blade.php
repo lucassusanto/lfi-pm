@@ -9,8 +9,6 @@
 </script>
 @endsection
 
-
-
 @section('content')
 <h2 align="center">Asset</h2>
 
@@ -96,7 +94,6 @@
 </ul><br>
 
 <div class="tab-content">
-
     <div id="comment" class="tab-pane fade in active">
         <div class="tab-content">
             <div id="comment_index" class="tab-pane fade in active">
@@ -285,7 +282,7 @@
                             <h2 align="center">Tambah Kontrak Asset</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" href="contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-4" align="center">
 
@@ -340,7 +337,7 @@
                 </form>
             </div>
 
-            <div id="comment_edit" class="tab-pane fade">
+            <div id="contract_edit" class="tab-pane fade">
                 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/commit_edit') }}">
                     <input type="hidden" name="id" value="@if(!empty($comment_data)){{ $comment_data->id }}@endif">
                     @csrf
@@ -350,7 +347,7 @@
                             <h2 align="center">Edit Komentar Asset</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-2 col-md-offset-2">
                             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
@@ -477,7 +474,7 @@
                             <h2 align="center">Tambah Asset Depreciation</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/depreciation') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#depreciation_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-4" align="center">
                         </div>
@@ -525,7 +522,7 @@
                 </form>
             </div>
 
-            <div id="comment_edit" class="tab-pane fade">
+            <div id="depreciation_edit" class="tab-pane fade">
                 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/commit_edit') }}">
                     <input type="hidden" name="id" value="@if(!empty($comment_data)){{ $comment_data->id }}@endif">
                     @csrf
@@ -535,7 +532,7 @@
                             <h2 align="center">Edit Komentar Asset</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#depreciation_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-2 col-md-offset-2">
                             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
@@ -659,7 +656,7 @@
                             <h2 align="center">Tambah Asset Downtime</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/downtime') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#downtime_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-4" align="center">
 
@@ -756,7 +753,7 @@
                 </form>
             </div>
 
-            <div id="comment_edit" class="tab-pane fade">
+            <div id="downtime_edit" class="tab-pane fade">
                 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/commit_edit') }}">
                     <input type="hidden" name="id" value="@if(!empty($comment_data)){{ $comment_data->id }}@endif">
                     @csrf
@@ -766,7 +763,7 @@
                             <h2 align="center">Edit Komentar Asset</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#downtime_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-2 col-md-offset-2">
                             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
@@ -891,7 +888,7 @@
                             <h2 align="center">Tambah Asset Meter</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/meter') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#meter_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-4" align="center">
                         </div>
@@ -910,7 +907,7 @@
                         <label class="control-label col-sm-2" for="meter_type">Type:</label>
                         <div class="col-sm-3">
                             <input type="hidden" id="meter_type" name="type" value="">
-                            <select class="form-control" onchange="document.getElementById('meter_type').value = setID(this);">
+                            <select class="form-control" onchange="document.getElementById('meter_type').value = getID(this);">
                                 <option></option>
                                 @foreach($meter_type as $m_type)
                                 <option id="{{ $m_type->id }}">{{ $m_type->type }}</option>
@@ -922,7 +919,7 @@
                         <label class="control-label col-sm-2" for="meter_uom">Reading Unit:</label>
                         <div class="col-sm-3">
                             <input type="hidden" id="meter_uom" name="uom" value="">
-                            <select class="form-control" onchange="document.getElementById('meter_uom').value = setID(this);">
+                            <select class="form-control" onchange="document.getElementById('meter_uom').value = getID(this);">
                                 <option></option>
                                 @foreach($meter_uom as $m_uom)
                                 <option id="{{ $m_uom->id }}">{{ $m_uom->uom }}</option>
@@ -954,7 +951,7 @@
                 </form>
             </div>
 
-            <div id="comment_edit" class="tab-pane fade">
+            <div id="meter_edit" class="tab-pane fade">
                 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/commit_edit') }}">
                     <input type="hidden" name="id" value="@if(!empty($comment_data)){{ $comment_data->id }}@endif">
                     @csrf
@@ -964,7 +961,7 @@
                             <h2 align="center">Edit Komentar Asset</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#meter_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-2 col-md-offset-2">
                             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
@@ -1085,7 +1082,7 @@
                         <label class="control-label col-sm-2" for="category">Item:</label>
                         <div class="col-sm-3">
                             <input type="text" id="inventory" name="item" value="">
-                            <select class="form-control" onchange="document.getElementById('inventory').value = setID(this);" >
+                            <select class="form-control" onchange="document.getElementById('inventory').value = getID(this);" >
                                 <option></option>
                                 @foreach($item as $item)
                                 <option id="{{ $item->id }}">{{ $item->in_no }}</option>
@@ -1112,7 +1109,7 @@
                         <label class="control-label col-sm-2" for="category">Weight UOM:</label>
                         <div class="col-sm-3">
                             <input type="text" id="uom" name="weight_uom" value="">
-                            <select class="form-control" onchange="document.getElementById('uom').value = setID(this);">
+                            <select class="form-control" onchange="document.getElementById('uom').value = getID(this);">
                                 <option></option>
                                 @foreach($weight_uom as $weight_uom)
                                 <option id="{{ $weight_uom->id }}">{{ $weight_uom->uom }}</option>
@@ -1139,7 +1136,7 @@
                 </form>
             </div>
 
-            <div id="comment_edit" class="tab-pane fade">
+            <div id="part_edit" class="tab-pane fade">
                 <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/commit_edit') }}">
                     <input type="hidden" name="id" value="@if(!empty($comment_data)){{ $comment_data->id }}@endif">
                     @csrf
@@ -1149,7 +1146,7 @@
                             <h2 align="center">Edit Komentar Asset</h2>
                         </div>
                         <div class="col-md-4">
-                            <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                            <a class="btn btn-default" data-toggle="pill" href="#part_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                         </div>
                         <div class="col-md-2 col-md-offset-2">
                             <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>

@@ -395,23 +395,17 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-5" for="m_data_status">Status:</label>
+                                <label class="control-label col-sm-5" for="m_data_status">Note:</label>
                                 <div class="col-md-6">
                                     <label class="control-label text-left" id="m_data_status"></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-5" for="m_data_sd">Start Date:</label>
+                                <label class="control-label col-sm-5" for="m_data_sd">Status:</label>
                                 <div class="col-md-6">
                                     <label class="control-label text-left" id="m_data_sd"></label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-5" for="m_data_ed">End Date:</label>
-                                <div class="col-md-6">
-                                    <label class="control-label text-left" id="m_data_ed"></label>
-                                </div>
-                            </div>
+                            </div> 
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -614,19 +608,19 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-5" for="m_data_dr_2">Depreciation Rate:</label>
+                                <label class="control-label col-sm-5" for="m_data_dr_2">End Value (USD):</label>
                                 <div class="col-md-6">
                                     <label class="control-label text-left" id="m_data_dr_2"></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-5" for="m_data_ev_2">End Value:</label>
+                                <label class="control-label col-sm-5" for="m_data_ev_2">Note:</label>
                                 <div class="col-md-6">
                                     <label class="control-label text-left" id="m_data_ev_2"></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-5" for="m_data_note_2">Note:</label>
+                                <label class="control-label col-sm-5" for="m_data_note_2">Depreciation Rate:</label>
                                 <div class="col-md-6">
                                     <label class="control-label text-left" id="m_data_note_2"></label>
                                 </div>
@@ -1110,9 +1104,9 @@
                                 </div>
                             </div>        
                             <div class="form-group">
-                                <label class="control-label col-md-5" for="m_data_note_1">Note:</label>
+                                <label class="control-label col-md-5" for="m_data_note_x">Note:</label>
                                 <div class="col-md-6">
-                                    <label class="control-label text-left" id="m_data_note_1"></label>
+                                    <label class="control-label text-left" id="m_data_note_x"></label>
                                 </div>
                             </div>
                         </div>
@@ -1136,16 +1130,16 @@
                 var tr = doc.parentNode.parentNode;
 
                 var id = tr.id;
-                var meter_no = tr.childNodes[1].innerHTML;
-                var reading = tr.childNodes[3].innerHTML;
-                var time_taken = tr.childNodes[5].innerHTML;
-                var note = tr.childNodes[7].innerHTML;
+                var meter_no = tr.childNodes[3].innerHTML;
+                var reading = tr.childNodes[5].innerHTML;
+                var time_taken = tr.childNodes[7].innerHTML;
+                var note = tr.childNodes[9].innerHTML;
 
                 document.getElementById('m_data_id').value = id;
                 document.getElementById('m_data_no_1').innerHTML = meter_no;
                 document.getElementById('m_data_reading_1').innerHTML = reading;
                 document.getElementById('m_data_timetaken_1').innerHTML = time_taken;
-                document.getElementById('m_data_note_1').innerHTML = note;
+                document.getElementById('m_data_note_x').innerHTML = note;
             }
 
             function editData5(doc) {
@@ -1342,9 +1336,9 @@
                 var tr = doc.parentNode.parentNode;
 
                 var id = tr.id;
-                var item = tr.childNodes[1].innerHTML;
-                var type = tr.childNodes[3].innerHTML;
-                var note = tr.childNodes[5].innerHTML;
+                var item = tr.childNodes[3].innerHTML;
+                var type = tr.childNodes[5].innerHTML;
+                var note = tr.childNodes[7].innerHTML;
 
                 document.getElementById('id').value = id;
                 document.getElementById('item').innerHTML = item;

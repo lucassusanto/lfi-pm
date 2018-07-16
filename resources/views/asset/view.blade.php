@@ -99,7 +99,7 @@
             <div id="comment_index" class="tab-pane fade in active">
                 <div class="col-md-4">
                     <a class="btn btn-success" data-toggle="pill" href="#comment_new"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                </div>
+                </div><br><br>
                 <table id="example" width="100%" class="table">
                     <thead>
                         <tr>
@@ -156,7 +156,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h4>
+                            <h4 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -246,7 +246,7 @@
             <div id="contract_index" class="tab-pane fade in active">
                 <div class="col-md-4">
                     <a class="btn btn-success" data-toggle="pill" href="#contract_new"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                </div>
+                </div><br><br>
                 <table id="example2" width="100%" class="table">
                     <thead>
                         <tr>
@@ -279,7 +279,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Tambah Kontrak Asset</h4>
+                            <h4 align="center">Tambah Kontrak Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -344,7 +344,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h4>
+                            <h4 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -456,7 +456,7 @@
             <div id="depreciation_index" class="tab-pane fade in active">
                 <div class="col-md-4">
                     <a class="btn btn-success" data-toggle="pill" href="#depreciation_new"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                </div>
+                </div><br><br>
                 <table id="example3" width="100%" class="table">
                     <thead>
                         <tr>
@@ -493,7 +493,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Tambah Asset Depreciation</h4>
+                            <h4 align="center">Tambah Asset Depreciation</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#depreciation_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -551,7 +551,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h4>
+                            <h4 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#depreciation_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -577,8 +577,8 @@
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
-                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
-                        <input type="hidden" id="m_data_id" name="id" value=""></input>
+                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/depreciation/delete') }}">
+                        <input type="hidden" id="m_data_id_3" name="id" value=""></input>
                         @csrf
 
                         <div class="modal-header">
@@ -649,7 +649,7 @@
                 var end_value = tr.childNodes[9].innerHTML;
                 var note = tr.childNodes[11].innerHTML;
 
-                document.getElementById('m_data_id').value = id;
+                document.getElementById('m_data_id_3').value = id;
                 document.getElementById('m_data_sd_2').innerHTML = start_date;
                 document.getElementById('m_data_ed_2').innerHTML = end_date;
                 document.getElementById('m_data_dr_2').innerHTML = depreciation_rate;
@@ -676,7 +676,7 @@
             <div id="downtime_index" class="tab-pane fade in active">
                 <div class="col-md-4">
                     <a class="btn btn-success" data-toggle="pill" href="#downtime_new"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                </div>
+                </div><br><br>
                 <table id="example4" width="100%" class="table">
                     <thead>
                         <tr>
@@ -711,7 +711,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Tambah Asset Downtime</h4>
+                            <h4 align="center">Tambah Asset Downtime</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#downtime_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -818,7 +818,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h4>
+                            <h4 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#downtime_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -844,7 +844,7 @@
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
-                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
+                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/downtime/delete') }}">
                         <input type="hidden" id="m_data_id" name="id" value=""></input>
                         @csrf
 
@@ -936,7 +936,7 @@
             <div id="meter_index" class="tab-pane fade in active">
                 <div class="col-md-4">
                     <a class="btn btn-success" data-toggle="pill" href="#meter_new"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                </div>
+                </div><br><br>
                 <table id="example5" width="100%" class="table">
                     <thead>
                         <tr>
@@ -971,7 +971,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Tambah Asset Meter</h4>
+                            <h4 align="center">Tambah Asset Meter</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#meter_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -984,13 +984,13 @@
                     </div><br>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="meter_no">Meter No:</label>
+                        <label class="control-label col-sm-3" for="meter_no">Meter No:</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="meter_no" name="no" placeholder="Meter No" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="meter_type">Type:</label>
+                        <label class="control-label col-sm-3" for="meter_type">Type:</label>
                         <div class="col-sm-3">
                             <input type="hidden" id="meter_type" name="type" value="">
                             <select class="form-control" onchange="document.getElementById('meter_type').value = getID(this);">
@@ -1002,7 +1002,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="meter_uom">Reading Unit:</label>
+                        <label class="control-label col-sm-3" for="meter_uom">Reading Unit:</label>
                         <div class="col-sm-3">
                             <input type="hidden" id="meter_uom" name="uom" value="">
                             <select class="form-control" onchange="document.getElementById('meter_uom').value = getID(this);">
@@ -1014,7 +1014,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="meter_rollup">Meter Rollup:</label>
+                        <label class="control-label col-sm-3" for="meter_rollup">Meter Rollup:</label>
                         <div class="col-sm-3">
                             <select class="form-control" id="meter_rollup" name="rollup">
                                 <option>None</option>
@@ -1023,13 +1023,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="meter_rr">Rollover Reading:</label>
+                        <label class="control-label col-sm-3" for="meter_rr">Rollover Reading:</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="meter_rr" name="rr" placeholder="Rollover Reading" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="meter_note">Note:</label>
+                        <label class="control-label col-sm-3" for="meter_note">Note:</label>
                         <div class="col-sm-6">
                             <textarea class="form-control" id="meter_note" name="note" placeholder="Tuliskan catatan .."></textarea>
                         </div>
@@ -1044,7 +1044,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h4>
+                            <h4 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#meter_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -1070,8 +1070,8 @@
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
-                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
-                        <input type="hidden" id="m_data_id" name="id" value="">
+                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/meter/delete') }}">
+                        <input type="hidden" id="m_data_id_5" name="id" value="">
                         @csrf
 
                         <div class="modal-header">
@@ -1083,7 +1083,7 @@
                                 <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-5" for="m_data_no_1">Meter No.:</label>
+                                <label class="control-label col-md-5" for="m_data_no_1">Meter No:</label>
                                 <div class="col-md-6">
                                     <label class="control-label text-left" id="m_data_no_1"></label>
                                 </div>
@@ -1132,7 +1132,7 @@
                 var time_taken = tr.childNodes[7].innerHTML;
                 var note = tr.childNodes[9].innerHTML;
 
-                document.getElementById('m_data_id').value = id;
+                document.getElementById('m_data_id_5').value = id;
                 document.getElementById('m_data_no_1').innerHTML = meter_no;
                 document.getElementById('m_data_reading_1').innerHTML = reading;
                 document.getElementById('m_data_timetaken_1').innerHTML = time_taken;
@@ -1159,7 +1159,7 @@
             <div id="part_index" class="tab-pane fade in active">
                 <div class="col-md-4">
                     <a class="btn btn-success" data-toggle="pill" href="#part_new"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                </div>
+                </div><br><br>
                 <table id="example6" width="100%" class="table">
                     <thead>
                         <tr>
@@ -1257,7 +1257,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 align="center">Edit Komentar Asset</h4>
+                            <h4 align="center">Edit Komentar Asset</h4>
                         </div>
                         <div class="col-md-4">
                             <a class="btn btn-default" data-toggle="pill" href="#part_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -1283,8 +1283,8 @@
                 <div class="modal-content">
 
                     <!-- Delete Data Form -->
-                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/comment/delete') }}">
-                        <input type="hidden" id="id" name="id" value="">
+                    <form class="form-horizontal" method="POST" action="{{ url('asset/'.$asset_id.'/part/delete') }}">
+                        <input type="hidden" id="part_modal_id" name="id" value="">
                         @csrf
 
                         <div class="modal-header">
@@ -1339,7 +1339,7 @@
                 var type = tr.childNodes[5].innerHTML;
                 var note = tr.childNodes[7].innerHTML;
 
-                document.getElementById('id').value = id;
+                document.getElementById('part_modal_id').value = id;
                 document.getElementById('item').innerHTML = item;
                 document.getElementById('type_1').innerHTML = type;
                 document.getElementById('note').innerHTML = note;

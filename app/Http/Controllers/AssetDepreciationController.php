@@ -96,7 +96,7 @@ public function commit_new_data(Request $request, $id) {
     ]);
 
     // return redirect('asset/'.$id.'/depreciation'); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'depreciation');
 }
 
     // Menghapus data | POST
@@ -108,7 +108,7 @@ public function commit_delete(Request $request, $id) {
     ->delete();
 
     // return redirect('asset/'.$id.'/depreciation'); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'depreciation');
 }
 
     // Menampilkan detil data edit | POST
@@ -151,6 +151,6 @@ public function commit_edit(Request $request, $id) {
     ]);
     
     // return redirect('asset/'.$id.'/depreciation'); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'depreciation');
 }
 }

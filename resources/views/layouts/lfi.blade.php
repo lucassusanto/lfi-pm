@@ -17,17 +17,17 @@
 
     <!-- Styles -->
     <style>
-    body {
-        background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));
-    }
-    #content {
-        background-color: white;
-    }
-    .form-horizontal .control-label.text-left {
-        text-align: left;
-        font-weight: normal;
-    }
-</style>
+        body {
+            background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));
+        }
+        #content {
+            background-color: white;
+        }
+        .form-horizontal .control-label.text-left {
+            text-align: left;
+            font-weight: normal;
+        }
+    </style>
 
     <!-- Scripts -->
     <script type="text/javascript"> 
@@ -37,36 +37,41 @@
                 "scrollCollapse": true,
                 "paging":         false
             } );
+            $('#example').DataTable( {
+                "scrollY":        "400px",
+                "scrollCollapse": true,
+                "paging":         false
+            } );
+            $('#example2').DataTable( {
+                "scrollY":        "400px",
+                "scrollCollapse": true,
+                "paging":         false
+            } );
+            $('#example3').DataTable( {
+                "scrollY":        "400px",
+                "scrollCollapse": true,
+                "paging":         false
+            } );
+            $('#example4').DataTable( {
+                "scrollY":        "400px",
+                "scrollCollapse": true,
+                "paging":         false
+            } );
+            $('#example5').DataTable( {
+                "scrollY":        "400px",
+                "scrollCollapse": true,
+                "paging":         false
+            } );
+            $('#example6').DataTable( {
+                "scrollY":        "400px",
+                "scrollCollapse": true,
+                "paging":         false
+            } );
         } );
-        $('#example2').DataTable( {
-            "scrollY":        "400px",
-            "scrollCollapse": true,
-            "paging":         false
-        } );
-        $('#example3').DataTable( {
-            "scrollY":        "400px",
-            "scrollCollapse": true,
-            "paging":         false
-        } );
-        $('#example4').DataTable( {
-            "scrollY":        "400px",
-            "scrollCollapse": true,
-            "paging":         false
-        } );
-        $('#example5').DataTable( {
-            "scrollY":        "400px",
-            "scrollCollapse": true,
-            "paging":         false
-        } );
-        $('#example6').DataTable( {
-            "scrollY":        "400px",
-            "scrollCollapse": true,
-            "paging":         false
-        } );
-    } );
-</script>
+    </script>
 
 @yield('js')
+@yield('ajax')
 </head>
 
 <body>

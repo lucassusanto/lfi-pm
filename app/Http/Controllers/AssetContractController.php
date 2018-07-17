@@ -67,10 +67,10 @@ class AssetContractController extends Controller
 
 
     $datas = DB::table('asset_contract')
-    ->select('asset_contract.id', 'contract.contract', 'asset_contract.status_id', 'asset_contract.start_date', 'asset_contract.end_date')
-    ->join('contract', 'contract.id', '=', 'asset_contract.contract_id')
-    ->where('asset_contract.asset_id', '=', $id)
-    ->get();
+        ->select('asset_contract.id', 'contract.contract', 'asset_contract.status_id', 'asset_contract.start_date', 'asset_contract.end_date')
+        ->join('contract', 'contract.id', '=', 'asset_contract.contract_id')
+        ->where('asset_contract.asset_id', '=', $id)
+        ->get();
     
     return view('asset.contract.master', [
         'asset_id'      => $id,
@@ -118,7 +118,7 @@ public function commit_new_data(Request $request, $id) {
     ]);
 
     // return redirect('asset/'.$id.'/contract'); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'contract');
 }
 
     // Menghapus data | POST
@@ -130,7 +130,7 @@ public function commit_delete(Request $request, $id) {
     ->delete();
 
     // return redirect('asset/'.$id.'/contract'); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'contract');
 }
 
     // Menampilkan detil data edit | POST
@@ -180,6 +180,6 @@ public function commit_edit(Request $request, $id) {
     ]);
     
     // return redirect('asset/'.$id.'/contract'); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'contract');
 }
 }

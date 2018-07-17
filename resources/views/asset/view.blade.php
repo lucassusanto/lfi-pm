@@ -12,6 +12,14 @@
 @section('content')
 <h2 align="center">Asset</h2>
 
+@if(!empty($redir))
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById('{{ $redir }}_link').click();
+    }
+</script>
+@endif
+
 <div class="row">
     <div class="col-md-1">
         <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -85,12 +93,12 @@
 </div>
 
 <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="pill" href="#comment">Comment</a></li>
-    <li><a data-toggle="pill" href="#contract">Contract</a></li>
-    <li><a data-toggle="pill" href="#depreciation">Depreciation</a></li>
-    <li><a data-toggle="pill" href="#downtime">Downtime</a></li>
-    <li><a data-toggle="pill" href="#meter">Meter</a></li>
-    <li><a data-toggle="pill" href="#part">Part</a></li>
+    <li class="active"><a id="comment_link" data-toggle="pill" href="#comment">Comment</a></li>
+    <li><a id="contract_link" data-toggle="pill" href="#contract">Contract</a></li>
+    <li><a id="depreciation_link" data-toggle="pill" href="#depreciation">Depreciation</a></li>
+    <li><a id="downtime_link" data-toggle="pill" href="#downtime">Downtime</a></li>
+    <li><a id="meter_link" data-toggle="pill" href="#meter">Meter</a></li>
+    <li><a id="part_link" data-toggle="pill" href="#part">Part</a></li>
 </ul><br>
 
 <div class="tab-content">

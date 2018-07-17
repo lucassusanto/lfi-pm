@@ -124,18 +124,26 @@ public function new_data($id) {
 public function commit_new_data(Request $request, $id) {
     $now = new DateTime();
     $last_id = $this->getID();
+
+    $start_time = $request->st_date.' '.$request->st_time;
+    $end_time = $request->et_date.' '.$request->et_time;
+    $reported_time = null;
+
+    if(!empty($request->ra_date) && !empty($request->ra_time)) {
+        $reported_time = $request->ra_date.' '.$request->ra_time;
+    }
     
     DB::table('asset_downtime')->insert([
         'id'                => $last_id,
         'asset_id'          => $id,
-        'start_time'        => $request->st_date.' '.$request->st_time,
-        'end_time' 			=> $request->et_date.' '.$request->et_time,
+        'start_time'        => $start_time,
+        'end_time' 			=> $end_time,
         'hours'       		=> $request->hours,
         'downtime_type_id'	=> $request->downtime,
         'downtime_cause_id'	=> $request->dcause,
         'wo_id'         	=> $request->wo,
         'reported_by_id'    => $request->user,
-        'reported_time'		=> $request->ra_date.' '.$request->ra_time,
+        'reported_time'		=> $reported_time,
         'note'				=> $request->note,
         'shift_id'          => '',
         'modified_time'     => $now,
@@ -145,7 +153,7 @@ public function commit_new_data(Request $request, $id) {
     ]);
 
     // return redirect('asset/'.$id.'/downtime); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'downtime');
 }
 
     // Menghapus data | POST
@@ -157,7 +165,7 @@ public function commit_delete(Request $request, $id) {
     ->delete();
 
     // return redirect('asset/'.$id.'/downtime'); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'downtime');
 }
 
     // Menampilkan detil data edit | POST
@@ -207,21 +215,29 @@ public function commit_edit(Request $request, $id) {
     $now = new DateTime();
     $downtime_id = $request->id;
 
+    $start_time = $request->st_date.' '.$request->st_time;
+    $end_time = $request->et_date.' '.$request->et_time;
+    $reported_time = null;
+
+    if(!empty($request->ra_date) && !empty($request->ra_time)) {
+        $reported_time = $request->ra_date.' '.$request->ra_time;
+    }
+
     DB::table('asset_downtime')
     ->where('id', $downtime_id)
     ->update([
-        'start_time'        => $request->st_date.' '.$request->st_time,
-        'end_time' 			=> $request->et_date.' '.$request->et_time,
+        'start_time'        => $start_time,
+        'end_time' 			=> $end_time,
         'hours'       		=> $request->hours,
         'downtime_type_id'	=> $request->downtime,
         'downtime_cause_id'	=> $request->dcause,
         'wo_id'         	=> $request->wo,
         'reported_by_id'    => $request->user,
-        'reported_time'		=> $request->ra_date.' '.$request->ra_time,
+        'reported_time'		=> $reported_time,
         'note'				=> $request->note,
     ]);
     
     // return redirect('asset/'.$id.'/downtime'); // ORI
-    return redirect('asset/'.$id);
+    return redirect('asset/'.$id)->with('redir', 'downtime');
 }
 }

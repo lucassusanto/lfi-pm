@@ -1,9 +1,16 @@
 TODOs:
 - Layout LFI
--- Offline w3 css
 -- Sidebar
 --- BUG: Animasi, pake nav saja
 --- Feature: Ubah desain sidebar
+-- Compact jquery datatables
+
 - Optimize Asset backend
-- Pake konsep modal + js utk form add/edit sub-modul
+- Utk semua sub-modul
+-- Bikin form edit 
+-- Pake ajax
+--- Test script jd file eksternal
+
+- git push
+
 - Coba view source utk plain php di proyek lain

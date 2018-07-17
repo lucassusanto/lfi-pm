@@ -93,7 +93,7 @@ class AssetMeterController extends Controller
 		]);
 		
 		// return redirect('asset/'.$id.'/meter'); // ORI
-		return redirect('asset/'.$id);
+		return redirect('asset/'.$id)->with('redir', 'meter');
 	}
 
 	public function index($id) {
@@ -121,7 +121,7 @@ class AssetMeterController extends Controller
 		->delete();
 
 		// return redirect('asset/'.$id.'/meter'); // ORI
-		return redirect('asset/'.$id);
+		return redirect('asset/'.$id)->with('redir', 'meter');
 
 	}
 
@@ -187,7 +187,7 @@ class AssetMeterController extends Controller
 		]);
 
 		// return redirect('asset/'.$id.'/meter'); // ORI
-		return redirect('asset/'.$id);
+		return redirect('asset/'.$id)->with('redir', 'meter');
 	}
 
 }

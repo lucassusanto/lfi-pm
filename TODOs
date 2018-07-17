@@ -8,9 +8,5 @@ TODOs:
 - Optimize Asset backend
 - Utk semua sub-modul
 -- Bikin form edit 
--- Pake ajax
---- Test script jd file eksternal
-
-- git push
-
-- Coba view source utk plain php di proyek lain
+-- Pake ajax jquery
+-- Update csrf

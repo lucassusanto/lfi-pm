@@ -70,8 +70,7 @@
         } );
     </script>
 
-@yield('js')
-@yield('ajax')
+    @yield('js')
 </head>
 
 <body>

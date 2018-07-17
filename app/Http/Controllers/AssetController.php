@@ -286,7 +286,7 @@ class AssetController extends Controller
         
         return $users;
     }
-    // DEBUG
+    
     public function view(Request $request) {
         $id = $request->id;
         
@@ -362,6 +362,9 @@ class AssetController extends Controller
         ->select('id', 'uom')
         ->get();
 
+        
+        $redir = session('redir');
+
         return view('asset.view', [
             'asset_id'              => $id,
             'asset_data'            => $asset_data[0],
@@ -377,15 +380,15 @@ class AssetController extends Controller
             'depreciation_datas'    => $depreciation_datas,
             'downtime_datas'        => $downtime_datas,
 
-
-
             'contracts'     => $contracts,
             'wos'           => $wos,
             'users'         => $users,
             'meter_type'    => $type,
             'meter_uom'     => $uom,
             'item'          => $item,
-            'weight_uom'    => $weight_uom
+            'weight_uom'    => $weight_uom,
+
+            'redir'     => $redir
         ]); 
     }
 

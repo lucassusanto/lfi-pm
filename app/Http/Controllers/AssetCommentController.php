@@ -92,7 +92,7 @@ class AssetCommentController extends Controller
         ]);
         
         // return redirect('asset/'.$id.'/comment');    // ORIGINAL
-        return redirect('asset/'.$id);
+        return redirect('asset/'.$id)->with('redir', 'comment');
     }
 
     // Menghapus data | POST
@@ -104,7 +104,7 @@ class AssetCommentController extends Controller
             ->delete();
 
         // return redirect('asset/'.$id.'/comment');    // ORIGINAL
-        return redirect('asset/'.$id);
+        return redirect('asset/'.$id)->with('redir', 'comment');
     }
 
     // Menampilkan detil data edit | POST
@@ -145,6 +145,6 @@ class AssetCommentController extends Controller
             ]);
         
         // return redirect('asset/'.$id.'/comment');    // ORIGINAL
-        return redirect('asset/'.$id);
+        return redirect('asset/'.$id)->with('redir', 'comment');
     }
 }

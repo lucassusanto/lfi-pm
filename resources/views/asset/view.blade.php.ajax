@@ -1,8 +1,7 @@
 @extends('layouts.lfi')
 
-@section('content')
-<!-- Script AJAX -->
-<script>
+@section('ajax')
+<script type="text/javascript">
 function addComment() {
     var xhttp = new XMLHttpRequest();
     var comment = document.getElementById('asset_comment');
@@ -135,7 +134,9 @@ function updateComment() {
     xhttp.send(req);
 }
 </script>
+@endsection
 
+@section('content')
 <h2 align="center">Asset</h2>
 
 <div class="row">

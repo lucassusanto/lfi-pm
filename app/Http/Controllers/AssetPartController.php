@@ -103,7 +103,7 @@ class AssetPartController extends Controller
 		]);
 
 		// return redirect('asset/'.$id.'/part'); // ORI
-		return redirect('asset/'.$id);
+		return redirect('asset/'.$id)->with('redir', 'part');
 	}
 
 	public function commit_delete(Request $request, $id) {
@@ -115,7 +115,7 @@ class AssetPartController extends Controller
 		->delete();
 
 		// return redirect('asset/'.$id.'/part'); // ORI
-		return redirect('asset/'.$id);
+		return redirect('asset/'.$id)->with('redir', 'part');
 	}
 
 
@@ -184,6 +184,6 @@ class AssetPartController extends Controller
 			'created_id'        => $this->user_id
 		]);
 		// return redirect('asset/'.$id.'/part'); // ORI
-		return redirect('asset/'.$id);
+		return redirect('asset/'.$id)->with('redir', 'part');
 	}
 }

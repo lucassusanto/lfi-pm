@@ -76,120 +76,81 @@
 </div>
 
 <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="pill" href="#comment">Comment</a></li>
-    <li><a onclick="getContract()" data-toggle="pill" href="#contract">Contract</a></li>
-    <li><a onclick="getDepreciation()" data-toggle="pill" href="#depreciation">Depreciation</a></li>
-    <li><a onclick="getDowntime()" data-toggle="pill" href="#downtime">Downtime</a></li>
-    <li><a onclick="getMeter()" data-toggle="pill" href="#meter">Meter</a></li>
-    <li><a onclick="getPart()" data-toggle="pill" href="#part">Part</a></li>
+    <!-- DEBUG href -->
+    <li class="active"><a onclick="getComment()" data-toggle="pill" href="#comment_index">Comment</a></li>
+    <li><a onclick="getContract()" data-toggle="pill" href="#contract_index">Contract</a></li>
+    <li><a onclick="getDepreciation()" data-toggle="pill" href="#depreciation_index">Depreciation</a></li>
+    <li><a onclick="getDowntime()" data-toggle="pill" href="#downtime_index">Downtime</a></li>
+    <li><a onclick="getMeter()" data-toggle="pill" href="#meter_index">Meter</a></li>
+    <li><a onclick="getPart()" data-toggle="pill" href="#part_index">Part</a></li>
 </ul><br>
 
 <div class="tab-content">
     <!-- Comment -->
-    <div id="comment" class="tab-pane fade in active">
-        <div class="tab-content">
-            <!-- Comment Master -->
-            <div id="comment_index" class="tab-pane fade in active">
-                <div class="col-md-3">
-                    <a class="btn btn-success" data-toggle="pill" href="#comment_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                    <a class="btn btn-primary" onclick="getComment()"><span class="glyphicon glyphicon-repeat"></span></a>
+    <div id="comment_index" class="tab-pane fade in active">
+        <div class="col-md-3">
+            <a class="btn btn-success" data-toggle="pill" href="#comment_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
+            <a class="btn btn-primary" onclick="getComment()"><span class="glyphicon glyphicon-repeat"></span></a>
 
-                    <a id="btn_comment_edit" class='btn btn-primary' data-toggle='pill' href='#comment_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
+            <a id="btn_comment_edit" class='btn btn-primary' data-toggle='pill' href='#comment_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
+        </div>
+        <table id="comment_table" width="100%" class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date Time</th>
+                    <th>Comment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbody_comment">
+            </tbody>
+        </table>
+    </div>
+    <!-- Add Comment Form -->
+    <div id="comment_add" class="tab-pane fade">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 align="center">Tambah Komentar Asset</h4>
                 </div>
-                <table id="comment_table" width="100%" class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Date Time</th>
-                            <th>Comment</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody_comment">
-                    </tbody>
-                </table>
-            </div>
-            <!-- Add Comment Form -->
-            <div id="comment_add" class="tab-pane fade">
-                <div class="form-horizontal">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 align="center">Tambah Komentar Asset</h4>
-                        </div>
-                        <div class="col-md-4">
-                            <a class="btn btn-default" id="btn_comment_index" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
-                        </div>
-                        <div class="col-md-2 col-md-offset-6">
-                            <button onclick="addComment();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                        </div>
-                    </div><br>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="add_comment_data">Comment:</label>
-                        <div class="col-sm-6">
-                            <textarea class="form-control" id="add_comment_data" name="comment" placeholder="Tuliskan komentar.." required></textarea>
-                        </div>
-                    </div>
+                <div class="col-md-4">
+                    <a class="btn btn-default" id="btn_comment_index" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                 </div>
-            </div>
-            <!-- Edit Comment Form -->
-            <div id="comment_edit" class="tab-pane fade">
-                <div class="form-horizontal">
-                    <input type="hidden" id="edit_comment_id" value="">
+                <div class="col-md-2 col-md-offset-6">
+                    <button onclick="addComment();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                </div>
+            </div><br>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 align="center">Edit Komentar Asset</h4>
-                        </div>
-                        <div class="col-md-4">
-                            <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
-                        </div>
-                        <div class="col-md-2 col-md-offset-6">
-                            <button type="submit" class="btn btn-success" onclick="updateComment()"><span class="glyphicon glyphicon-edit"></span> Update</button>
-                        </div>
-                    </div><br>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="edit_comment_data">Note:</label>
-                        <div class="col-sm-6">
-                            <textarea class="form-control" id="edit_comment_data" name="comment" required></textarea>
-                        </div>
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="add_comment_data">Comment:</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="add_comment_data" name="comment" placeholder="Tuliskan komentar.." required></textarea>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Edit Comment Form -->
+    <div id="comment_edit" class="tab-pane fade">
+        <div class="form-horizontal">
+            <input type="hidden" id="edit_comment_id" value="">
 
-        <!-- Delete Comment Modal -->
-        <div id="comment_del" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="form-horizontal">
-                        <input type="hidden" id="del_comment_id" name="id" value=""></input>
-                        <!-- Header -->
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Konfirmasi</h4>
-                        </div>
-                        <!-- Body -->
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4" for="del_comment_data">Komentar:</label>
-                                <div class="col-md-6">
-                                    <label class="control-label text-left" id="del_comment_data"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Footer -->
-                        <div class="modal-footer">
-                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button class="btn btn-danger" class="close" data-dismiss="modal" onclick="delComment()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 align="center">Edit Komentar Asset</h4>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-default" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                </div>
+                <div class="col-md-2 col-md-offset-6">
+                    <button type="submit" class="btn btn-success" onclick="updateComment()"><span class="glyphicon glyphicon-edit"></span> Update</button>
+                </div>
+            </div><br>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="edit_comment_data">Note:</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="edit_comment_data" name="comment" required></textarea>
                 </div>
             </div>
         </div>
@@ -197,110 +158,70 @@
 
 
     <!-- Contract (DEBUGGING) -->
-    <div id="contract" class="tab-pane fade">
-        <div class="tab-content">
-            <!-- Contract Master -->
-            <div id="contract_index" class="tab-pane fade in active">
-                <div class="col-md-3">
-                    <a class="btn btn-success" data-toggle="pill" href="#contract_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
-                    <a class="btn btn-primary" onclick="getContract()"><span class="glyphicon glyphicon-repeat"></span></a>
+    <div id="contract_index" class="tab-pane fade">
+        <div class="col-md-3">
+            <a class="btn btn-success" data-toggle="pill" href="#contract_add"><span class="glyphicon glyphicon-plus"></span> Add kontrack</a>
+            <a class="btn btn-primary" onclick="getContract()"><span class="glyphicon glyphicon-repeat"></span>Ref</a>
 
-                    <a id="btn_contract_edit" class='btn btn-primary' data-toggle='pill' href='#contract_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
+            <a id="btn_contract_edit" class='btn btn-primary' data-toggle='pill' href='#contract_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
+        </div>
+        <table id="contract_table" width="100%" class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date Time</th>
+                    <th>Contract</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbody_contract">
+            </tbody>
+        </table>
+    </div>
+    <!-- Add Contract Form -->
+    <div id="contract_add" class="tab-pane fade">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 align="center">Tambah Kontrak Asset</h4>
                 </div>
-                <table id="contract_table" width="100%" class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Date Time</th>
-                            <th>Contract</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody_contract">
-                    </tbody>
-                </table>
-            </div>
-            <!-- Add Contract Form -->
-            <div id="contract_add" class="tab-pane fade">
-                <div class="form-horizontal">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 align="center">Tambah Komentar Asset</h4>
-                        </div>
-                        <div class="col-md-4">
-                            <a class="btn btn-default" id="btn_contract_index" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
-                        </div>
-                        <div class="col-md-2 col-md-offset-6">
-                            <button onclick="addContract();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
-                        </div>
-                    </div><br>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="add_contract_data">Contract:</label>
-                        <div class="col-sm-6">
-                            <textarea class="form-control" id="add_contract_data" name="contract" placeholder="Tuliskan komentar.." required></textarea>
-                        </div>
-                    </div>
+                <div class="col-md-4">
+                    <a class="btn btn-default" id="btn_contract_index" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
                 </div>
-            </div>
-            <!-- Edit Contract Form -->
-            <div id="contract_edit" class="tab-pane fade">
-                <div class="form-horizontal">
-                    <input type="hidden" id="edit_contract_id" value="">
+                <div class="col-md-2 col-md-offset-6">
+                    <button onclick="addContract();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                </div>
+            </div><br>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 align="center">Edit Komentar Asset</h4>
-                        </div>
-                        <div class="col-md-4">
-                            <a class="btn btn-default" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
-                        </div>
-                        <div class="col-md-2 col-md-offset-6">
-                            <button type="submit" class="btn btn-success" onclick="updateContract()"><span class="glyphicon glyphicon-edit"></span> Update</button>
-                        </div>
-                    </div><br>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="edit_contract_data">Note:</label>
-                        <div class="col-sm-6">
-                            <textarea class="form-control" id="edit_contract_data" name="contract" required></textarea>
-                        </div>
-                    </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="add_contract_data">Contract:</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="add_contract_data" name="contract" placeholder="Tuliskan komentar.." required></textarea>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Edit Contract Form -->
+    <div id="contract_edit" class="tab-pane fade">
+        <div class="form-horizontal">
+            <input type="hidden" id="edit_contract_id" value="">
 
-        <!-- Delete Contract Modal -->
-        <div id="contract_del" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="form-horizontal">
-                        <input type="hidden" id="del_contract_id" name="id" value=""></input>
-                        <!-- Header -->
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Konfirmasi</h4>
-                        </div>
-                        <!-- Body -->
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4" for="del_contract_data">Komentar:</label>
-                                <div class="col-md-6">
-                                    <label class="control-label text-left" id="del_contract_data"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Footer -->
-                        <div class="modal-footer">
-                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button class="btn btn-danger" class="close" data-dismiss="modal" onclick="delContract()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 align="center">Edit Komentar Asset</h4>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-default" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+                </div>
+                <div class="col-md-2 col-md-offset-6">
+                    <button type="submit" class="btn btn-success" onclick="updateContract()"><span class="glyphicon glyphicon-edit"></span> Update</button>
+                </div>
+            </div><br>
+
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="edit_contract_data">Note:</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="edit_contract_data" name="contract" required></textarea>
                 </div>
             </div>
         </div>
@@ -322,6 +243,77 @@
 
     </div>
 </div>
+
+<!-- Delete Comment Modal -->
+<div id="comment_del" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="form-horizontal">
+                <input type="hidden" id="del_comment_id" name="id" value=""></input>
+                <!-- Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Konfirmasi</h4>
+                </div>
+                <!-- Body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="del_comment_data">Komentar:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_comment_data"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-danger" class="close" data-dismiss="modal" onclick="delComment()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Contract Modal -->
+<div id="contract_del" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="form-horizontal">
+                <input type="hidden" id="del_contract_id" name="id" value=""></input>
+                <!-- Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Konfirmasi</h4>
+                </div>
+                <!-- Body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <h4 align="center">Apakah Anda yakin untuk <span style="color: red;">menghapus</span> data ini?</h4>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="del_contract_data">Kontrak:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_contract_data"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-danger" class="close" data-dismiss="modal" onclick="delContract()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 
@@ -425,10 +417,6 @@ function updateComment() {
 
 <!-- Contract AJAX (DEBUGGING) -->
 <script>
-$(function() {
-    getContract();
-});
-
 function addContract() {
     $.post('{{ url('ajax/contract/create') }}', {
         asset_id:   {{ $asset_id }},

@@ -31,8 +31,8 @@
 
     <!-- Scripts -->
     <script type="text/javascript"> 
-        $(document).ready(function() {
-            $('#tabel_comment').DataTable( {
+        $(function() {
+            $('#comment_table').DataTable( {
                 "scrollY":        "400px",
                 "scrollCollapse": true,
                 "paging":         false

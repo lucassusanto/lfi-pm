@@ -76,7 +76,6 @@
 </div>
 
 <ul class="nav nav-tabs">
-    <!-- DEBUG href -->
     <li class="active"><a onclick="getComment()" data-toggle="pill" href="#comment_index">Comment</a></li>
     <li><a onclick="getContract()" data-toggle="pill" href="#contract_index">Contract</a></li>
     <li><a onclick="getDepreciation()" data-toggle="pill" href="#depreciation_index">Depreciation</a></li>
@@ -91,12 +90,13 @@
         <div class="col-md-3">
             <a class="btn btn-success" data-toggle="pill" href="#comment_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
             <a class="btn btn-primary" onclick="getComment()"><span class="glyphicon glyphicon-repeat"></span></a>
-
             <a id="btn_comment_edit" class='btn btn-primary' data-toggle='pill' href='#comment_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
         </div>
+        
         <table id="comment_table" width="100%" class="table">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>#</th>
                     <th>Date Time</th>
                     <th>Comment</th>
@@ -156,18 +156,18 @@
         </div>
     </div>
 
-
-    <!-- Contract (DEBUGGING) -->
+    <!-- Contract -->
     <div id="contract_index" class="tab-pane fade">
         <div class="col-md-3">
-            <a class="btn btn-success" data-toggle="pill" href="#contract_add"><span class="glyphicon glyphicon-plus"></span> Add kontrack</a>
-            <a class="btn btn-primary" onclick="getContract()"><span class="glyphicon glyphicon-repeat"></span>Ref</a>
-
+            <a class="btn btn-success" data-toggle="pill" href="#contract_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
+            <a class="btn btn-primary" onclick="getContract()"><span class="glyphicon glyphicon-repeat"></span></a>
             <a id="btn_contract_edit" class='btn btn-primary' data-toggle='pill' href='#contract_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
         </div>
+        
         <table id="contract_table" width="100%" class="table">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>#</th>
                     <th>Date Time</th>
                     <th>Contract</th>
@@ -183,7 +183,7 @@
         <div class="form-horizontal">
             <div class="row">
                 <div class="col-md-12">
-                    <h4 align="center">Tambah Kontrak Asset</h4>
+                    <h4 align="center">Tambah Komentar Asset</h4>
                 </div>
                 <div class="col-md-4">
                     <a class="btn btn-default" id="btn_contract_index" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -318,9 +318,14 @@
 
 
 @section('js')
-<!-- Comment AJAX -->
 <script>
+// --------------------------- Comment AJAX ---------------------------
 $(function() {
+    var comment_table = $('#comment_table').DataTable({
+        "order": [[ 2, "desc" ]]    // Sort dari tgl terbaru
+    });
+
+    comment_table.columns(0).visible(false);
     getComment();
 });
 
@@ -355,40 +360,38 @@ function getComment() {
             var bd = document.getElementById('comment_table').getElementsByTagName('tbody')[0];
             var comments = data.datas;
 
-            while (bd.firstChild) bd.removeChild(bd.firstChild);
+            var actionBtn = "<button class='btn btn-danger' onclick='showCommentModal(this)' data-toggle='modal' data-target='#comment_del'><span class='glyphicon glyphicon-trash'></span></button><button class='btn btn-primary' onclick='editCommentData(this)'><span class='glyphicon glyphicon-edit'></span></button>";
+
+            var table = $('#comment_table').DataTable();
+            table.clear();
 
             for(var i = 0, len = comments.length; i < len; i++) {
-                // Append Data
-                var row = bd.insertRow(0);
-                row.id = comments[i].id;
-
-                var no = row.insertCell(0);
-                var dt = row.insertCell(1);
-                var comment = row.insertCell(2);
-                var action = row.insertCell(3);
-
-                no.innerHTML = i + 1;
-                dt.innerHTML = comments[i].modified_time;
-                comment.innerHTML = comments[i].comment;
-                action.innerHTML =
-                    "<button class='btn btn-danger' onclick='showCommentModal(this)' data-toggle='modal' data-target='#comment_del'><span class='glyphicon glyphicon-trash'></span></button><button class='btn btn-primary' onclick='editCommentData(this)'><span class='glyphicon glyphicon-edit'></span></button>";
+                table.row.add([comments[i].id, i + 1, comments[i].modified_time, comments[i].comment, actionBtn]);
             }
+
+            table.draw();
         }
     });
 }
 
 function showCommentModal(doc) {
+    var table = $('#comment_table').DataTable();
     var tr = doc.parentNode.parentNode;
-    var id = tr.id;
-    var comment = tr.childNodes[2].innerHTML;
+
+    var row_data = table.row(tr).data();
+    var id = row_data[0];
+    var comment = row_data[3];
 
     $('#del_comment_id').val(id);
     $('#del_comment_data').text(comment);
 }
 
 function editCommentData(doc) {
+    var table = $('#comment_table').DataTable();
     var tr = doc.parentNode.parentNode;
-    var id = tr.id;
+
+    var row_data = table.row(tr).data();
+    var id = row_data[0];
 
     $.post('{{ url('ajax/comment/show_edit') }}', {
         comment_id: id
@@ -412,11 +415,9 @@ function updateComment() {
         $('#edit_comment_data').val('');
     });
 }
-</script>
 
 
-<!-- Contract AJAX (DEBUGGING) -->
-<script>
+// --------------------------- Contract AJAX (DEBUGGING) ---------------------------
 function addContract() {
     $.post('{{ url('ajax/contract/create') }}', {
         asset_id:   {{ $asset_id }},
@@ -448,40 +449,38 @@ function getContract() {
             var bd = document.getElementById('contract_table').getElementsByTagName('tbody')[0];
             var contracts = data.datas;
 
-            while (bd.firstChild) bd.removeChild(bd.firstChild);
+            var actionBtn = "<button class='btn btn-danger' onclick='showContractModal(this)' data-toggle='modal' data-target='#contract_del'><span class='glyphicon glyphicon-trash'></span></button><button class='btn btn-primary' onclick='editContractData(this)'><span class='glyphicon glyphicon-edit'></span></button>";
+
+            var table = $('#contract_table').DataTable();
+            table.clear();
 
             for(var i = 0, len = contracts.length; i < len; i++) {
-                // Append Data
-                var row = bd.insertRow(0);
-                row.id = contracts[i].id;
-
-                var no = row.insertCell(0);
-                var dt = row.insertCell(1);
-                var contract = row.insertCell(2);
-                var action = row.insertCell(3);
-
-                no.innerHTML = i + 1;
-                dt.innerHTML = contracts[i].modified_time;
-                contract.innerHTML = contracts[i].contract;
-                action.innerHTML =
-                    "<button class='btn btn-danger' onclick='showContractModal(this)' data-toggle='modal' data-target='#contract_del'><span class='glyphicon glyphicon-trash'></span></button><button class='btn btn-primary' onclick='editContractData(this)'><span class='glyphicon glyphicon-edit'></span></button>";
+                table.row.add([contracts[i].id, i + 1, contracts[i].modified_time, contracts[i].contract, actionBtn]);
             }
+
+            table.draw();
         }
     });
 }
 
 function showContractModal(doc) {
+    var table = $('#contract_table').DataTable();
     var tr = doc.parentNode.parentNode;
-    var id = tr.id;
-    var contract = tr.childNodes[2].innerHTML;
+
+    var row_data = table.row(tr).data();
+    var id = row_data[0];
+    var contract = row_data[3];
 
     $('#del_contract_id').val(id);
     $('#del_contract_data').text(contract);
 }
 
 function editContractData(doc) {
+    var table = $('#contract_table').DataTable();
     var tr = doc.parentNode.parentNode;
-    var id = tr.id;
+
+    var row_data = table.row(tr).data();
+    var id = row_data[0];
 
     $.post('{{ url('ajax/contract/show_edit') }}', {
         contract_id: id

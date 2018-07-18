@@ -35,7 +35,7 @@ class AssetCommentAJAXController extends Controller
             ->select('id', 'comment', 'modified_time')
             ->where('asset_id', '=', $asset_id)
             ->get();
-        
+
         return response([
             'status' => 'ok',
             'datas'  => $datas

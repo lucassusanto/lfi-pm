@@ -29,47 +29,6 @@
         }
     </style>
 
-    <!-- Scripts -->
-    <script type="text/javascript"> 
-        $(function() {
-            $('#comment_table').DataTable( {
-                "scrollY":        "400px",
-                "scrollCollapse": true,
-                "paging":         false
-            } );
-            $('#example').DataTable( {
-                "scrollY":        "400px",
-                "scrollCollapse": true,
-                "paging":         false
-            } );
-            $('#example2').DataTable( {
-                "scrollY":        "400px",
-                "scrollCollapse": true,
-                "paging":         false
-            } );
-            $('#example3').DataTable( {
-                "scrollY":        "400px",
-                "scrollCollapse": true,
-                "paging":         false
-            } );
-            $('#example4').DataTable( {
-                "scrollY":        "400px",
-                "scrollCollapse": true,
-                "paging":         false
-            } );
-            $('#example5').DataTable( {
-                "scrollY":        "400px",
-                "scrollCollapse": true,
-                "paging":         false
-            } );
-            $('#example6').DataTable( {
-                "scrollY":        "400px",
-                "scrollCollapse": true,
-                "paging":         false
-            } );
-        } );
-    </script>
-
     @yield('js')
 </head>
 

@@ -107,9 +107,9 @@ class AssetContractAJAXController extends Controller
         }
 
         return response([
-                'status' => 'OK',
-                'datas'  => $datas[0]
-            ], 200);
+            'status' => 'OK',
+            'datas'  => $datas[0]
+        ], 200);
     }
 
     public function commit_edit() {

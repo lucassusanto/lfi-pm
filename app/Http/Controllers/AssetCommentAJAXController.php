@@ -42,13 +42,7 @@ class AssetCommentAJAXController extends Controller
         ], 200);
     }
 
-    public function create(Request $request) {
-        /*
-        if(Session::token() !== Input::get('_token')) {
-            return response(['status' => 'Error'], 400);
-        }
-        */
-        
+    public function create(Request $request) {        
         $asset_id = Input::get('asset_id');
         $comment = Input::get('comment');
 

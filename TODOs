@@ -3,10 +3,9 @@ TODOs:
 -- Sidebar
 --- BUG: Animasi, pake nav saja
 --- Feature: Ubah desain sidebar
--- Compact jquery datatables
 
 - Optimize Asset backend
-- Utk semua sub-modul
--- Bikin form edit 
--- Pake ajax jquery
--- Update csrf
+
+- Security
+-- Add csrf
+-- Filter input

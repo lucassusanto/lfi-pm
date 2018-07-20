@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<table id="example" width="100%" height="100%" class="table">
+<table id="asset_table" width="100%" height="100%" class="table">
     <thead>
         <tr>
             <th>Asset No</th>
@@ -101,6 +101,10 @@
 
 @section('js')
 <script type="text/javascript">
+$(function() {
+    $('#asset_table').DataTable();
+})
+
     function showModal(doc) {
         var tr = doc.parentNode.parentNode;
 

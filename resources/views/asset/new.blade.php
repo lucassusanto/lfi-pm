@@ -19,6 +19,14 @@ Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
     <div class="col-md-12">
         <h2 align="center">Tambah Asset</h2>
     </div>
+    @if(!empty(session('asset_no_err')))
+        <!-- Asset No Error -->
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <b>Error!</b>Asset No exists!
+            </div>
+        </div>
+    @endif
     <div class="col-md-4">
         <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
     </div>

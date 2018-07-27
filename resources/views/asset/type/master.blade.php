@@ -1,5 +1,13 @@
 @extends('layouts.lfi')
 
+@section('js')
+<script type="text/javascript">
+$(function() {
+    $('#asset_type_table').DataTable();
+});
+</script>
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -10,7 +18,7 @@
     </div>
 </div>
 
-<table id="example" width="100%" class="table">
+<table id="asset_type_table" width="100%" class="table">
 <thead>
     <tr>
         <th>Type</th>

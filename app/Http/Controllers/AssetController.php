@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 use DateTime;
+use Redirect;
 
 class AssetController extends Controller
 {
@@ -126,6 +127,9 @@ class AssetController extends Controller
         $now = new DateTime();
         $last_id = $this->getID();
 
+        $cek = DB::table('asset')->where('asset_no', '=', $request->no)->limit(1)->get();
+        if($cek->count()) return Redirect::back()->with('asset_no_err', 'true');
+
         DB::table('asset')->insert([
             'id'                => $last_id,
             'asset_no'          => $request->no,
@@ -245,11 +249,11 @@ class AssetController extends Controller
             'in_id'                     => $request->ai,
             'depreciation_type_id'      => $request->dt,
             'depreciation_start'        => $request->ds,
-                'depreciation_time_id'      => $request->di, // Depreciation interval
-                'depreciation_rate'         => $request->dr,
-                'modified_time'             => $now,
-                'modified_id'               => $this->user_id
-            ]);
+            'depreciation_time_id'      => $request->di, // Depreciation interval
+            'depreciation_rate'         => $request->dr,
+            'modified_time'             => $now,
+            'modified_id'               => $this->user_id
+        ]);
         
         return redirect('asset');
     }

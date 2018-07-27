@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <title>LFI - SI Data</title>
-    
+
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('bootstrap-3.3.7/w3.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap-3.3.7/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap-3.3.7/w3.css') }}">
     <script src="{{ asset('bootstrap-3.3.7/jquery.min.js') }}"></script>
     <script src="{{ asset('bootstrap-3.3.7/bootstrap.min.js') }}"></script>
-
+    
     <!-- Datatables -->
     <link rel="stylesheet" type="text/css" href="{{ asset('datatables/datatables.min.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('datatables/jquery.dataTables.min.css') }}">
@@ -33,91 +33,27 @@
 </head>
 
 <body>
-    <!-- NavBar -->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                        
-                </button>
-                <a class="navbar-brand" href="#">PT Lasallefood Indonesia - SI Data</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Administrator</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Ganti Password</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<!-- NavBar -->
+<div class="w3-bar w3-cyan">
+    <div class="w3-bar-item">
+        Lasalle
+    </div>
+    <div class="w3-right">
+        <button class="w3-bar-item w3-button" href="#"><span class="glyphicon glyphicon-user"></span> Administrator</button>
+        <button class="w3-bar-item w3-button" href="#"><span class="glyphicon glyphicon-cog"></span> Ganti Password</button>
+        <button class="w3-bar-item w3-button" href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+    </div>
+</div>
 
-    <div class="row">
-        <div class="col-sm-2 col-md-2 col-md-offset-1">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                <span class="glyphicon glyphicon-folder-close"></span> Asset
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <!-- Asset Master -->
-                                <tr>
-                                    <td
-                                    @if(Request::path() == 'asset' || Request::path() == 'asset/view' || Request::path() == 'asset/edit' || Request::path() == 'asset/new')
-                                    style="background-color: rgb(244,244,244);"
-                                    @endif
-                                    ><a href="{{ url('asset') }}">Asset</a></td>
-                                </tr>
+<!-- SideBar -->
+<div class="w3-sidebar w3-bar-block" style="width:15%">
+    <h3 class="w3-bar-item">Menu</h3>
+    <a href="{{ url('asset') }}" class="w3-bar-item w3-button">Asset</a>
+    <a href="{{ url('asset/type') }}" class="w3-bar-item w3-button">Asset Type</a>
+</div>
 
-                                <!-- Asset Type -->
-                                <tr>
-                                    <td @if(Request::is('asset/type*')) style="background-color: rgb(244,244,244);" @endif>
-                                        <a href="{{ url('asset/type') }}">Asset Type</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                <span class="glyphicon glyphicon-file"></span> Maintenance
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <!--span class="glyphicon glyphicon-cog"></span><a href="#"> Ganti Password</a-->
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Content Area -->
-            <div class="col-sm-8 col-md-8">
-                <div id="content" class="well">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
-
-    </body>
-    </html>
+<div style="margin-left:15%">
+    @yield('content')
+</div> 
+</body>
+</html>

@@ -1,12 +1,13 @@
 TODOs:
-- Layout LFI
+- Layout
 -- Sidebar
 --- BUG: Animasi, pake nav saja
 --- Feature: Ubah desain sidebar
 
-- Optimize Asset backend
+- Performance
+-- Optimize Asset backend
 
 - Security
--- Add csrf
--- Filter input
+-- Move routes to api
+-- Filter input ($this->validate)
 -- Unique asset no and asset type

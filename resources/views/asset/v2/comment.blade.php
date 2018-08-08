@@ -108,28 +108,8 @@
 
 <!-- Comment AJAX -->
 <script type="text/javascript">
-function addComment() {
-    $.post('{{ url('ajax/comment/create') }}', {
-        asset_id:   {{ $asset_id }},
-        comment:    $('#add_comment_data').val()
-    },
-    function(data, textStatus) {
-        getComment();
-        $('#btn_comment_index').click();
-        $('#add_comment_data').val('');
-    });
-}
-
-function delComment() {
-    $.post('{{ url('ajax/comment/del') }}', {
-        comment_id: $('#del_comment_id').val()
-    },
-    function(data, textStatus) {
-        getComment();
-        $('#del_comment_id').val('');
-    });
-}
-
+    
+/* Load Master Data */
 function getComment() {
     $.post('{{ url('ajax/comment/load') }}', {
         asset_id:   {{ $asset_id }}
@@ -153,6 +133,7 @@ function getComment() {
     });
 }
 
+/* Delete Confirmation */
 function showCommentModal(doc) {
     var table = $('#comment_table').DataTable();
     var tr = doc.parentNode.parentNode;
@@ -165,6 +146,7 @@ function showCommentModal(doc) {
     $('#del_comment_data').text(comment);
 }
 
+/* See Edit Form Details */
 function editCommentData(doc) {
     var table = $('#comment_table').DataTable();
     var tr = doc.parentNode.parentNode;
@@ -183,6 +165,32 @@ function editCommentData(doc) {
     });
 }
 
+
+/* Create New Data */
+function addComment() {
+    $.post('{{ url('ajax/comment/create') }}', {
+        asset_id:   {{ $asset_id }},
+        comment:    $('#add_comment_data').val()
+    },
+    function(data, textStatus) {
+        getComment();
+        $('#btn_comment_index').click();
+        $('#add_comment_data').val('');
+    });
+}
+
+/* Delete a Data */
+function delComment() {
+    $.post('{{ url('ajax/comment/del') }}', {
+        comment_id: $('#del_comment_id').val()
+    },
+    function(data, textStatus) {
+        getComment();
+        $('#del_comment_id').val('');
+    });
+}
+
+/* Update a Data */
 function updateComment() {
     $.post('{{ url('ajax/comment/commit_edit') }}', {
         comment_id:   $('#edit_comment_id').val(),

@@ -39,8 +39,8 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_contract_contract">Contract: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_contract_contract" name="contract" value="">
-                <select class="form-control" onchange="document.getElementById('ac_contract').value = getID(this);">
+                <input type="hidden" id="add_contract_contract_id" name="contract" value="">
+                <select class="form-control" id="add_contract_contract" onchange="$('#add_contract_contract_id').val(getID(this));">
 
                 </select>
             </div>
@@ -187,35 +187,8 @@
 
 <!-- Contract AJAX -->
 <script type="text/javascript">
-function addContract() {
-    $.post('{{ url('ajax/contract/create') }}', {
-        asset_id:   {{ $asset_id }},
-        contract:   $('#add_contract_contract').val(),
-        status:     $('#add_contract_status').val(),
-        sd:         $('#add_contract_sd').val(),
-        ed:         $('#add_contract_ed').val(),
-        note:       $('#add_contract_note').val()
-    },
-    function(data, textStatus) {
-        getContract();
-        $('#btn_contract_index').click();
 
-        $('#add_contract_sd').val('');
-        $('#add_contract_ed').val('');
-        $('#add_contract_note').val('');
-    });
-}
-
-function delContract() {
-    $.post('{{ url('ajax/contract/del') }}', {
-        contract_id: $('#del_contract_id').val()
-    },
-    function(data, textStatus) {
-        getContract();
-        $('#del_contract_id').val('');
-    });
-}
-
+/*  Load Master data */
 function getContract() {
     $.post('{{ url('ajax/contract/load') }}', {
         asset_id:   {{ $asset_id }}
@@ -239,6 +212,34 @@ function getContract() {
     });
 }
 
+/* Options Dropdowns in Add/Edit Data */
+function fetchContractOptions(tag) {
+    $.get('{{ url('ajax/contract/getOptions') }}', function(data) {
+        var status = data.status;
+        var contract = data.contract;
+
+        $('#' + tag + '_contract_contract_id').val('');
+        $('#' + tag + '_contract_contract').empty();
+        $('#' + tag + '_contract_status').empty();
+
+        $('#' + tag + '_contract_contract_id').val(contract[0].id);
+
+        for(var i = 0, len = contract.length; i < len; i++) {
+            $('#' + tag + '_contract_contract').append($('<option>', {
+                id: contract[i].id,
+                text: contract[i].contract
+            }));
+        }
+
+        for(var i = 0, len = status.length; i < len; i++) {
+            $('#' + tag + '_contract_status').append($('<option>', {
+                text: status[i]
+            }));
+        }
+    });
+}
+
+/* Delete Confirmation */
 function showContractModal(doc) {
     var table = $('#contract_table').DataTable();
     var tr = doc.parentNode.parentNode;
@@ -255,6 +256,7 @@ function showContractModal(doc) {
     $('#del_contract_status').text(status);
 }
 
+/* See Edit Form Details */
 function editContractData(doc) {
     var table = $('#contract_table').DataTable();
     var tr = doc.parentNode.parentNode;
@@ -284,6 +286,39 @@ function editContractData(doc) {
     });
 }
 
+
+/* Create New Data */
+function addContract() {
+    $.post('{{ url('ajax/contract/create') }}', {
+        asset_id:   {{ $asset_id }},
+        contract:   $('#add_contract_contract_id').val(),
+        status:     $('#add_contract_status').val(),
+        sd:         $('#add_contract_sd').val(),
+        ed:         $('#add_contract_ed').val(),
+        note:       $('#add_contract_note').val()
+    },
+    function(data, textStatus) {
+        getContract();
+        $('#btn_contract_index').click();
+
+        $('#add_contract_sd').val('');
+        $('#add_contract_ed').val('');
+        $('#add_contract_note').val('');
+    });
+}
+
+/* Delete a Data */
+function delContract() {
+    $.post('{{ url('ajax/contract/del') }}', {
+        contract_id: $('#del_contract_id').val()
+    },
+    function(data, textStatus) {
+        getContract();
+        $('#del_contract_id').val('');
+    });
+}
+
+/* Update a Data */
 function updateContract() {
     $.post('{{ url('ajax/contract/commit_edit') }}', {
         asset_contract_id : $('#edit_contract_id').val(),
@@ -297,32 +332,6 @@ function updateContract() {
         getContract();
         $('#btn_contract_index').click();
         $('#edit_contract_data').val('');
-    });
-}
-
-function fetchContractOptions(tag) {
-    $.get('{{ url('ajax/contract/getOptions') }}', function(data) {
-        var contract = data.contract;
-        var status = data.status;
-
-        $('#' + tag + '_contract_contract_id').val('');
-        $('#' + tag + '_contract_contract').empty();
-        $('#' + tag + '_contract_status').empty();
-
-        $('#' + tag + '_contract_contract_id').val(contract[0].id);
-
-        for(var i = 0, len = contract.length; i < len; i++) {
-            $('#' + tag + '_contract_contract').append($('<option>', {
-                id: contract[i].id,
-                text: contract[i].contract
-            }));
-        }
-
-        for(var i = 0, len = status.length; i < len; i++) {
-            $('#' + tag + '_contract_status').append($('<option>', {
-                text: status[i]
-            }));
-        }
     });
 }
 </script>

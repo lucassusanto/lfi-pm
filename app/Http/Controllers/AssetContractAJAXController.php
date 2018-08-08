@@ -53,7 +53,7 @@ class AssetContractAJAXController extends Controller
         ], 200);
     }
 
-    public function create(Request $request) {        
+    public function create(Request $request) {
         $asset_id   = Input::get('asset_id');
 
         $contract   = Input::get('contract');

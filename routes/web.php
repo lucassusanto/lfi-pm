@@ -1,14 +1,4 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // Asset
 Route::prefix('asset')->group(function() {
@@ -95,6 +85,7 @@ Route::prefix('asset')->group(function() {
 });
 
 // AJAX
+/*
 Route::prefix('ajax')->group(function() {
     Route::prefix('comment')->group(function() {
         Route::post('load',         'AssetCommentAJAXController@load');
@@ -114,6 +105,7 @@ Route::prefix('ajax')->group(function() {
         Route::get('getOptions',    'AssetContractAJAXController@getOptions');
     });
 });
+*/
 
 Route::get('/', function () {
     return view('index');

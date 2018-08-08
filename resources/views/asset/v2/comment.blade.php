@@ -111,7 +111,7 @@
     
 /* Load Master Data */
 function getComment() {
-    $.post('{{ url('ajax/comment/load') }}', {
+    $.post('{{ url('api/comment/load') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -154,7 +154,7 @@ function editCommentData(doc) {
     var row_data = table.row(tr).data();
     var id = row_data[0];
 
-    $.post('{{ url('ajax/comment/show_edit') }}', {
+    $.post('{{ url('api/comment/show_edit') }}', {
         comment_id: id
     },
     function(data, textStatus) {
@@ -168,7 +168,7 @@ function editCommentData(doc) {
 
 /* Create New Data */
 function addComment() {
-    $.post('{{ url('ajax/comment/create') }}', {
+    $.post('{{ url('api/comment/create') }}', {
         asset_id:   {{ $asset_id }},
         comment:    $('#add_comment_data').val()
     },
@@ -181,7 +181,7 @@ function addComment() {
 
 /* Delete a Data */
 function delComment() {
-    $.post('{{ url('ajax/comment/del') }}', {
+    $.post('{{ url('api/comment/del') }}', {
         comment_id: $('#del_comment_id').val()
     },
     function(data, textStatus) {
@@ -192,7 +192,7 @@ function delComment() {
 
 /* Update a Data */
 function updateComment() {
-    $.post('{{ url('ajax/comment/commit_edit') }}', {
+    $.post('{{ url('api/comment/commit_edit') }}', {
         comment_id:   $('#edit_comment_id').val(),
         comment_data: $('#edit_comment_data').val()
     },

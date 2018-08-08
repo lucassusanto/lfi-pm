@@ -190,7 +190,7 @@
 
 /*  Load Master data */
 function getContract() {
-    $.post('{{ url('ajax/contract/load') }}', {
+    $.post('{{ url('api/contract/load') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -214,7 +214,7 @@ function getContract() {
 
 /* Options Dropdowns in Add/Edit Data */
 function fetchContractOptions(tag) {
-    $.get('{{ url('ajax/contract/getOptions') }}', function(data) {
+    $.get('{{ url('api/contract/getOptions') }}', function(data) {
         var status = data.status;
         var contract = data.contract;
 
@@ -266,7 +266,7 @@ function editContractData(doc) {
 
     fetchContractOptions('edit');
 
-    $.post('{{ url('ajax/contract/show_edit') }}', {
+    $.post('{{ url('api/contract/show_edit') }}', {
         asset_contract_id: ac_id
     },
     function(data, textStatus) {
@@ -289,7 +289,7 @@ function editContractData(doc) {
 
 /* Create New Data */
 function addContract() {
-    $.post('{{ url('ajax/contract/create') }}', {
+    $.post('{{ url('api/contract/create') }}', {
         asset_id:   {{ $asset_id }},
         contract:   $('#add_contract_contract_id').val(),
         status:     $('#add_contract_status').val(),
@@ -309,7 +309,7 @@ function addContract() {
 
 /* Delete a Data */
 function delContract() {
-    $.post('{{ url('ajax/contract/del') }}', {
+    $.post('{{ url('api/contract/del') }}', {
         contract_id: $('#del_contract_id').val()
     },
     function(data, textStatus) {
@@ -320,7 +320,7 @@ function delContract() {
 
 /* Update a Data */
 function updateContract() {
-    $.post('{{ url('ajax/contract/commit_edit') }}', {
+    $.post('{{ url('api/contract/commit_edit') }}', {
         asset_contract_id : $('#edit_contract_id').val(),
         contract_id    : $('#edit_contract_contract_id').val(),
         status_id      : $('#edit_contract_status').val(),

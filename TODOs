@@ -5,9 +5,8 @@ TODOs:
 --- Feature: Ubah desain sidebar
 
 - Performance
--- Optimize Asset backend
+-- Optimize Contollers backend
 
 - Security
--- Move routes to api
 -- Filter input ($this->validate)
 -- Unique asset no and asset type

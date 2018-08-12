@@ -3,10 +3,13 @@ TODOs:
 -- Sidebar
 --- BUG: Animasi, pake nav saja
 --- Feature: Ubah desain sidebar
+-- Fix href to/from '.../asset/{id}/v2'
 
 - Performance
 -- Optimize Contollers backend
+-- Rename AJAX Controller (commit_edit -> update)
+-- GetID jd DB->latest->first
 
 - Security
--- Filter input ($this->validate)
+-- Filter input ($this->validate) di controller
 -- Unique asset no and asset type

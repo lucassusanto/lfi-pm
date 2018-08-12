@@ -17,3 +17,13 @@ Route::prefix('contract')->group(function() {
 
     Route::get('getOptions',    'AssetContractAJAXController@getOptions');
 });
+
+Route::prefix('depreciation')->group(function() {
+    Route::post('load',         'AssetDepreciationAJAXController@load');
+    Route::post('create',       'AssetDepreciationAJAXController@create');
+    Route::post('del',          'AssetDepreciationAJAXController@del');
+    Route::post('show_edit',    'AssetDepreciationAJAXController@show_edit');
+    Route::post('commit_edit',  'AssetDepreciationAJAXController@commit_edit');
+
+    Route::get('getOptions',    'AssetDepreciationAJAXController@getOptions');
+});

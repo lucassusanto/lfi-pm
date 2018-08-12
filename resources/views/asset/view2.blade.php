@@ -39,32 +39,32 @@ function getID(doc) {
 // --------------------------- Init Table ---------------------------
 $(function() {
     var comment_table = $('#comment_table').DataTable({
-        "order": [[ 2, "desc" ]]    // Sort dari tgl terbaru
+        "order": [[ 1, "desc" ]]
     });
     var contract_table = $('#contract_table').DataTable({
-        "order": [[ 1, "desc" ]]    // Sort dari tgl terbaru
+        "order": [[ 1, "desc" ]]
     });
-    
+    var depreciation_table = $('#depreciation_table').DataTable({
+        "order": [[ 1, "desc" ]]
+    });
+
     /*
-    var comment_table = $('#depreciation_table').DataTable({
-        "order": [[ 2, "desc" ]]    // Sort dari tgl terbaru
+    var downtime_table = $('#downtime_table').DataTable({
+        "order": [[ 1, "desc" ]]
     });
-    var contract_table = $('#downtime_table').DataTable({
-        "order": [[ 1, "desc" ]]    // Sort dari tgl terbaru
+    var meter_table = $('#meter_table').DataTable({
+        "order": [[ 1, "desc" ]]
     });
-    var comment_table = $('#meter_table').DataTable({
-        "order": [[ 2, "desc" ]]    // Sort dari tgl terbaru
-    });
-    var contract_table = $('#part_table').DataTable({
-        "order": [[ 1, "desc" ]]    // Sort dari tgl terbaru
+    var part_table = $('#part_table').DataTable({
+        "order": [[ 1, "desc" ]]
     });
     */
 
     comment_table.columns(0).visible(false);
     contract_table.columns(0).visible(false);
+    depreciation_table.columns(0).visible(false);
 
     /*
-    depreciation_table.columns(0).visible(false);
     downtime_table.columns(0).visible(false);
     meter_table.columns(0).visible(false);
     part_table.columns(0).visible(false);

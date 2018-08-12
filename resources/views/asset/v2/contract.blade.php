@@ -270,17 +270,18 @@ function editContractData(doc) {
         asset_contract_id: ac_id
     },
     function(data, textStatus) {
-        var contract_id = data.datas.contract_id;
+        var result = data.datas;
+        var contract_id = result.contract_id;
 
         $('#edit_contract_id').val(ac_id);
         $('#edit_contract_contract_id').val(contract_id);
 
         $('#edit_contract_contract').find('option[id="' + contract_id + '"]').attr('selected', 'selected');
-        $('#edit_contract_status').val(data.datas.status_id);
+        $('#edit_contract_status').val(result.status_id);
 
-        $('#edit_contract_sd').val(data.datas.start_date);
-        $('#edit_contract_ed').val(data.datas.end_date);
-        $('#edit_contract_note').val(data.datas.note);
+        $('#edit_contract_sd').val(result.start_date);
+        $('#edit_contract_ed').val(result.end_date);
+        $('#edit_contract_note').val(result.note);
 
         $('#btn_contract_edit').click();
     });
@@ -310,7 +311,7 @@ function addContract() {
 /* Delete a Data */
 function delContract() {
     $.post('{{ url('api/contract/del') }}', {
-        contract_id: $('#del_contract_id').val()
+        asset_contract_id: $('#del_contract_id').val()
     },
     function(data, textStatus) {
         getContract();
@@ -331,7 +332,6 @@ function updateContract() {
     function(data, textStatus) {
         getContract();
         $('#btn_contract_index').click();
-        $('#edit_contract_data').val('');
     });
 }
 </script>

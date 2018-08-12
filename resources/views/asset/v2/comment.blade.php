@@ -155,7 +155,7 @@ function editCommentData(doc) {
     var id = row_data[0];
 
     $.post('{{ url('api/comment/show_edit') }}', {
-        comment_id: id
+        asset_comment_id: id
     },
     function(data, textStatus) {
         $('#edit_comment_id').val(id);
@@ -182,7 +182,7 @@ function addComment() {
 /* Delete a Data */
 function delComment() {
     $.post('{{ url('api/comment/del') }}', {
-        comment_id: $('#del_comment_id').val()
+        asset_comment_id: $('#del_comment_id').val()
     },
     function(data, textStatus) {
         getComment();
@@ -193,13 +193,12 @@ function delComment() {
 /* Update a Data */
 function updateComment() {
     $.post('{{ url('api/comment/commit_edit') }}', {
-        comment_id:   $('#edit_comment_id').val(),
+        asset_comment_id:   $('#edit_comment_id').val(),
         comment_data: $('#edit_comment_data').val()
     },
     function(data, textStatus) {
         getComment();
         $('#btn_comment_index').click();
-        $('#edit_comment_data').val('');
     });
 }
 </script>

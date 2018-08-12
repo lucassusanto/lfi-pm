@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Session;
 
 use DateTime;
 
@@ -28,7 +26,7 @@ class AssetCommentAJAXController extends Controller
 
     
     public function load() {
-        $asset_id = Input::get('asset_id');
+        $asset_id = request('asset_id');
         $datas = [];
 
         $datas = DB::table('asset_comment')
@@ -42,64 +40,63 @@ class AssetCommentAJAXController extends Controller
         ], 200);
     }
 
-    public function create(Request $request) {        
-        $asset_id = Input::get('asset_id');
-        $comment = Input::get('comment');
-
+    public function create() {
         $now = new DateTime();
         $last_id = $this->getID();
         
         DB::table('asset_comment')->insert([
             'id'                => $last_id,
-            'asset_id'          => $asset_id,
-            'comment'           => $request->comment,
+            'asset_id'          => request('asset_id'),
+            'comment'           => request('comment'),
             'modified_time'     => $now,
             'modified_id'       => $this->user_id,
             'created_time'      => $now,
             'created_id'        => $this->user_id
         ]);
         
-        return response(['status' => 'OK'], 200);
+        return response(['status' => 'ok'], 200);
     }
 
     public function del() {
-        $comment_id = Input::get('comment_id');
+        $asset_comment_id = request('asset_comment_id');
 
         DB::table('asset_comment')
-            ->where('id', '=', $comment_id)
+            ->where('id', '=', $asset_comment_id)
             ->delete();
         
-        return response(['status' => 'OK'], 200);
+        return response(['status' => 'ok'], 200);
     }
 
     public function show_edit() {
-        $comment_id = Input::get('comment_id');
+        $asset_ment_id = request('asset_comment_id');
 
         $datas = DB::table('asset_comment')
             ->select('id', 'comment')
-            ->where('id', '=', $comment_id)
+            ->where('id', '=', $asset_comment_id)
             ->get();
 
+        if($datas->count() < 1) {
+            return response(['message' => 'id was not found'], 200);
+        }
+
         return response([
-                'status' => 'OK',
-                'datas'  => $datas[0]
-            ], 200);
+            'status' => 'ok',
+            'datas'  => $datas[0]
+        ], 200);
     }
 
     public function commit_edit() {
         $now = new DateTime();
-
-        $comment_id = Input::get('comment_id');
-        $comment_data = Input::get('comment_data');
+        $asset_comment_id = request('asset_comment_id');
         
         DB::table('asset_comment')
-            ->where('id', $comment_id)
+            ->where('id', $asset_comment_id)
             ->update([
-                'comment'       => $comment_data,
+                'comment'       => request('comment_data'),
                 'modified_time' => $now,
                 'modified_id'   => $this->user_id
             ]);
 
-        return response(['status' => 'OK'], 200);
+        return response(['status' => 'ok'], 200);
     }
 }

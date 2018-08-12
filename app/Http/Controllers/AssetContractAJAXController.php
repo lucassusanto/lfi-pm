@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Session;
 
 use DateTime;
 
@@ -37,8 +35,9 @@ class AssetContractAJAXController extends Controller
         ], 200);
     }
 
+    // PUBLIC
     public function load() {
-        $asset_id = Input::get('asset_id');
+        $asset_id = request('asset_id');
         $datas = [];
 
         $datas = DB::table('asset_contract')
@@ -53,26 +52,21 @@ class AssetContractAJAXController extends Controller
         ], 200);
     }
 
+    // Menambah data baru | POST
     public function create(Request $request) {
-        $asset_id   = Input::get('asset_id');
-
-        $contract   = Input::get('contract');
-        $status     = Input::get('status');
-        $sd         = Input::get('sd');
-        $ed         = Input::get('ed');
-        $note       = Input::get('note');
-
         $now        = new DateTime();
         $last_id    = $this->getID();
+
+        $asset_id   = request('asset_id');
         
         DB::table('asset_contract')->insert([
             'id'                => $last_id,
             'asset_id'          => $asset_id,
-            'contract_id'       => $contract,
-            'status_id'         => $status,
-            'start_date'        => $sd,
-            'end_date'          => $ed,
-            'note'              => $note,
+            'contract_id'       => request('contract'),
+            'status_id'         => request('status'),
+            'start_date'        => request('sd'),
+            'end_date'          => request('ed'),
+            'note'              => request('note'),
             'comment'           => '',
             'modified_time'     => $now,
             'modified_id'       => $this->user_id,
@@ -80,21 +74,23 @@ class AssetContractAJAXController extends Controller
             'created_id'        => $this->user_id
         ]);
         
-        return response(['status' => 'OK'], 200);
+        return response(['status' => 'ok'], 200);
     }
 
+    // Menghapus data | POST
     public function del() {
-        $contract_id = Input::get('contract_id');
+        $asset_contract_id = request('asset_contract_id');
 
         DB::table('asset_contract')
-            ->where('id', '=', $contract_id)
+            ->where('id', '=', $asset_contract_id)
             ->delete();
         
-        return response(['status' => 'OK'], 200);
+        return response(['status' => 'ok'], 200);
     }
 
+    // Melihat detail data | POST
     public function show_edit() {
-        $asset_contract_id = Input::get('asset_contract_id');
+        $asset_contract_id = request('asset_contract_id');
 
         $datas = DB::table('asset_contract')
             ->select('asset_contract.id', 'asset_contract.contract_id', 'contract.contract', 'asset_contract.status_id', 'asset_contract.start_date', 'asset_contract.end_date', 'asset_contract.note')
@@ -103,37 +99,32 @@ class AssetContractAJAXController extends Controller
             ->get();
 
         if($datas->count() < 1) {
-            return response([], 403);
+            return response(['message' => 'id was not found'], 200);
         }
 
         return response([
-            'status' => 'OK',
+            'status' => 'ok',
             'datas'  => $datas[0]
         ], 200);
     }
 
+    // Menyimpan hasil edit | POST
     public function commit_edit() {
         $now = new DateTime();
-        $asset_contract_id = Input::get('asset_contract_id');
-
-        $contract_id    = Input::get('contract_id');
-        $note           = Input::get('note');
-        $status_id      = Input::get('status_id');
-        $start_date     = Input::get('start_date');
-        $end_date       = Input::get('end_date');
+        $asset_contract_id = request('asset_contract_id');
 
         DB::table('asset_contract')
             ->where('id', $asset_contract_id)
             ->update([
-                'contract_id'       => $contract_id,
-                'note'              => $note,
-                'status_id'         => $status_id,
-                'start_date'        => $start_date,
-                'end_date'          => $end_date,
+                'contract_id'       => request('contract_id'),
+                'note'              => request('note'),
+                'status_id'         => request('status_id'),
+                'start_date'        => request('start_date'),
+                'end_date'          => request('end_date'),
                 'modified_time'     => $now,
                 'modified_id'       => $this->user_id
             ]);
 
-        return response(['status' => 'OK'], 200);
+        return response(['status' => 'ok'], 200);
     }
 }

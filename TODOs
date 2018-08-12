@@ -7,8 +7,8 @@ TODOs:
 
 - Performance
 -- Optimize Contollers backend
--- Rename AJAX Controller (commit_edit -> update)
--- GetID jd DB->latest->first
+-- Simplify Routes, Controller (commit_edit -> update)
+-- Passing data in AssetController
 
 - Security
 -- Filter input ($this->validate) di controller

@@ -190,7 +190,7 @@
 
 /*  Load Master data */
 function getContract() {
-    $.post('{{ url('api/contract/load') }}', {
+    $.post('{{ url('api/contract') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -226,8 +226,8 @@ function fetchContractOptions(tag) {
 
         for(var i = 0, len = contract.length; i < len; i++) {
             $('#' + tag + '_contract_contract').append($('<option>', {
-                id: contract[i].id,
-                text: contract[i].contract
+                id:     contract[i].id,
+                text:   contract[i].contract
             }));
         }
 
@@ -266,7 +266,7 @@ function editContractData(doc) {
 
     fetchContractOptions('edit');
 
-    $.post('{{ url('api/contract/show_edit') }}', {
+    $.post('{{ url('api/contract/detail') }}', {
         asset_contract_id: ac_id
     },
     function(data, textStatus) {
@@ -290,13 +290,13 @@ function editContractData(doc) {
 
 /* Create New Data */
 function addContract() {
-    $.post('{{ url('api/contract/create') }}', {
-        asset_id:   {{ $asset_id }},
-        contract:   $('#add_contract_contract_id').val(),
-        status:     $('#add_contract_status').val(),
-        sd:         $('#add_contract_sd').val(),
-        ed:         $('#add_contract_ed').val(),
-        note:       $('#add_contract_note').val()
+    $.post('{{ url('api/contract/store') }}', {
+        asset_id:       {{ $asset_id }},
+        contract_id:    $('#add_contract_contract_id').val(),
+        status_id:      $('#add_contract_status').val(),
+        sd:             $('#add_contract_sd').val(),
+        ed:             $('#add_contract_ed').val(),
+        note:           $('#add_contract_note').val()
     },
     function(data, textStatus) {
         getContract();
@@ -321,13 +321,13 @@ function delContract() {
 
 /* Update a Data */
 function updateContract() {
-    $.post('{{ url('api/contract/commit_edit') }}', {
-        asset_contract_id : $('#edit_contract_id').val(),
-        contract_id    : $('#edit_contract_contract_id').val(),
-        status_id      : $('#edit_contract_status').val(),
-        start_date     : $('#edit_contract_sd').val(),
-        end_date       : $('#edit_contract_ed').val(),
-        note           : $('#edit_contract_note').val()
+    $.post('{{ url('api/contract/update') }}', {
+        asset_contract_id:  $('#edit_contract_id').val(),
+        contract_id:        $('#edit_contract_contract_id').val(),
+        status_id:          $('#edit_contract_status').val(),
+        sd:                 $('#edit_contract_sd').val(),
+        ed:                 $('#edit_contract_ed').val(),
+        note:               $('#edit_contract_note').val()
     },
     function(data, textStatus) {
         getContract();

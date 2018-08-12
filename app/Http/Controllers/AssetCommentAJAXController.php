@@ -24,8 +24,13 @@ class AssetCommentAJAXController extends Controller
         return $last_id;
     }
 
-    
-    public function load() {
+    // PUBLIC
+    // Ambil data master | GET
+    public function master() {
+        $this->validate(request(), [
+            'asset_id' => 'required'
+        ]);
+
         $asset_id = request('asset_id');
         $datas = [];
 
@@ -40,7 +45,13 @@ class AssetCommentAJAXController extends Controller
         ], 200);
     }
 
-    public function create() {
+    // Menambah data baru | POST
+    public function store() {
+        $this->validate(request(), [
+            'asset_id' => 'required',
+            'comment'   => 'required'
+        ]);
+
         $now = new DateTime();
         $last_id = $this->getID();
         
@@ -57,7 +68,12 @@ class AssetCommentAJAXController extends Controller
         return response(['status' => 'ok'], 200);
     }
 
+    // Menghapus data | POST
     public function del() {
+        $this->validate(request(), [
+            'asset_comment_id' => 'required'
+        ]);
+
         $asset_comment_id = request('asset_comment_id');
 
         DB::table('asset_comment')
@@ -67,8 +83,13 @@ class AssetCommentAJAXController extends Controller
         return response(['status' => 'ok'], 200);
     }
 
-    public function show_edit() {
-        $asset_ment_id = request('asset_comment_id');
+    // Melihat detail data | POST
+    public function detail() {
+        $this->validate(request(), [
+            'asset_comment_id' => 'required'
+        ]);
+
+        $asset_comment_id = request('asset_comment_id');
 
         $datas = DB::table('asset_comment')
             ->select('id', 'comment')
@@ -85,14 +106,20 @@ class AssetCommentAJAXController extends Controller
         ], 200);
     }
 
-    public function commit_edit() {
+    // Menyimpan hasil edit | POST
+    public function update() {
+        $this->validate(request(), [
+            'asset_comment_id' => 'required',
+            'comment'     => 'required'
+        ]);
+
         $now = new DateTime();
         $asset_comment_id = request('asset_comment_id');
         
         DB::table('asset_comment')
             ->where('id', $asset_comment_id)
             ->update([
-                'comment'       => request('comment_data'),
+                'comment'       => request('comment'),
                 'modified_time' => $now,
                 'modified_id'   => $this->user_id
             ]);

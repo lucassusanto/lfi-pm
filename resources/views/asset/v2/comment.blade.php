@@ -111,7 +111,7 @@
     
 /* Load Master Data */
 function getComment() {
-    $.post('{{ url('api/comment/load') }}', {
+    $.post('{{ url('api/comment') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -154,7 +154,7 @@ function editCommentData(doc) {
     var row_data = table.row(tr).data();
     var id = row_data[0];
 
-    $.post('{{ url('api/comment/show_edit') }}', {
+    $.post('{{ url('api/comment/detail') }}', {
         asset_comment_id: id
     },
     function(data, textStatus) {
@@ -168,7 +168,7 @@ function editCommentData(doc) {
 
 /* Create New Data */
 function addComment() {
-    $.post('{{ url('api/comment/create') }}', {
+    $.post('{{ url('api/comment/store') }}', {
         asset_id:   {{ $asset_id }},
         comment:    $('#add_comment_data').val()
     },
@@ -192,9 +192,9 @@ function delComment() {
 
 /* Update a Data */
 function updateComment() {
-    $.post('{{ url('api/comment/commit_edit') }}', {
+    $.post('{{ url('api/comment/update') }}', {
         asset_comment_id:   $('#edit_comment_id').val(),
-        comment_data: $('#edit_comment_data').val()
+        comment: $('#edit_comment_data').val()
     },
     function(data, textStatus) {
         getComment();

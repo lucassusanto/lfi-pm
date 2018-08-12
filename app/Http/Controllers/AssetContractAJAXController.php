@@ -36,7 +36,12 @@ class AssetContractAJAXController extends Controller
     }
 
     // PUBLIC
-    public function load() {
+    // Ambil data master | GET
+    public function master() {
+        $this->validate(request(), [
+            'asset_id' => 'required'
+        ]);
+
         $asset_id = request('asset_id');
         $datas = [];
 
@@ -53,17 +58,25 @@ class AssetContractAJAXController extends Controller
     }
 
     // Menambah data baru | POST
-    public function create(Request $request) {
+    public function store(Request $request) {
+        $this->validate(request(), [
+            'asset_id'      => 'required',
+            'contract_id'   => 'required',
+            'status_id'     => 'required',
+            'sd'            => 'required',
+            'ed'            => 'required',
+            'note'          => 'required'
+        ]);
+
         $now        = new DateTime();
         $last_id    = $this->getID();
-
         $asset_id   = request('asset_id');
         
         DB::table('asset_contract')->insert([
             'id'                => $last_id,
             'asset_id'          => $asset_id,
-            'contract_id'       => request('contract'),
-            'status_id'         => request('status'),
+            'contract_id'       => request('contract_id'),
+            'status_id'         => request('status_id'),
             'start_date'        => request('sd'),
             'end_date'          => request('ed'),
             'note'              => request('note'),
@@ -79,6 +92,10 @@ class AssetContractAJAXController extends Controller
 
     // Menghapus data | POST
     public function del() {
+        $this->validate(request(), [
+            'asset_contract_id' => 'required'
+        ]);
+
         $asset_contract_id = request('asset_contract_id');
 
         DB::table('asset_contract')
@@ -89,7 +106,11 @@ class AssetContractAJAXController extends Controller
     }
 
     // Melihat detail data | POST
-    public function show_edit() {
+    public function detail() {
+        $this->validate(request(), [
+            'asset_contract_id' => 'required'
+        ]);
+
         $asset_contract_id = request('asset_contract_id');
 
         $datas = DB::table('asset_contract')
@@ -109,7 +130,16 @@ class AssetContractAJAXController extends Controller
     }
 
     // Menyimpan hasil edit | POST
-    public function commit_edit() {
+    public function update() {
+        $this->validate(request(), [
+            'asset_contract_id' => 'required',
+            'contract_id'   => 'required',
+            'status_id'     => 'required',
+            'sd'            => 'required',
+            'ed'            => 'required',
+            'note'          => 'required'
+        ]);
+
         $now = new DateTime();
         $asset_contract_id = request('asset_contract_id');
 
@@ -117,10 +147,10 @@ class AssetContractAJAXController extends Controller
             ->where('id', $asset_contract_id)
             ->update([
                 'contract_id'       => request('contract_id'),
-                'note'              => request('note'),
                 'status_id'         => request('status_id'),
-                'start_date'        => request('start_date'),
-                'end_date'          => request('end_date'),
+                'start_date'        => request('sd'),
+                'end_date'          => request('ed'),
+                'note'              => request('note'),
                 'modified_time'     => $now,
                 'modified_id'       => $this->user_id
             ]);

@@ -53,19 +53,19 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_depreciation_rate">Depreciation rate: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="add_depreciation_rate" name="rate" placeholder="0.5" required>
+                <input type="text" class="form-control" id="add_depreciation_rate" name="rate" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_depreciation_sv">Start Value: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="add_depreciation_sv" name="sv" placeholder="100" required>
+                <input type="text" class="form-control" id="add_depreciation_sv" name="sv" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_depreciation_ev">End Value: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="add_depreciation_ev" name="ev" placeholder="0" required>
+                <input type="text" class="form-control" id="add_depreciation_ev" name="ev" required>
             </div>
         </div>
         <div class="form-group">
@@ -108,19 +108,19 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_depreciation_rate">Depreciation rate: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_depreciation_rate" name="rate" value="" placeholder="0.5" required>
+                <input type="text" class="form-control" id="edit_depreciation_rate" name="rate" value="" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_depreciation_sv">Start Value: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_depreciation_sv" name="sv" value="" placeholder="100" required>
+                <input type="text" class="form-control" id="edit_depreciation_sv" name="sv" value="" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_depreciation_ev">End Value: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_depreciation_ev" name="ev" value="" placeholder="0" required>
+                <input type="text" class="form-control" id="edit_depreciation_ev" name="ev" value="" required>
             </div>
         </div>
         <div class="form-group">
@@ -199,7 +199,7 @@
 
 /*  Load Master data */
 function getDepreciation() {
-    $.post('{{ url('api/depreciation/load') }}', {
+    $.post('{{ url('api/depreciation') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -251,7 +251,7 @@ function editDepreciationData(doc) {
     var row_data = table.row(tr).data();
     var ad_id = row_data[0];
 
-    $.post('{{ url('api/depreciation/show_edit') }}', {
+    $.post('{{ url('api/depreciation/detail') }}', {
         asset_depreciation_id: ad_id
     },
     function(data, textStatus) {
@@ -272,7 +272,7 @@ function editDepreciationData(doc) {
 
 /* Create New Data */
 function addDepreciation() {
-    $.post('{{ url('api/depreciation/create') }}', {
+    $.post('{{ url('api/depreciation/store') }}', {
         asset_id:   {{ $asset_id }},
         sd:     $('#add_depreciation_sd').val(),
         ed:     $('#add_depreciation_ed').val(),
@@ -307,7 +307,7 @@ function delDepreciation() {
 
 /* Update a Data */
 function updateDepreciation() {
-    $.post('{{ url('api/depreciation/commit_edit') }}', {
+    $.post('{{ url('api/depreciation/update') }}', {
         asset_depreciation_id : $('#edit_depreciation_id').val(),
         sd:     $('#edit_depreciation_sd').val(),
         ed:     $('#edit_depreciation_ed').val(),

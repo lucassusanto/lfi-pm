@@ -25,7 +25,8 @@ class AssetDepreciationAJAXController extends Controller
     }
 
     // PUBLIC
-    public function load() {
+    // Ambil data master | GET
+    public function master() {
         $this->validate(request(), [
             'asset_id' => 'required'
         ]);
@@ -45,7 +46,7 @@ class AssetDepreciationAJAXController extends Controller
     }
 
     // Menambah data baru | POST
-    public function create() {
+    public function store() {
         $this->validate(request(), [
             'asset_id' => 'required',
             'sd' => 'required',
@@ -96,7 +97,7 @@ class AssetDepreciationAJAXController extends Controller
     }
 
     // Melihat detail data | POST
-    public function show_edit() {
+    public function detail() {
         $this->validate(request(), [
             'asset_depreciation_id' => 'required'
         ]);
@@ -119,7 +120,7 @@ class AssetDepreciationAJAXController extends Controller
     }
 
     // Menyimpan hasil edit | POST
-    public function commit_edit() {
+    public function update() {
         $this->validate(request(), [
             'asset_depreciation_id' => 'required',
             'sd' => 'required',

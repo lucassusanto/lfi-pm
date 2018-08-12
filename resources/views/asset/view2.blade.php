@@ -47,8 +47,6 @@ $(function() {
     var depreciation_table = $('#depreciation_table').DataTable({
         "order": [[ 1, "desc" ]]
     });
-
-    /*
     var downtime_table = $('#downtime_table').DataTable({
         "order": [[ 1, "desc" ]]
     });
@@ -58,17 +56,13 @@ $(function() {
     var part_table = $('#part_table').DataTable({
         "order": [[ 1, "desc" ]]
     });
-    */
 
     comment_table.columns(0).visible(false);
     contract_table.columns(0).visible(false);
     depreciation_table.columns(0).visible(false);
-
-    /*
     downtime_table.columns(0).visible(false);
     meter_table.columns(0).visible(false);
     part_table.columns(0).visible(false);
-    */
 
     getComment();
 });

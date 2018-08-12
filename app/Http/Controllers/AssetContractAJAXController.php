@@ -24,7 +24,7 @@ class AssetContractAJAXController extends Controller
         return $last_id;
     }
 
-    public function getOptions() {
+    public function options() {
         $contract = DB::table('contract')->select('id', 'contract')->get();
         $status = ['Valid', 'Expired', 'Canceled'];
 
@@ -43,7 +43,6 @@ class AssetContractAJAXController extends Controller
         ]);
 
         $asset_id = request('asset_id');
-        $datas = [];
 
         $datas = DB::table('asset_contract')
             ->select('asset_contract.id', 'contract.contract', 'asset_contract.note', 'asset_contract.status_id')
@@ -62,7 +61,7 @@ class AssetContractAJAXController extends Controller
         $this->validate(request(), [
             'asset_id'      => 'required',
             'contract_id'   => 'required',
-            'status_id'     => 'required',
+            'status_id'     => 'required', // Advanced Validation
             'sd'            => 'required',
             'ed'            => 'required',
             'note'          => 'required'
@@ -134,7 +133,7 @@ class AssetContractAJAXController extends Controller
         $this->validate(request(), [
             'asset_contract_id' => 'required',
             'contract_id'   => 'required',
-            'status_id'     => 'required',
+            'status_id'     => 'required', // Advanced Validation
             'sd'            => 'required',
             'ed'            => 'required',
             'note'          => 'required'

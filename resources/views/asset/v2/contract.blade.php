@@ -172,7 +172,6 @@
                             <label class="control-label text-left" id="del_contract_status"></label>
                         </div>
                     </div>
-
                 </div>
                 <!-- Footer -->
                 <div class="modal-footer">
@@ -214,7 +213,7 @@ function getContract() {
 
 /* Options Dropdowns in Add/Edit Data */
 function fetchContractOptions(tag) {
-    $.get('{{ url('api/contract/getOptions') }}', function(data) {
+    $.get('{{ url('api/contract/options') }}', function(data) {
         var status = data.status;
         var contract = data.contract;
 

@@ -32,7 +32,6 @@ class AssetDepreciationAJAXController extends Controller
         ]);
 
         $asset_id = request('asset_id');
-        $datas = [];
 
         $datas = DB::table('asset_depreciation')
             ->select('id', 'start_date', 'end_date', 'end_value', 'note', 'depreciation_rate')

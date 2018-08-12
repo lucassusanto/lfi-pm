@@ -502,7 +502,7 @@ class AssetController extends Controller
         ]); 
     }
 
-    public function view_details(Request $request) {
+    public function details(Request $request) {
         $id = $request->id;
         
         $asset_data = DB::table('asset')
@@ -517,7 +517,7 @@ class AssetController extends Controller
         $out = $this->listQueries();
         if(!empty($out)) return $out;
 
-        return view('asset.view_details', [
+        return view('asset.details', [
             'asset_id'          => $id,
             'asset_data'        => $asset_data[0],
             'categories'        => $this->categories,

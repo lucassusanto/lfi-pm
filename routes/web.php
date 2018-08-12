@@ -80,7 +80,7 @@ Route::prefix('asset')->group(function() {
     });
 
     Route::get('{id}',         'AssetController@view');
-    Route::get('{id}/details',         'AssetController@view_details');
+    Route::get('{id}/details',         'AssetController@details');
     Route::get('{id}/v2',         'AssetController@view2');
 });
 

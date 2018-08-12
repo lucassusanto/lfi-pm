@@ -1,15 +1,11 @@
 TODOs:
-- Layout
--- Sidebar
---- BUG: Animasi, pake nav saja
---- Feature: Ubah desain sidebar
--- Fix href to/from '.../asset/{id}/v2'
+- Sidebar Layout
+-- BUG: Animasi, pake nav saja
+-- Feature: Ubah desain sidebar
 
 - Performance
--- Optimize Contollers backend
--- Simplify Routes, Controller (commit_edit -> update)
+-- Optimize Contollers
 -- Passing data in AssetController
 
 - Security
--- Filter input ($this->validate) di controller
 -- Unique asset no and asset type

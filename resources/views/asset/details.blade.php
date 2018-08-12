@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-md-1">
-        <a class="btn btn-default" href="{{ url('asset/'.$asset_id) }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+        <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/v2') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
     </div>
     <div class="col-md-2 col-md-offset-9">
         <button class="btn btn-primary" onclick="document.getElementById('form_edit').submit();"><span class="glyphicon glyphicon-edit"></span> Edit</button>

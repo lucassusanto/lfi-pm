@@ -32,7 +32,6 @@ class AssetCommentAJAXController extends Controller
         ]);
 
         $asset_id = request('asset_id');
-        $datas = [];
 
         $datas = DB::table('asset_comment')
             ->select('id', 'comment', 'modified_time')

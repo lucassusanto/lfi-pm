@@ -15,7 +15,7 @@ Route::prefix('contract')->group(function() {
     Route::post('detail',  'AssetContractAJAXController@detail');
     Route::post('update',  'AssetContractAJAXController@update');
 
-    Route::get('options',    'AssetContractAJAXController@options');
+    Route::get('options',  'AssetContractAJAXController@options');
 });
 
 Route::prefix('depreciation')->group(function() {
@@ -33,23 +33,25 @@ Route::prefix('downtime')->group(function() {
     Route::post('detail',  'AssetDowntimeAJAXController@detail');
     Route::post('update',  'AssetDowntimeAJAXController@update');
 
-    Route::get('options',    'AssetDowntimeAJAXController@options');
+    Route::get('options',  'AssetDowntimeAJAXController@options');
 });
 
-// DEBUG
 Route::prefix('meter')->group(function() {
     Route::post('/',       'AssetMeterAJAXController@master');
     Route::post('store',   'AssetMeterAJAXController@store');
     Route::post('del',     'AssetMeterAJAXController@del');
     Route::post('detail',  'AssetMeterAJAXController@detail');
     Route::post('update',  'AssetMeterAJAXController@update');
+
+    Route::get('options',  'AssetMeterAJAXController@options');
 });
 
-// DEBUG
 Route::prefix('part')->group(function() {
     Route::post('/',       'AssetPartAJAXController@master');
     Route::post('store',   'AssetPartAJAXController@store');
     Route::post('del',     'AssetPartAJAXController@del');
     Route::post('detail',  'AssetPartAJAXController@detail');
     Route::post('update',  'AssetPartAJAXController@update');
+
+    Route::get('options',  'AssetPartAJAXController@options');
 });

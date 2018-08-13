@@ -24,15 +24,28 @@ class AssetDowntimeAJAXController extends Controller
         return $last_id;
     }
 
+    // Split Date and Time
+	private function splitDT($dt) {
+		if(empty($dt)) return ['', ''];
+
+		$datetime = new DateTime($dt);
+
+		$date = $datetime->format('Y-m-d');
+		$time = $datetime->format('H:i');
+
+		return [$date, $time];
+	}
+
+	// PUBLIC
     // Mengambil options field | GET
     public function options() {
     	// Semi foreign keys
-    	$downtime = ['Emergency', 'Planned Maintenance', 'Project', 'Other'];
-    	$cause = ['Operation', 'Maintenance', 'Other'];
+    	$downtime 	= ['Emergency', 'Planned Maintenance', 'Project', 'Other'];
+    	$cause 		= ['Operation', 'Maintenance', 'Other'];
 
     	// Foreign keys
-    	$work_order = DB::table('workorder')->select('id', 'note')->get();
-        $reported_by = DB::table('users')->select('id', 'full_name')->get();
+    	$work_order 	= DB::table('workorder')->select('id', 'note')->get();
+        $reported_by 	= DB::table('users')->select('id', 'full_name')->get();
 
         // Check foreign keys
         if($work_order->count() < 1 || $reported_by->count() < 1) {
@@ -46,7 +59,6 @@ class AssetDowntimeAJAXController extends Controller
         ], 200);
     }
 
-    // PUBLIC
     // Ambil data master | GET
     public function master() {
         $this->validate(request(), [
@@ -136,7 +148,6 @@ class AssetDowntimeAJAXController extends Controller
     }
 
     // Melihat detail data | POST
-    // DEBUG
     public function detail() {
         $this->validate(request(), [
             'asset_downtime_id' => 'required'
@@ -153,39 +164,63 @@ class AssetDowntimeAJAXController extends Controller
             return response(['message' => 'id was not found'], 200);
         }
 
+        $datas = $datas[0];
+
+		// Formats fix
+		$datas->start_time      = $this->splitDT($datas->start_time);
+		$datas->end_time        = $this->splitDT($datas->end_time);
+		$datas->reported_time   = $this->splitDT($datas->reported_time);
+
         return response([
             'status' => 'ok',
-            'datas'  => $datas[0]
+            'datas'  => $datas
         ], 200);
     }
 
     // Menyimpan hasil edit | POST
-    // DEBUG
     public function update() {
         $this->validate(request(), [
-            'asset_downtime_id' => 'required',
-            'sd' => 'required',
-            'ed' => 'required',
-            'dr' => 'required',
-            'sv' => 'required',
-            'ev' => 'required'
+            'asset_downtime_id'	=> 'required',
+            'st_date' 		=> 'required|date',
+            'st_time'		=> 'required|date_format:H:i',
+            'et_date' 		=> 'required|date',
+            'et_time' 		=> 'required|date_format:H:i',
+            'hours' 		=> 'required|int',
+            'downtime' 		=> 'required',	// Advanced Validation (string)
+            'cause' 		=> 'required',	// Advanced Validation (string)
+            'work_order' 	=> 'required',	// Advanced Validation (id)
+            'reported_by' 	=> 'required'	// Advanced Validation (id)
+            // 'reported_date'
+            // 'reported_time'
+            // 'note'
         ]);
 
         $now = new DateTime();
-        $asset_downtime_id = request('asset_downtime_id');
+		$asset_downtime_id = request('asset_downtime_id');
+
+        $start_time = request('st_date').' '.request('st_time');
+	    $end_time 	= request('et_date').' '.request('et_time');
+
+	    $reported_time = null;
+	    if(!empty(request('reported_date')) && !empty(request('reported_time'))) {
+	        $reported_time = request('reported_date').' '.request('reported_time');
+	    }
 
         DB::table('asset_downtime')
-            ->where('id', $asset_downtime_id)
-            ->update([
-                'start_date'        => request('sd'),
-                'end_date'          => request('ed'),
-                'downtime_rate' => request('dr'),
-                'start_value'       => request('sv'),
-                'end_value'         => request('ev'),
-                'note'           	=> request('note'),
-                'modified_time'     => $now,
-                'modified_id'       => $this->user_id,
-            ]);
+		    ->where('id', $asset_downtime_id)
+		    ->update([
+		        'start_time'        => $start_time,
+		        'end_time' 			=> $end_time,
+		        'hours'       		=> request('hours'),
+		        'downtime_type_id'	=> request('downtime'),
+		        'downtime_cause_id'	=> request('cause'),
+		        'wo_id'         	=> request('work_order'),
+		        'reported_by_id'    => request('reported_by'),
+		        'reported_time'		=> $reported_time,
+		        'note'				=> request('note'),
+		        'modified_time'     => $now,
+	        	'modified_id'       => $this->user_id
+		    ]);
         
         return response(['status' => 'ok'], 200);
     }

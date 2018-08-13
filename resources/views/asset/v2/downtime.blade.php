@@ -285,10 +285,10 @@ function getDowntime() {
 /* Options Dropdowns in Add/Edit Data */
 function fetchDowntimeOptions(tag) {
     $.get('{{ url('api/downtime/options') }}', function(data) {
-        var downtime = data[0].downtime;
-        var cause = data[0].cause;
-        var work_order = data[0].work_order;
-        var reported = data[0].reported_by;
+        var downtime 	= data[0].downtime;
+        var cause 		= data[0].cause;
+        var work_order 	= data[0].work_order;
+        var reported 	= data[0].reported_by;
 
         $('#' + tag + '_downtime_downtime').empty();
         $('#' + tag + '_downtime_cause').empty();
@@ -355,25 +355,33 @@ function editDowntimeData(doc) {
     var tr = doc.parentNode.parentNode;
 
     var row_data = table.row(tr).data();
-    var ac_id = row_data[0];
+    var ad_id = row_data[0];
 
     fetchDowntimeOptions('edit');
 
     $.post('{{ url('api/downtime/detail') }}', {
-        asset_downtime_id: ac_id
+        asset_downtime_id: ad_id
     },
     function(data, textStatus) {
         var result = data.datas;
-        var downtime_id = result.downtime_id;
 
-        $('#edit_downtime_id').val(ac_id);
-        $('#edit_downtime_downtime_id').val(downtime_id);
+        $('#edit_downtime_id').val(result.id);
+        $('#edit_downtime_st_date').val(result.start_time[0]);
+        $('#edit_downtime_st_time').val(result.start_time[1]);
+        $('#edit_downtime_et_date').val(result.end_time[0]);
+        $('#edit_downtime_et_time').val(result.end_time[1]);
+        $('#edit_downtime_hours').val(result.hours);
+        $('#edit_downtime_downtime').val(result.downtime_type_id);
+        $('#edit_downtime_cause').val(result.downtime_cause_id);
 
-        $('#edit_downtime_downtime').find('option[id="' + downtime_id + '"]').attr('selected', 'selected');
-        $('#edit_downtime_status').val(result.status_id);
+        $('#edit_downtime_wo_id').val(result.wo_id);
+        $('#edit_downtime_wo').find('option[id="' + result.wo_id + '"]').attr('selected', 'selected');
 
-        $('#edit_downtime_sd').val(result.start_date);
-        $('#edit_downtime_ed').val(result.end_date);
+        $('#edit_downtime_reported_id').val(result.reported_by_id);
+        $('#edit_downtime_reported').find('option[id="' + result.reported_by_id + '"]').attr('selected', 'selected');
+
+        $('#edit_downtime_reported_date').val(result.reported_time[0]);
+        $('#edit_downtime_reported_time').val(result.reported_time[1]);
         $('#edit_downtime_note').val(result.note);
 
         $('#btn_downtime_edit').click();
@@ -432,11 +440,18 @@ function delDowntime() {
 function updateDowntime() {
     $.post('{{ url('api/downtime/update') }}', {
         asset_downtime_id:  $('#edit_downtime_id').val(),
-        downtime_id:        $('#edit_downtime_downtime_id').val(),
-        status_id:          $('#edit_downtime_status').val(),
-        sd:                 $('#edit_downtime_sd').val(),
-        ed:                 $('#edit_downtime_ed').val(),
-        note:               $('#edit_downtime_note').val()
+        st_date:    	$('#edit_downtime_st_date').val(),
+        st_time:      	$('#edit_downtime_st_time').val(),
+        et_date:        $('#edit_downtime_et_date').val(),
+        et_time:        $('#edit_downtime_et_time').val(),
+        hours:          $('#edit_downtime_hours').val(),
+        downtime:    	$('#edit_downtime_downtime').val(),
+        cause:      	$('#edit_downtime_cause').val(),
+        work_order:     $('#edit_downtime_wo_id').val(),
+        reported_by:    $('#edit_downtime_reported_id').val(),
+        reported_date:  $('#edit_downtime_reported_date').val(),
+        reported_time:  $('#edit_downtime_reported_time').val(),
+        note:           $('#edit_downtime_note').val()
     },
     function(data, textStatus) {
         getDowntime();

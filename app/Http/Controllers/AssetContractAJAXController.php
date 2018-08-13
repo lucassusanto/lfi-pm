@@ -24,6 +24,8 @@ class AssetContractAJAXController extends Controller
         return $last_id;
     }
 
+    // PUBLIC
+    // Mengambil options field | GET
     public function options() {
         $contract = DB::table('contract')->select('id', 'contract')->get();
         $status = ['Valid', 'Expired', 'Canceled'];
@@ -35,7 +37,6 @@ class AssetContractAJAXController extends Controller
         ], 200);
     }
 
-    // PUBLIC
     // Ambil data master | GET
     public function master() {
         $this->validate(request(), [

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use DateTime;
 
-class AssetCommentAJAXController extends Controller
+class AssetCommentAPIController extends Controller
 {
     private $user_id = '1000000'; // Admin
 

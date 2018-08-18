@@ -1,5 +1,3 @@
-<!-- DEBUGGING -->
-
 <!-- Meter -->
 <div id="meter_index" class="tab-pane fade">
     <div class="col-md-3">
@@ -35,12 +33,60 @@
                 <a class="btn btn-default" id="btn_meter_index" data-toggle="pill" href="#meter_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
             </div>
             <div class="col-md-2 col-md-offset-6">
-                <button onclick="addMeter();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                <button onclick="addMeter()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </div>
         </div><br>
 
-        
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_meter_no">Meter No: *</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="add_meter_no" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_meter_type">Type:</label>
+            <div class="col-sm-3">
+                <input type="hidden" id="add_meter_type_id">
+                <select class="form-control" id="add_meter_type" onchange="$('#add_meter_type_id').val(getID(this))">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_meter_ru">Reading Unit:</label>
+            <div class="col-sm-3">
+                <input type="hidden" id="add_meter_ru_id">
+                <select class="form-control" id="add_meter_ru" onchange="$('#add_meter_ru_id').val(getID(this))">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_meter_reading">Reading: *</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="add_meter_reading" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_meter_rollup">Meter Rollup: *</label>
+            <div class="col-sm-3">
+                <select class="form-control" id="add_meter_rollup" required>
 
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_meter_rr">Rollover Reading: *</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="add_meter_rr" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_meter_note">Note:</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="add_meter_note" placeholder="Tuliskan catatan .."></textarea>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Edit Meter Form -->
@@ -50,7 +96,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h4 align="center">Edit Kontrak Asset</h4>
+                <h4 align="center">Edit Asset Meter</h4>
             </div>
             <div class="col-md-4">
                 <a class="btn btn-default" data-toggle="pill" href="#meter_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -60,8 +106,56 @@
             </div>
         </div><br>
 
-		
+		<div class="form-group">
+            <label class="control-label col-sm-3" for="edit_meter_no">Meter No: *</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="edit_meter_no" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_meter_type">Type:</label>
+            <div class="col-sm-3">
+                <input type="hidden" id="edit_meter_type_id">
+                <select class="form-control" id="edit_meter_type" onchange="$('#edit_meter_type_id').val(getID(this))">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_meter_ru">Reading Unit:</label>
+            <div class="col-sm-3">
+                <input type="hidden" id="edit_meter_ru_id">
+                <select class="form-control" id="edit_meter_ru" onchange="$('#edit_meter_ru_id').val(getID(this))">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_meter_reading">Reading: *</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="edit_meter_reading" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_meter_rollup">Meter Rollup: *</label>
+            <div class="col-sm-3">
+                <select class="form-control" id="edit_meter_rollup" required>
 
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_meter_rr">Rollover Reading: *</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="edit_meter_rr" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_meter_note">Note:</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="edit_meter_note" placeholder="Tuliskan catatan .."></textarea>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -86,7 +180,30 @@
                     </div>
                     
                     
-
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="del_meter_no">Meter No:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_meter_no"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="del_meter_reading">Reading:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_meter_reading"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="del_meter_tt">Time Taken:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_meter_tt"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="del_meter_note">Note:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_meter_note"></label>
+                        </div>
+                    </div>
                 </div>
                 <!-- Footer -->
                 <div class="modal-footer">
@@ -118,7 +235,7 @@ function getMeter() {
             table.clear();
 
             for(var i = 0, len = meters.length; i < len; i++) {
-                table.row.add([meters[i].id, i + 1, meters[i].start_time, meters[i].end_time, meters[i].hours, meters[i].note, actionBtn]);
+                table.row.add([meters[i].id, i + 1, meters[i].meter_no, meters[i].reading, meters[i].time_taken, meters[i].note, actionBtn]);
             }
 
             table.draw();
@@ -129,46 +246,32 @@ function getMeter() {
 /* Options Dropdowns in Add/Edit Data */
 function fetchMeterOptions(tag) {
     $.get('{{ url('api/meter/options') }}', function(data) {
-        var meter 	= data[0].meter;
-        var cause 		= data[0].cause;
-        var work_order 	= data[0].work_order;
-        var reported 	= data[0].reported_by;
+        var type 	        = data[0].type;
+        var reading_unit    = data[0].reading_unit;
+        var rollup          = data[0].rollup;
 
-        $('#' + tag + '_meter_meter').empty();
-        $('#' + tag + '_meter_cause').empty();
+        clearMeterOptions(tag);
 
-        $('#' + tag + '_meter_wo_id').val('');
-        $('#' + tag + '_meter_reported_id').val('');
-        $('#' + tag + '_meter_wo').empty();
-        $('#' + tag + '_meter_reported').empty();
+        $('#' + tag + '_meter_type').append($('<option>'));
+        $('#' + tag + '_meter_ru').append($('<option>'));
 
-
-        for(var i = 0, len = meter.length; i < len; i++) {
-            $('#' + tag + '_meter_meter').append($('<option>', {
-                text: meter[i]
+        for(var i = 0, len = type.length; i < len; i++) {
+            $('#' + tag + '_meter_type').append($('<option>', {
+                id:     type[i].id,
+                text:   type[i].type
             }));
         }
 
-        for(var i = 0, len = cause.length; i < len; i++) {
-            $('#' + tag + '_meter_cause').append($('<option>', {
-                text: cause[i]
+        for(var i = 0, len = reading_unit.length; i < len; i++) {
+            $('#' + tag + '_meter_ru').append($('<option>', {
+                id:     reading_unit[i].id,
+                text:   reading_unit[i].uom
             }));
         }
 
-		$('#' + tag + '_meter_wo_id').val(work_order[0].id);
-        $('#' + tag + '_meter_reported_id').val(reported[0].id);
-
-        for(var i = 0, len = work_order.length; i < len; i++) {
-            $('#' + tag + '_meter_wo').append($('<option>', {
-                id:     work_order[i].id,
-                text:   work_order[i].note
-            }));
-        }
-
-        for(var i = 0, len = reported.length; i < len; i++) {
-            $('#' + tag + '_meter_reported').append($('<option>', {
-                id:     reported[i].id,
-                text:   reported[i].full_name
+        for(var i = 0, len = rollup.length; i < len; i++) {
+            $('#' + tag + '_meter_rollup').append($('<option>', {
+                text: rollup[i]
             }));
         }
     });
@@ -181,15 +284,15 @@ function showMeterModal(doc) {
 
     var row_data = table.row(tr).data();
     var id = row_data[0];
-    var st = row_data[2];
-    var et = row_data[3];
-    var hours = row_data[4];
+    var no = row_data[2];
+    var reading = row_data[3];
+    var time_taken = row_data[4];
     var note = row_data[5];
 
     $('#del_meter_id').val(id);
-    $('#del_meter_st').text(st);
-    $('#del_meter_et').text(et);
-    $('#del_meter_hours').text(hours);
+    $('#del_meter_no').text(no);
+    $('#del_meter_reading').text(reading);
+    $('#del_meter_tt').text(time_taken);
     $('#del_meter_note').text(note);
 }
 
@@ -199,73 +302,66 @@ function editMeterData(doc) {
     var tr = doc.parentNode.parentNode;
 
     var row_data = table.row(tr).data();
-    var ad_id = row_data[0];
+    var am_id = row_data[0];
 
     fetchMeterOptions('edit');
 
     $.post('{{ url('api/meter/detail') }}', {
-        asset_meter_id: ad_id
+        asset_meter_id: am_id
     },
     function(data, textStatus) {
         var result = data.datas;
 
         $('#edit_meter_id').val(result.id);
-        $('#edit_meter_st_date').val(result.start_time[0]);
-        $('#edit_meter_st_time').val(result.start_time[1]);
-        $('#edit_meter_et_date').val(result.end_time[0]);
-        $('#edit_meter_et_time').val(result.end_time[1]);
-        $('#edit_meter_hours').val(result.hours);
-        $('#edit_meter_meter').val(result.meter_type_id);
-        $('#edit_meter_cause').val(result.meter_cause_id);
+        $('#edit_meter_no').val(result.meter_no);
+        $('#edit_meter_type_id').val(result.type_id);
+        $('#edit_meter_type').find('option[id="' + result.type_id + '"]').attr('selected', 'selected');
 
-        $('#edit_meter_wo_id').val(result.wo_id);
-        $('#edit_meter_wo').find('option[id="' + result.wo_id + '"]').attr('selected', 'selected');
-
-        $('#edit_meter_reported_id').val(result.reported_by_id);
-        $('#edit_meter_reported').find('option[id="' + result.reported_by_id + '"]').attr('selected', 'selected');
-
-        $('#edit_meter_reported_date').val(result.reported_time[0]);
-        $('#edit_meter_reported_time').val(result.reported_time[1]);
+        $('#edit_meter_ru_id').val(result.reading_uom_id);
+        $('#edit_meter_ru').find('option[id="' + result.reading_uom_id + '"]').attr('selected', 'selected');
+        
+        $('#edit_meter_reading').val(result.reading);
+        $('#edit_meter_rollup').val(result.rollup_type_id);
+        $('#edit_meter_rr').val(result.rollover_reading);
         $('#edit_meter_note').val(result.note);
 
         $('#btn_meter_edit').click();
     });
 }
 
+/* Clear Add/Edit Fields */
+function clearMeterData(tag) {
+    $('#' + tag + '_meter_no').val('');    
+    $('#' + tag + '_meter_reading').val('');
+    $('#' + tag + '_meter_rr').val('');
+    $('#' + tag + '_meter_note').val('');
+}
+function clearMeterOptions(tag) {
+    $('#' + tag + '_meter_type_id').val('');
+    $('#' + tag + '_meter_type').empty();
+    $('#' + tag + '_meter_ru_id').val('');
+    $('#' + tag + '_meter_ru').empty();
+    $('#' + tag + '_meter_rollup').empty();
+}
+
 
 /* Create New Data */
 function addMeter() {
     $.post('{{ url('api/meter/store') }}', {
-        asset_id:       {{ $asset_id }},
-        st_date:    	$('#add_meter_st_date').val(),
-        st_time:      	$('#add_meter_st_time').val(),
-        et_date:        $('#add_meter_et_date').val(),
-        et_time:        $('#add_meter_et_time').val(),
-        hours:          $('#add_meter_hours').val(),
-        meter:    	$('#add_meter_meter').val(),
-        cause:      	$('#add_meter_cause').val(),
-        work_order:     $('#add_meter_wo_id').val(),
-        reported_by:    $('#add_meter_reported_id').val(),
-        reported_date:  $('#add_meter_reported_date').val(),
-        reported_time:  $('#add_meter_reported_time').val(),
-        note:           $('#add_meter_note').val()
+        asset_id:           {{ $asset_id }},
+        no:    	            $('#add_meter_no').val(),
+        type:      	        $('#add_meter_type_id').val(),
+        reading_unit:       $('#add_meter_ru_id').val(),
+        reading:            $('#add_meter_reading').val(),
+        rollup:             $('#add_meter_rollup').val(),
+        rollover_reading:   $('#add_meter_rr').val(),
+        note:               $('#add_meter_note').val()
     },
     function(data, textStatus) {
         getMeter();
         $('#btn_meter_index').click();
 
-        $('#add_meter_st_date').val('');
-        $('#add_meter_st_time').val('');
-        $('#add_meter_et_date').val('');
-        $('#add_meter_et_time').val('');
-        $('#add_meter_hours').val('');
-        $('#add_meter_meter').val('');
-        $('#add_meter_cause').val('');
-        $('#add_meter_wo_id').val('');
-        $('#add_meter_reported_id').val('');
-        $('#add_meter_reported_date').val('');
-        $('#add_meter_reported_time').val('');
-        $('#add_meter_note').val('');
+        clearMeterData('add');
     });
 }
 
@@ -283,23 +379,20 @@ function delMeter() {
 /* Update a Data */
 function updateMeter() {
     $.post('{{ url('api/meter/update') }}', {
-        asset_meter_id:  $('#edit_meter_id').val(),
-        st_date:    	$('#edit_meter_st_date').val(),
-        st_time:      	$('#edit_meter_st_time').val(),
-        et_date:        $('#edit_meter_et_date').val(),
-        et_time:        $('#edit_meter_et_time').val(),
-        hours:          $('#edit_meter_hours').val(),
-        meter:    	$('#edit_meter_meter').val(),
-        cause:      	$('#edit_meter_cause').val(),
-        work_order:     $('#edit_meter_wo_id').val(),
-        reported_by:    $('#edit_meter_reported_id').val(),
-        reported_date:  $('#edit_meter_reported_date').val(),
-        reported_time:  $('#edit_meter_reported_time').val(),
-        note:           $('#edit_meter_note').val()
+        asset_meter_id:     $('#edit_meter_id').val(),
+        no:                 $('#edit_meter_no').val(),
+        type:               $('#edit_meter_type_id').val(),
+        reading_unit:       $('#edit_meter_ru_id').val(),
+        reading:            $('#edit_meter_reading').val(),
+        rollup:             $('#edit_meter_rollup').val(),
+        rollover_reading:   $('#edit_meter_rr').val(),
+        note:               $('#edit_meter_note').val()
     },
     function(data, textStatus) {
         getMeter();
         $('#btn_meter_index').click();
+
+        clearMeterData('edit');
     });
 }
 </script>

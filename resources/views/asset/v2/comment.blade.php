@@ -199,6 +199,7 @@ function updateComment() {
     function(data, textStatus) {
         getComment();
         $('#btn_comment_index').click();
+        $('#edit_comment_data').val('');
     });
 }
 </script>

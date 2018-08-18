@@ -1,57 +1,57 @@
 <?php
 
 Route::prefix('comment')->group(function() {
-    Route::post('/',       'AssetCommentAJAXController@master');
-    Route::post('store',   'AssetCommentAJAXController@store');
-    Route::post('del',     'AssetCommentAJAXController@del');
-    Route::post('detail',  'AssetCommentAJAXController@detail');
-    Route::post('update',  'AssetCommentAJAXController@update');
+    Route::post('/',       'AssetCommentAPIController@master');
+    Route::post('store',   'AssetCommentAPIController@store');
+    Route::post('del',     'AssetCommentAPIController@del');
+    Route::post('detail',  'AssetCommentAPIController@detail');
+    Route::post('update',  'AssetCommentAPIController@update');
 });
 
 Route::prefix('contract')->group(function() {
-    Route::post('/',       'AssetContractAJAXController@master');
-    Route::post('store',   'AssetContractAJAXController@store');
-    Route::post('del',     'AssetContractAJAXController@del');
-    Route::post('detail',  'AssetContractAJAXController@detail');
-    Route::post('update',  'AssetContractAJAXController@update');
+    Route::post('/',       'AssetContractAPIController@master');
+    Route::post('store',   'AssetContractAPIController@store');
+    Route::post('del',     'AssetContractAPIController@del');
+    Route::post('detail',  'AssetContractAPIController@detail');
+    Route::post('update',  'AssetContractAPIController@update');
 
-    Route::get('options',  'AssetContractAJAXController@options');
+    Route::get('options',  'AssetContractAPIController@options');
 });
 
 Route::prefix('depreciation')->group(function() {
-    Route::post('/',       'AssetDepreciationAJAXController@master');
-    Route::post('store',   'AssetDepreciationAJAXController@store');
-    Route::post('del',     'AssetDepreciationAJAXController@del');
-    Route::post('detail',  'AssetDepreciationAJAXController@detail');
-    Route::post('update',  'AssetDepreciationAJAXController@update');
+    Route::post('/',       'AssetDepreciationAPIController@master');
+    Route::post('store',   'AssetDepreciationAPIController@store');
+    Route::post('del',     'AssetDepreciationAPIController@del');
+    Route::post('detail',  'AssetDepreciationAPIController@detail');
+    Route::post('update',  'AssetDepreciationAPIController@update');
 });
 
 Route::prefix('downtime')->group(function() {
-    Route::post('/',       'AssetDowntimeAJAXController@master');
-    Route::post('store',   'AssetDowntimeAJAXController@store');
-    Route::post('del',     'AssetDowntimeAJAXController@del');
-    Route::post('detail',  'AssetDowntimeAJAXController@detail');
-    Route::post('update',  'AssetDowntimeAJAXController@update');
+    Route::post('/',       'AssetDowntimeAPIController@master');
+    Route::post('store',   'AssetDowntimeAPIController@store');
+    Route::post('del',     'AssetDowntimeAPIController@del');
+    Route::post('detail',  'AssetDowntimeAPIController@detail');
+    Route::post('update',  'AssetDowntimeAPIController@update');
 
-    Route::get('options',  'AssetDowntimeAJAXController@options');
+    Route::get('options',  'AssetDowntimeAPIController@options');
 });
 
 Route::prefix('meter')->group(function() {
-    Route::post('/',       'AssetMeterAJAXController@master');
-    Route::post('store',   'AssetMeterAJAXController@store');
-    Route::post('del',     'AssetMeterAJAXController@del');
-    Route::post('detail',  'AssetMeterAJAXController@detail');
-    Route::post('update',  'AssetMeterAJAXController@update');
+    Route::post('/',       'AssetMeterAPIController@master');
+    Route::post('store',   'AssetMeterAPIController@store');
+    Route::post('del',     'AssetMeterAPIController@del');
+    Route::post('detail',  'AssetMeterAPIController@detail');
+    Route::post('update',  'AssetMeterAPIController@update');
 
-    Route::get('options',  'AssetMeterAJAXController@options');
+    Route::get('options',  'AssetMeterAPIController@options');
 });
 
 Route::prefix('part')->group(function() {
-    Route::post('/',       'AssetPartAJAXController@master');
-    Route::post('store',   'AssetPartAJAXController@store');
-    Route::post('del',     'AssetPartAJAXController@del');
-    Route::post('detail',  'AssetPartAJAXController@detail');
-    Route::post('update',  'AssetPartAJAXController@update');
+    Route::post('/',       'AssetPartAPIController@master');
+    Route::post('store',   'AssetPartAPIController@store');
+    Route::post('del',     'AssetPartAPIController@del');
+    Route::post('detail',  'AssetPartAPIController@detail');
+    Route::post('update',  'AssetPartAPIController@update');
 
-    Route::get('options',  'AssetPartAJAXController@options');
+    Route::get('options',  'AssetPartAPIController@options');
 });

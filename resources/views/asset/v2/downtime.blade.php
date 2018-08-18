@@ -116,7 +116,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h4 align="center">Edit Kontrak Asset</h4>
+                <h4 align="center">Edit Asset Downtime</h4>
             </div>
             <div class="col-md-4">
                 <a class="btn btn-default" data-toggle="pill" href="#downtime_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -290,14 +290,7 @@ function fetchDowntimeOptions(tag) {
         var work_order 	= data[0].work_order;
         var reported 	= data[0].reported_by;
 
-        $('#' + tag + '_downtime_downtime').empty();
-        $('#' + tag + '_downtime_cause').empty();
-
-        $('#' + tag + '_downtime_wo_id').val('');
-        $('#' + tag + '_downtime_reported_id').val('');
-        $('#' + tag + '_downtime_wo').empty();
-        $('#' + tag + '_downtime_reported').empty();
-
+        clearDowntimeOptions(tag);
 
         for(var i = 0, len = downtime.length; i < len; i++) {
             $('#' + tag + '_downtime_downtime').append($('<option>', {
@@ -388,6 +381,26 @@ function editDowntimeData(doc) {
     });
 }
 
+/* Clear Add/Edit Fields */
+function clearDowntimeData(tag) {
+    $('#' + tag + '_downtime_st_date').val('');
+    $('#' + tag + '_downtime_st_time').val('');
+    $('#' + tag + '_downtime_et_date').val('');
+    $('#' + tag + '_downtime_et_time').val('');
+    $('#' + tag + '_downtime_hours').val('');
+    $('#' + tag + '_downtime_reported_date').val('');
+    $('#' + tag + '_downtime_reported_time').val('');
+    $('#' + tag + '_downtime_note').val('');
+}
+function clearDowntimeOptions(tag) {
+    $('#' + tag + '_downtime_downtime').empty();
+    $('#' + tag + '_downtime_cause').empty();
+    $('#' + tag + '_downtime_wo_id').val('');
+    $('#' + tag + '_downtime_wo').empty();
+    $('#' + tag + '_downtime_reported_id').val('');
+    $('#' + tag + '_downtime_reported').empty();
+}
+
 
 /* Create New Data */
 function addDowntime() {
@@ -410,18 +423,7 @@ function addDowntime() {
         getDowntime();
         $('#btn_downtime_index').click();
 
-        $('#add_downtime_st_date').val('');
-        $('#add_downtime_st_time').val('');
-        $('#add_downtime_et_date').val('');
-        $('#add_downtime_et_time').val('');
-        $('#add_downtime_hours').val('');
-        $('#add_downtime_downtime').val('');
-        $('#add_downtime_cause').val('');
-        $('#add_downtime_wo_id').val('');
-        $('#add_downtime_reported_id').val('');
-        $('#add_downtime_reported_date').val('');
-        $('#add_downtime_reported_time').val('');
-        $('#add_downtime_note').val('');
+        clearDowntimeData('add');
     });
 }
 
@@ -456,6 +458,8 @@ function updateDowntime() {
     function(data, textStatus) {
         getDowntime();
         $('#btn_downtime_index').click();
+
+        clearDowntimeData('edit');
     });
 }
 </script>

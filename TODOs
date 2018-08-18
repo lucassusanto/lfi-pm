@@ -2,10 +2,20 @@ TODOs:
 - Sidebar Layout
 -- BUG: Animasi, pake nav saja
 -- Feature: Ubah desain sidebar
+- Add Lasalle logo in navbar
 
 - Performance
--- Optimize Contollers
--- Passing data in AssetController
+-- Optimize AssetContoller (passing data, db queries)
+-- Delete non-api controllers
+-- Change v2 routes
+-- Hapus loops di "view -> v2 -> master.blade.php"
 
 - Security
+-- Advanced validation controller
+-- Make ajax required field error user friendly
 -- Unique asset no and asset type
+-- Client side date begin/end validation
+
+- Usability
+-- Add manual
+-- Add sql queries

@@ -1,5 +1,3 @@
-<!-- DEBUGGING -->
-
 <!-- Part -->
 <div id="part_index" class="tab-pane fade">
     <div class="col-md-3">
@@ -34,12 +32,48 @@
                 <a class="btn btn-default" id="btn_part_index" data-toggle="pill" href="#part_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
             </div>
             <div class="col-md-2 col-md-offset-6">
-                <button onclick="addPart();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                <button onclick="addPart()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </div>
         </div><br>
 
-        
-
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_part_item">Item: *</label>
+            <div class="col-sm-4">
+                <input type="hidden" id="add_part_item_id">
+                <select class="form-control" id="add_part_item" onchange="$('#add_part_item_id').val(getID(this))">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_part_type">Type: *</label>
+            <div class="col-sm-3">
+                <select class="form-control" id="add_part_type">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_part_qty">Quantity:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="add_part_qty" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_part_wuom">Weight UOM: *</label>
+            <div class="col-sm-3">
+                <input type="hidden" id="add_part_wuom_id">
+                <select class="form-control" id="add_part_wuom" onchange="$('#add_part_wuom_id').val(getID(this))">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="add_part_note">Notes: *</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="add_part_note" placeholder="Tuliskan catatan .."></textarea>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Edit Part Form -->
@@ -49,7 +83,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h4 align="center">Edit Kontrak Asset</h4>
+                <h4 align="center">Edit Asset Part</h4>
             </div>
             <div class="col-md-4">
                 <a class="btn btn-default" data-toggle="pill" href="#part_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
@@ -59,11 +93,46 @@
             </div>
         </div><br>
 
-		
-
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_part_item">Item: *</label>
+            <div class="col-sm-4">
+                <input type="hidden" id="edit_part_item_id">
+                <select class="form-control" id="edit_part_item" onchange="$('#edit_part_item_id').val(getID(this))">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_part_type">Type: *</label>
+            <div class="col-sm-3">
+                <select class="form-control" id="edit_part_type">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_part_qty">Quantity:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="edit_part_qty" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_part_wuom">Weight UOM: *</label>
+            <div class="col-sm-3">
+                <input type="hidden" id="edit_part_wuom_id">
+                <select class="form-control" id="edit_part_wuom" onchange="$('#edit_part_wuom_id').val(getID(this))">
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3" for="edit_part_note">Notes: *</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="edit_part_note" placeholder="Tuliskan catatan .."></textarea>
+            </div>
+        </div>
     </div>
 </div>
-
 
 <!-- Delete Part Modal -->
 <div id="part_del" class="modal fade" role="dialog">
@@ -84,8 +153,24 @@
                         </div>
                     </div>
                     
-                    
-
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="del_part_item">Item:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_part_item"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="del_part_type">Type:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_part_type"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="del_part_note">Note:</label>
+                        <div class="col-md-6">
+                            <label class="control-label text-left" id="del_part_note"></label>
+                        </div>
+                    </div>
                 </div>
                 <!-- Footer -->
                 <div class="modal-footer">
@@ -117,7 +202,7 @@ function getPart() {
             table.clear();
 
             for(var i = 0, len = parts.length; i < len; i++) {
-                table.row.add([parts[i].id, i + 1, parts[i].start_time, parts[i].end_time, parts[i].hours, parts[i].note, actionBtn]);
+                table.row.add([parts[i].id, i + 1, parts[i].in_no, parts[i].type_id, parts[i].note, actionBtn]);
             }
 
             table.draw();
@@ -128,46 +213,32 @@ function getPart() {
 /* Options Dropdowns in Add/Edit Data */
 function fetchPartOptions(tag) {
     $.get('{{ url('api/part/options') }}', function(data) {
-        var part 	= data[0].part;
-        var cause 		= data[0].cause;
-        var work_order 	= data[0].work_order;
-        var reported 	= data[0].reported_by;
+        var item        = data[0].item;
+        var weight_uom  = data[0].weight_uom;
+        var type        = data[0].type;
 
-        $('#' + tag + '_part_part').empty();
-        $('#' + tag + '_part_cause').empty();
+        clearPartOptions(tag);
 
-        $('#' + tag + '_part_wo_id').val('');
-        $('#' + tag + '_part_reported_id').val('');
-        $('#' + tag + '_part_wo').empty();
-        $('#' + tag + '_part_reported').empty();
+        $('#' + tag + '_part_item_id').val(item[0].id);
+        $('#' + tag + '_part_wuom_id').val(weight_uom[0].id);
 
-
-        for(var i = 0, len = part.length; i < len; i++) {
-            $('#' + tag + '_part_part').append($('<option>', {
-                text: part[i]
+        for(var i = 0, len = item.length; i < len; i++) {
+            $('#' + tag + '_part_item').append($('<option>', {
+                id:     item[i].id,
+                text:   item[i].in_no
             }));
         }
 
-        for(var i = 0, len = cause.length; i < len; i++) {
-            $('#' + tag + '_part_cause').append($('<option>', {
-                text: cause[i]
+        for(var i = 0, len = type.length; i < len; i++) {
+            $('#' + tag + '_part_type').append($('<option>', {
+                text: type[i]
             }));
         }
 
-		$('#' + tag + '_part_wo_id').val(work_order[0].id);
-        $('#' + tag + '_part_reported_id').val(reported[0].id);
-
-        for(var i = 0, len = work_order.length; i < len; i++) {
-            $('#' + tag + '_part_wo').append($('<option>', {
-                id:     work_order[i].id,
-                text:   work_order[i].note
-            }));
-        }
-
-        for(var i = 0, len = reported.length; i < len; i++) {
-            $('#' + tag + '_part_reported').append($('<option>', {
-                id:     reported[i].id,
-                text:   reported[i].full_name
+        for(var i = 0, len = weight_uom.length; i < len; i++) {
+            $('#' + tag + '_part_wuom').append($('<option>', {
+                id:     weight_uom[i].id,
+                text:   weight_uom[i].uom
             }));
         }
     });
@@ -180,15 +251,13 @@ function showPartModal(doc) {
 
     var row_data = table.row(tr).data();
     var id = row_data[0];
-    var st = row_data[2];
-    var et = row_data[3];
-    var hours = row_data[4];
-    var note = row_data[5];
+    var item = row_data[2];
+    var type = row_data[3];
+    var note = row_data[4];
 
     $('#del_part_id').val(id);
-    $('#del_part_st').text(st);
-    $('#del_part_et').text(et);
-    $('#del_part_hours').text(hours);
+    $('#del_part_item').text(item);
+    $('#del_part_type').text(type);
     $('#del_part_note').text(note);
 }
 
@@ -198,73 +267,62 @@ function editPartData(doc) {
     var tr = doc.parentNode.parentNode;
 
     var row_data = table.row(tr).data();
-    var ad_id = row_data[0];
+    var ap_id = row_data[0];
 
     fetchPartOptions('edit');
 
     $.post('{{ url('api/part/detail') }}', {
-        asset_part_id: ad_id
+        asset_part_id: ap_id
     },
     function(data, textStatus) {
         var result = data.datas;
 
         $('#edit_part_id').val(result.id);
-        $('#edit_part_st_date').val(result.start_time[0]);
-        $('#edit_part_st_time').val(result.start_time[1]);
-        $('#edit_part_et_date').val(result.end_time[0]);
-        $('#edit_part_et_time').val(result.end_time[1]);
-        $('#edit_part_hours').val(result.hours);
-        $('#edit_part_part').val(result.part_type_id);
-        $('#edit_part_cause').val(result.part_cause_id);
 
-        $('#edit_part_wo_id').val(result.wo_id);
-        $('#edit_part_wo').find('option[id="' + result.wo_id + '"]').attr('selected', 'selected');
+        $('#edit_part_item_id').val(result.in_id);
+        $('#edit_part_item').find('option[id="' + result.in_id + '"]').attr('selected', 'selected');
+        
+        $('#edit_part_type').val(result.type_id);
+        $('#edit_part_qty').val(result.qty);
 
-        $('#edit_part_reported_id').val(result.reported_by_id);
-        $('#edit_part_reported').find('option[id="' + result.reported_by_id + '"]').attr('selected', 'selected');
-
-        $('#edit_part_reported_date').val(result.reported_time[0]);
-        $('#edit_part_reported_time').val(result.reported_time[1]);
+        $('#edit_part_wuom_id').val(result.uom_id);
+        $('#edit_part_wuom').find('option[id="' + result.uom_id + '"]').attr('selected', 'selected');
+        
         $('#edit_part_note').val(result.note);
 
         $('#btn_part_edit').click();
     });
 }
 
+/* Clear Add/Edit Fields */
+function clearPartData(tag) {
+    $('#' + tag + '_part_qty').val('');
+    $('#' + tag + '_part_note').val('');
+}
+function clearPartOptions(tag) {
+    $('#' + tag + '_part_type').empty();
+    $('#' + tag + '_part_item_id').val('');
+    $('#' + tag + '_part_item').empty();
+    $('#' + tag + '_part_wuom_id').val('');
+    $('#' + tag + '_part_wuom').empty();
+}
+
 
 /* Create New Data */
 function addPart() {
     $.post('{{ url('api/part/store') }}', {
-        asset_id:       {{ $asset_id }},
-        st_date:    	$('#add_part_st_date').val(),
-        st_time:      	$('#add_part_st_time').val(),
-        et_date:        $('#add_part_et_date').val(),
-        et_time:        $('#add_part_et_time').val(),
-        hours:          $('#add_part_hours').val(),
-        part:    	$('#add_part_part').val(),
-        cause:      	$('#add_part_cause').val(),
-        work_order:     $('#add_part_wo_id').val(),
-        reported_by:    $('#add_part_reported_id').val(),
-        reported_date:  $('#add_part_reported_date').val(),
-        reported_time:  $('#add_part_reported_time').val(),
-        note:           $('#add_part_note').val()
+        asset_id:   {{ $asset_id }},
+        item:       $('#add_part_item_id').val(),
+        type:       $('#add_part_type').val(),
+        qty:        $('#add_part_qty').val(),
+        weight_uom: $('#add_part_wuom_id').val(),
+        note:       $('#add_part_note').val()
     },
     function(data, textStatus) {
         getPart();
         $('#btn_part_index').click();
 
-        $('#add_part_st_date').val('');
-        $('#add_part_st_time').val('');
-        $('#add_part_et_date').val('');
-        $('#add_part_et_time').val('');
-        $('#add_part_hours').val('');
-        $('#add_part_part').val('');
-        $('#add_part_cause').val('');
-        $('#add_part_wo_id').val('');
-        $('#add_part_reported_id').val('');
-        $('#add_part_reported_date').val('');
-        $('#add_part_reported_time').val('');
-        $('#add_part_note').val('');
+        clearPartData('add');
     });
 }
 
@@ -283,22 +341,17 @@ function delPart() {
 function updatePart() {
     $.post('{{ url('api/part/update') }}', {
         asset_part_id:  $('#edit_part_id').val(),
-        st_date:    	$('#edit_part_st_date').val(),
-        st_time:      	$('#edit_part_st_time').val(),
-        et_date:        $('#edit_part_et_date').val(),
-        et_time:        $('#edit_part_et_time').val(),
-        hours:          $('#edit_part_hours').val(),
-        part:    	$('#edit_part_part').val(),
-        cause:      	$('#edit_part_cause').val(),
-        work_order:     $('#edit_part_wo_id').val(),
-        reported_by:    $('#edit_part_reported_id').val(),
-        reported_date:  $('#edit_part_reported_date').val(),
-        reported_time:  $('#edit_part_reported_time').val(),
+        item:           $('#edit_part_item_id').val(),
+        type:           $('#edit_part_type').val(),
+        qty:            $('#edit_part_qty').val(),
+        weight_uom:     $('#edit_part_wuom_id').val(),
         note:           $('#edit_part_note').val()
     },
     function(data, textStatus) {
         getPart();
         $('#btn_part_index').click();
+
+        clearPartData('edit');
     });
 }
 </script>

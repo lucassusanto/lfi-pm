@@ -2,8 +2,8 @@
 
 // Asset
 Route::prefix('asset')->group(function() {
-    Route::get('/',     'AssetController@index');
-    Route::get('new',   'AssetController@new_data');
+    Route::get('/',             'AssetController@index');
+    Route::get('new',           'AssetController@new_data');
     Route::post('new',          'AssetController@commit_new_data');
     Route::post('delete',       'AssetController@commit_delete');
     Route::post('edit',         'AssetController@show_edit');
@@ -51,12 +51,12 @@ Route::prefix('asset')->group(function() {
 
     // Asset Meter
     Route::prefix('{id}/meter')->group(function() {
-        Route::get('/', 'AssetMeterController@index');
-        Route::get('new', 'AssetMeterController@new');
-        Route::post('delete','AssetMeterController@commit_delete');
-        Route::post('new', 'AssetMeterController@commit_new');
-        Route::post('edit', 'AssetMeterController@show_edit');
-        Route::post('commit_edit', 'AssetMeterController@commit_edit');
+        Route::get('/',             'AssetMeterController@index');
+        Route::get('new',           'AssetMeterController@new');
+        Route::post('delete',       'AssetMeterController@commit_delete');
+        Route::post('new',          'AssetMeterController@commit_new');
+        Route::post('edit',         'AssetMeterController@show_edit');
+        Route::post('commit_edit',  'AssetMeterController@commit_edit');
     });
 
     // Asset Part
@@ -71,17 +71,17 @@ Route::prefix('asset')->group(function() {
 
     // Type
     Route::prefix('type')->group(function() {
-        Route::get('/',     'AssetTypeController@index');
-        Route::get('new',   'AssetTypeController@new_data');
+        Route::get('/',             'AssetTypeController@index');
+        Route::get('new',           'AssetTypeController@new_data');
         Route::post('new',          'AssetTypeController@commit_new_data');
         Route::post('delete',       'AssetTypeController@commit_delete');
         Route::post('edit',         'AssetTypeController@show_edit');
         Route::post('commit_edit',  'AssetTypeController@commit_edit');
     });
 
-    Route::get('{id}',         'AssetController@view');
-    Route::get('{id}/details',         'AssetController@details');
-    Route::get('{id}/v2',         'AssetController@view2');
+    Route::get('{id}',              'AssetController@view');
+    Route::get('{id}/details',      'AssetController@details');
+    Route::get('{id}/v2',           'AssetController@view2');
 });
 
 Route::get('/', function () {

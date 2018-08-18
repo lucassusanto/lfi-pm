@@ -269,6 +269,16 @@ function editDepreciationData(doc) {
     });
 }
 
+/* Clear Add/Edit Fields */
+function clearDepreciationData(tag) {
+    $('#' + tag + '_depreciation_sd').val('');
+    $('#' + tag + '_depreciation_ed').val('');
+    $('#' + tag + '_depreciation_rate').val('');
+    $('#' + tag + '_depreciation_sv').val('');
+    $('#' + tag + '_depreciation_ev').val('');
+    $('#' + tag + '_depreciation_note').val('');
+}
+
 
 /* Create New Data */
 function addDepreciation() {
@@ -285,12 +295,7 @@ function addDepreciation() {
         getDepreciation();
         $('#btn_depreciation_index').click();
 
-        $('#add_depreciation_sd').val('');
-        $('#add_depreciation_ed').val('');
-        $('#add_depreciation_rate').val('');
-        $('#add_depreciation_sv').val('');
-        $('#add_depreciation_ev').val('');
-        $('#add_depreciation_note').val('');
+        clearDepreciationData('add');
     });
 }
 
@@ -319,6 +324,8 @@ function updateDepreciation() {
     function(data, textStatus) {
         getDepreciation();
         $('#btn_depreciation_index').click();
+
+        clearDepreciationData('edit');
     });
 }
 </script>

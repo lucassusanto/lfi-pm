@@ -53,12 +53,17 @@
           <input type="password" class="form-control" id="pwd" placeholder="Password">
         </div>
         <div class="form-group">
-            <div align="center">
-            <a href="#">Lupa Password</a>
-        </div>
+          <div align="center">
+            <a href="#">Forget Password</a>
+          </div>
         </div>
         <div class="form-group">
+          <div class="col-sm-6">
+            <a href="#" class="btn btn-primary btn-block">Sign Up</a>
+          </div>
+          <div class="col-sm-offset-6">
             <a href="{{ url('asset') }}" class="btn btn-success btn-block">Login</a>
+          </div>
         </div>
       </form>
     </div>

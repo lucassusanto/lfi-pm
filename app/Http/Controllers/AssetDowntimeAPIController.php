@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use DateTime;
 
-class AssetDowntimeAJAXController extends Controller
+class AssetDowntimeAPIController extends Controller
 {
 	private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 

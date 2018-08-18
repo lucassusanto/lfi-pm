@@ -217,9 +217,7 @@ function fetchContractOptions(tag) {
         var status = data.status;
         var contract = data.contract;
 
-        $('#' + tag + '_contract_contract_id').val('');
-        $('#' + tag + '_contract_contract').empty();
-        $('#' + tag + '_contract_status').empty();
+        clearContractOptions(tag);
 
         $('#' + tag + '_contract_contract_id').val(contract[0].id);
 
@@ -286,6 +284,18 @@ function editContractData(doc) {
     });
 }
 
+/* Clear Add/Edit Fields */
+function clearContractData(tag) {
+    $('#' + tag + '_contract_sd').val('');
+    $('#' + tag + '_contract_ed').val('');
+    $('#' + tag + '_contract_note').val('');
+}
+function clearContractOptions(tag) {
+    $('#' + tag + '_contract_contract_id').val('');
+    $('#' + tag + '_contract_contract').empty();
+    $('#' + tag + '_contract_status').empty();
+}
+
 
 /* Create New Data */
 function addContract() {
@@ -301,9 +311,7 @@ function addContract() {
         getContract();
         $('#btn_contract_index').click();
 
-        $('#add_contract_sd').val('');
-        $('#add_contract_ed').val('');
-        $('#add_contract_note').val('');
+        clearContractData('add');
     });
 }
 
@@ -331,6 +339,8 @@ function updateContract() {
     function(data, textStatus) {
         getContract();
         $('#btn_contract_index').click();
+
+        clearContractData('edit');
     });
 }
 </script>

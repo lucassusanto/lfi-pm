@@ -1,13 +1,5 @@
 @extends('layouts.lfi')
 
-@section('js')
-<script type="text/javascript">
-$(function() {
-    $('#asset_type_table').DataTable();
-});
-</script>
-@endsection
-
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -47,7 +39,7 @@ $(function() {
 
     <!-- Delete Data Form -->
     <form class="form-horizontal" method="POST" action="{{ url('asset/type/delete') }}">
-        <input type="hidden" id="m_data_id" name="id" value=""></input>
+        <input type="hidden" id="del_type_id" name="id"></input>
         @csrf
 
         <div class="modal-header">
@@ -62,15 +54,15 @@ $(function() {
             </div>
         
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_type">Type:</label>
+                <label class="control-label col-sm-3 col-sm-offset-2" for="del_type_type">Type:</label>
                 <div class="col-sm-4">
-                    <label class="control-label" style="font-weight: normal;" id="m_data_type"></label>
+                    <label class="control-label" style="font-weight: normal;" id="del_type_type"></label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3 col-sm-offset-2" for="m_data_note">Note:</label>
+                <label class="control-label col-sm-3 col-sm-offset-2" for="del_type_note">Note:</label>
                 <div class="col-md-7">
-                    <label class="control-label" style="font-weight: normal;" id="m_data_note"></label>
+                    <label class="control-label" style="font-weight: normal;" id="del_type_note"></label>
                 </div>
             </div>
 
@@ -86,15 +78,18 @@ $(function() {
 </div>
 
 <!-- Edit Data Form -->
-<form method="POST" action="{{ url('asset/type/edit') }}" id="form_edit" style="visibility: hidden;">
-    <input type="hidden" id="e_data_id" name="id" value="">
+<form method="POST" action="{{ url('asset/type/edit') }}" id="edit_type" style="visibility: hidden;">
+    <input type="hidden" id="edit_type_id" name="id">
     @csrf
 </form>
-@endsection
 
 
-@section('js')
+<!-- Scripts -->
 <script type="text/javascript">
+$(function() {
+    $('#asset_type_table').DataTable();
+});
+
 function showModal(doc) {
     var tr = doc.parentNode.parentNode;
     
@@ -102,21 +97,16 @@ function showModal(doc) {
     var type = tr.childNodes[1].innerHTML;
     var note = tr.childNodes[3].innerHTML;
     
-    document.getElementById('m_data_id').value = id;
-    document.getElementById('m_data_type').innerHTML = type;
-    document.getElementById('m_data_note').innerHTML = note;
+    $('#del_type_id').val(id);
+    $('#del_type_type').text(type);
+    $('#del_type_note').text(note);
 }
 
 function editData(doc) {
-    var tr = doc.parentNode.parentNode;
-    var id = tr.id;
+    var id = doc.parentNode.parentNode.id;
 
-    var form_edit = document.getElementById('form_edit');
-    var edit_data_id = document.getElementById('e_data_id');
-
-    edit_data_id.value = id;
-
-    form_edit.submit();
+    $('#edit_type_id').val(id);
+    $('#edit_type').submit();
 }
 </script>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.lfi')
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/type/commit_edit') }}">
+<form class="form-horizontal" method="POST" action="{{ url('asset/type/update') }}">
     <input type="hidden" name="id" value="{{ $data->id }}">
     @csrf
 
@@ -18,14 +18,14 @@
     </div><br>
 
     <div class="form-group">
-        <label class="control-label col-sm-3" for="asset_type">Type:</label>
+        <label class="control-label col-sm-3" for="asset_type">Type: *</label>
         <div class="col-sm-3">
             <input type="text" class="form-control" id="asset_type" name="type" value="{{ $data->type }}" required>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-3" for="asset_note">Note:</label>
+        <label class="control-label col-sm-3" for="asset_note">Note: *</label>
         <div class="col-sm-6">
             <textarea class="form-control" id="asset_note" name="note" required>{{ $data->note }}</textarea>
         </div>

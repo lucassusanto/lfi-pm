@@ -9,6 +9,8 @@ Route::prefix('asset')->group(function() {
     Route::post('edit',         'AssetController@show_edit');
     Route::post('commit_edit',  'AssetController@commit_edit');
 
+/*  DEPRECATED */
+/*
     // Comment
     Route::prefix('{id}/comment')->group(function() {
         Route::get('/',            'AssetCommentController@index');
@@ -68,26 +70,30 @@ Route::prefix('asset')->group(function() {
         Route::post('edit',        'AssetPartController@show_edit');
         Route::post('commit_edit', 'AssetPartController@commit_edit');
     });
+*/
 
     // Type
     Route::prefix('type')->group(function() {
-        Route::get('/',             'AssetTypeController@index');
-        Route::get('new',           'AssetTypeController@new_data');
-        Route::post('new',          'AssetTypeController@commit_new_data');
-        Route::post('delete',       'AssetTypeController@commit_delete');
-        Route::post('edit',         'AssetTypeController@show_edit');
-        Route::post('commit_edit',  'AssetTypeController@commit_edit');
+        Route::get('/',          'AssetTypeController@index');
+        Route::get('new',        'AssetTypeController@new');
+        Route::post('store',     'AssetTypeController@store');
+        Route::post('delete',    'AssetTypeController@del');
+        Route::post('edit',      'AssetTypeController@details');
+        Route::post('update',    'AssetTypeController@update');
     });
 
-    Route::get('{id}',              'AssetController@view');
-    Route::get('{id}/details',      'AssetController@details');
-    Route::get('{id}/v2',           'AssetController@view2');
+    /*  DEPRECATED */
+    // Route::get('{id}',              'AssetController@view');
+    
+    Route::get('{id}',           'AssetController@view2');
+    Route::get('{id}/details',   'AssetController@details');
 });
 
 Route::get('/', function () {
     return view('index');
 });
 
+/* AUTH */
 /*
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

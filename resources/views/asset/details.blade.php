@@ -3,17 +3,17 @@
 @section('content')
 <h2 align="center">Asset Details</h2>
 
-<form id="form_edit" method="POST" action="{{ url('asset/edit') }}">
-    <input type="hidden" id="e_data_id" name="id" value="{{ $asset_id }}">
+<form id="edit_asset" method="POST" action="{{ url('asset/edit') }}">
+    <input type="hidden" name="id" value="{{ $asset_id }}">
     @csrf
 </form>
 
 <div class="row">
     <div class="col-md-1">
-        <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/v2') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+        <a class="btn btn-default" href="{{ url('asset/'.$asset_id) }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
     </div>
     <div class="col-md-2 col-md-offset-9">
-        <button class="btn btn-primary" onclick="document.getElementById('form_edit').submit();"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+        <button class="btn btn-primary" onclick="$('#edit_asset').submit()"><span class="glyphicon glyphicon-edit"></span> Edit</button>
     </div>
 </div><br>
 
@@ -260,5 +260,4 @@
         </div>
     </div>
 </div>
-
 @endsection

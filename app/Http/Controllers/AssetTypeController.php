@@ -9,12 +9,11 @@ use DateTime;
 
 class AssetTypeController extends Controller
 {
-    private $tableName = 'asset_type';
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
     // Get last data ID
     private function getID() {
-        $last_id = DB::table($this->tableName)
+        $last_id = DB::table('asset_type')
             ->select('id')->orderBy('id', 'desc')
             ->take(1)->get();
 
@@ -26,7 +25,7 @@ class AssetTypeController extends Controller
 
     // PUBLIC
     public function index() {
-        $datas = DB::table($this->tableName)
+        $datas = DB::table('asset_type')
             ->select('id', 'type', 'note')
             ->get();
 
@@ -36,16 +35,21 @@ class AssetTypeController extends Controller
     }
 
     // Menampilkan form data baru | GET
-    public function new_data() {
+    public function new() {
         return view('asset.type.new');
     }
 
     // Menambah data baru | POST
-    public function commit_new_data(Request $request) {
+    public function store(Request $request) {
+        $this->validate(request(), [
+            'type' => 'required',
+            'note' => 'required'
+        ]);
+
         $now = new DateTime();
         $last_id = $this->getID();
         
-        DB::table($this->tableName)->insert([
+        DB::table('asset_type')->insert([
             'id'                => $last_id,
             'type'              => $request->type,
             'note'              => $request->note,
@@ -59,10 +63,14 @@ class AssetTypeController extends Controller
     }
 
     // Menghapus data | POST
-    public function commit_delete(Request $request) {
+    public function del(Request $request) {
+        $this->validate(request(), [
+            'id' => 'required'
+        ]);
+
         $id = $request->id;
 
-        DB::table($this->tableName)
+        DB::table('asset_type')
             ->where('id', '=', $id)
             ->delete();
 
@@ -70,20 +78,25 @@ class AssetTypeController extends Controller
     }
 
     // Menampilkan detil data edit | POST
-    public function show_edit(Request $request) {
+    public function details(Request $request) {
+        $this->validate(request(), [
+            'id' => 'required'
+        ]);
+
         $id = $request->id;
 
-        $datas = DB::table($this->tableName)
+        $datas = DB::table('asset_type')
             ->select('id', 'type', 'note')
             ->where('id', '=', $id)
             ->get();
 
-        if($datas->count() < 1)
+        if($datas->count() < 1) {
             return view('asset.info', [
                 'title' => 'Error!',
                 'msg'   => 'Asset data id was not found!',
                 'link'  => 'asset/type'
             ]);
+        }
         
         return view('asset.type.edit', [
             'data' => $datas[0]
@@ -91,11 +104,16 @@ class AssetTypeController extends Controller
     }
 
     // Menyimpan hasil edit | POST
-    public function commit_edit(Request $request) {
+    public function update(Request $request) {
+        $this->validate(request(), [
+            'type' => 'required',
+            'note' => 'required'
+        ]);
+
         $now = new DateTime();
         $id = $request->id;
         
-        DB::table($this->tableName)
+        DB::table('asset_type')
             ->where('id', $id)
             ->update([
                 'type'          => $request->type,

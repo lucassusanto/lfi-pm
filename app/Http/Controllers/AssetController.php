@@ -98,7 +98,7 @@ class AssetController extends Controller
     }
 
     // Menampilkan form data baru | GET
-    public function new_data() {
+    public function new() {
         $out = $this->listQueries();
         if(!empty($out)) return $out;
         
@@ -115,7 +115,7 @@ class AssetController extends Controller
     }
 
     // Menambah data baru | POST
-    public function commit_new_data(Request $request) {
+    public function store(Request $request) {
         $now = new DateTime();
         $last_id = $this->getID();
 
@@ -168,34 +168,32 @@ class AssetController extends Controller
     }
 
     // Menghapus data | POST
-    public function commit_delete(Request $request) {
-        $id = $request->id;
+    public function del(Request $request) {
+        $asset_id = $request->id;
 
         DB::table('asset')
-        ->where('id', '=', $id)
-        ->delete();
+            ->where('id', '=', $asset_id)
+            ->delete();
 
         return redirect('asset');
     }
 
     // Menampilkan detil data edit | POST
-    public function show_edit(Request $request) {
-        $id = $request->id;
+    public function edit(Request $request) {
+        $asset_id = $request->id;
 
         $asset_data = DB::table('asset')
-        ->select()
-        ->where('id', '=', $id)
-        ->get();
+            ->where('id', '=', $asset_id)
+            ->get();
 
         if($asset_data->count() < 1)
             return $this->show_error('Asset data was not found!');
-
 
         $out = $this->listQueries();
         if(!empty($out)) return $out;
 
         return view('asset.edit', [
-            'asset_id'          => $id,
+            'asset_id'          => $asset_id,
             'asset_data'        => $asset_data[0],
             'categories'        => $this->categories,
             'locations'         => $this->locations,
@@ -209,12 +207,12 @@ class AssetController extends Controller
     }
 
     // Menyimpan hasil edit | POST
-    public function commit_edit(Request $request) {
+    public function update(Request $request) {
         $now = new DateTime();
-        $id = $request->id;
+        $asset_id = $request->id;
 
         DB::table('asset')
-        ->where('id', $id)
+        ->where('id', $asset_id)
         ->update([
             'note'              => $request->note,
             'priority_id'       => $request->priority,
@@ -252,8 +250,8 @@ class AssetController extends Controller
 
     private function getContract($id) {
         $contracts = DB::table('contract')
-        ->select('id', 'contract')
-        ->get();
+            ->select('id', 'contract')
+            ->get();
 
         if($contracts->count() < 1) return false;
 
@@ -264,8 +262,8 @@ class AssetController extends Controller
     // Required as foreign key (Work order)
     private function getWO() {
         $wos = DB::table('workorder')
-        ->select('id', 'note')
-        ->get();
+            ->select('id', 'note')
+            ->get();
 
         if($wos->count() < 1) return false;
         
@@ -275,8 +273,8 @@ class AssetController extends Controller
     // Required as foreign key (reported_by_id)
     private function getUsers() {
         $users = DB::table('users')
-        ->select('id', 'full_name')
-        ->get();
+            ->select('id', 'full_name')
+            ->get();
 
         if($users->count() < 1) return false;
         
@@ -310,12 +308,11 @@ class AssetController extends Controller
     }
 
     public function details(Request $request) {
-        $id = $request->id;
+        $asset_id = $request->id;
         
         $asset_data = DB::table('asset')
-        ->select()
-        ->where('id', '=', $id)
-        ->get();
+            ->where('id', '=', $asset_id)
+            ->get();
 
         if($asset_data->count() < 1)
             return $this->show_error('Asset data id was not found!');
@@ -325,7 +322,7 @@ class AssetController extends Controller
         if(!empty($out)) return $out;
 
         return view('asset.details', [
-            'asset_id'          => $id,
+            'asset_id'          => $asset_id,
             'asset_data'        => $asset_data[0],
             'categories'        => $this->categories,
             'locations'         => $this->locations,

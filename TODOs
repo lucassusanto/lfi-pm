@@ -3,12 +3,12 @@ TODOs:
 -- Add Lasalle logo in navbar
 
 - Performance
--- Optimize AssetContoller (passing data, db queries)
--- Hapus loops di "view -> v2 -> master.blade.php"
+-- Optimize AssetContoller
 
 - Security
 -- Unique asset no and asset type
 -- Advanced validation controller
+-- Change non-standard routes names
 
 - Security UI
 -- More user friendly Asset type validation

@@ -26,7 +26,7 @@
         <tr id="{{ $data->id }}">
             <td>{{ $data->asset_no }}</td>
             <td>{{ $data->status_id }}</td>
-            <td>{{ $data->asset_type_note }}</td>
+            <td>@if(!empty($data->category)){{ $data->category }}@else<i style="color: red">Asset type is missing</i>@endif</td>            
             <td>{{ $data->note }}</td>
             <td align="center">
                 <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>

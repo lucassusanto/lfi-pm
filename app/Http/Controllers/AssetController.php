@@ -87,17 +87,9 @@ class AssetController extends Controller
 
     // PUBLIC
     public function index() {
-        $categories = DB::table('asset_type')
-        ->select('id', 'note')
-        ->get();
-        
-        if($categories->count() < 1)
-            return $this->show_error('asset_type table seems empty. Please add at least 1 data');
-
-
         $datas = DB::table('asset')
-        ->join('asset_type', 'asset.type_id', '=', 'asset_type.id')
-        ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as asset_type_note', 'asset.note')
+        ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as category', 'asset.note')
+        ->leftjoin('asset_type', 'asset.type_id', '=', 'asset_type.id')
         ->get();
 
         return view('asset.master', [

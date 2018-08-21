@@ -35,12 +35,7 @@
         <label class="control-label col-sm-3">Location:</label>
         <div class="col-sm-3">
             <select class="form-control" disabled>
-                @foreach($locations as $loc)
-                    @if($asset_data->location_id == $loc->id)
-                        <option>{{ $loc->note }}</option>
-                        @break
-                    @endif
-                @endforeach
+                <option>{{ $asset_data->location }}</option>
             </select>
         </div>
     </div>
@@ -49,12 +44,7 @@
         <label class="control-label col-sm-2">Asset Category: *</label>
         <div class="col-sm-3">
             <select class="form-control" disabled>
-                @foreach($categories as $cat)
-                    @if($asset_data->type_id == $cat->id)
-                        <option>{{ $cat->note }}</option>
-                        @break
-                    @endif
-                @endforeach
+                <option>{{ $asset_data->category }}</option>
             </select>
         </div>
 

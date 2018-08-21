@@ -20,6 +20,9 @@
     <label class="control-label col-sm-3" for="asset_type">Type: *</label>
     <div class="col-sm-3">
         <input type="text" class="form-control" id="asset_type" name="type" required>
+        @if ($errors->has('type'))
+            <p>This field is required</p>
+        @endif
     </div>
 </div>
 
@@ -27,6 +30,9 @@
     <label class="control-label col-sm-3" for="asset_note">Note: *</label>
     <div class="col-sm-6">
         <textarea class="form-control" id="asset_note" name="note" required></textarea>
+        @if ($errors->has('type'))
+            <p>This field is required</p>
+        @endif
     </div>
 </div>
 </form>

@@ -396,109 +396,29 @@ class AssetController extends Controller
         ]); 
     }
 
-    // Versi AJAX
-    public function view2(Request $request) {
-        $id = $request->id;
+    // Asset Overviews (AJAX)
+    public function view2() {
+        $asset_id = request('id');
         
         $asset_data = DB::table('asset')
-        ->select()
-        ->where('id', '=', $id)
-        ->get();
+            ->select('asset.asset_no', 'asset.priority_id', 'asset.status_id',
+                DB::raw('asset_type.note as category'),
+                DB::raw('asset_loc.note as location'),
+                'asset.serial_no', 'asset.note')
+            // Categories
+            ->join('asset_type', 'asset_type.id', '=', 'asset.type_id')
+            // Locations
+            ->leftjoin(DB::raw('asset as asset_loc'), 'asset_loc.id', '=', 'asset.location_id')
+
+            ->where('asset.id', '=', $asset_id)
+            ->get();
 
         if($asset_data->count() < 1)
             return $this->show_error('Asset data id was not found!');
 
-
-        $out = $this->listQueries();
-        if(!empty($out)) return $out;
-
-        // Comment
-        $comment_datas = DB::table('asset_comment')
-        ->select('id', 'comment', 'modified_time')
-        ->where('asset_id', '=', $id)
-        ->get();
-
-        $meter_datas = DB::table('asset_meter')
-        ->select('id','meter_no','reading','time_taken','note')
-        ->where('asset_id', '=', $id)
-        ->get();
-
-
-        $part_datas = DB::table('asset_part')
-        ->select('asset_part.id','asset_part.asset_id','inventory.in_no','asset_part.type_id','asset_part.note')
-        ->join('inventory','asset_part.in_id','=','inventory.id')
-        ->where('asset_part.asset_id','=', $id)
-        ->get();
-
-        $contract_datas = DB::table('asset_contract')
-        ->select('asset_contract.id', 'contract.contract', 'asset_contract.status_id', 'asset_contract.start_date', 'asset_contract.end_date','asset_contract.note')
-        ->join('contract', 'contract.id', '=', 'asset_contract.contract_id')
-        ->where('asset_contract.asset_id', '=', $id)
-        ->get();
-
-        $depreciation_datas = DB::table('asset_depreciation')
-        ->select('id', 'start_date', 'end_date', 'end_value', 'note' ,'depreciation_rate')
-        ->where('asset_id', '=', $id)
-        ->get();
-
-        $downtime_datas = DB::table('asset_downtime')
-        ->select('id', 'start_time', 'end_time', 'hours', 'note')
-        ->where('asset_id', '=', $id)
-        ->get();
-
-        $contracts = $this->getContract($id);
-
-        $wos = $this->getWO();
-        if($wos == false)
-            return $this->show_error('Work order table seems empty');
-
-        $users = $this->getUsers();
-        if($users == false)
-            return $this->show_error('Users table seems empty');
-
-        $type = DB::Table('meter_type')
-        ->select('id','type')
-        ->get();
-
-        $uom = DB::Table('uom')
-        ->select('id','uom')
-        ->get();
-
-        $item = DB::table('inventory')
-        ->select('id','in_no')
-        ->get();
-
-        $weight_uom = DB::table('uom')
-        ->select('id', 'uom')
-        ->get();
-
-        
-        $redir = session('redir');
-
         return view('asset.view2', [
-            'asset_id'              => $id,
-            'asset_data'            => $asset_data[0],
-            'categories'            => $this->categories,
-            'locations'             => $this->locations,
-            'wuoms'                 => $this->weight_uom,
-            
-            // Sub modules
-            'comment_datas'         => $comment_datas,
-            'meter_datas'           => $meter_datas,
-            'part_datas'            => $part_datas,
-            'contract_datas'        => $contract_datas,
-            'depreciation_datas'    => $depreciation_datas,
-            'downtime_datas'        => $downtime_datas,
-
-            'contracts'     => $contracts,
-            'wos'           => $wos,
-            'users'         => $users,
-            'meter_type'    => $type,
-            'meter_uom'     => $uom,
-            'item'          => $item,
-            'weight_uom'    => $weight_uom,
-
-            'redir'     => $redir
+            'asset_id'              => $asset_id,
+            'asset_data'            => $asset_data[0]
         ]); 
     }
 

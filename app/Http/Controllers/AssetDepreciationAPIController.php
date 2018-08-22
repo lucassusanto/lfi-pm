@@ -108,7 +108,7 @@ class AssetDepreciationAPIController extends Controller
              ->where('id', '=', $asset_depreciation_id)
              ->get();
 
-        if($datas->count() < 1) {
+        if($datas->count() == 0) {
             return response(['message' => 'id was not found'], 200);
         }
 

@@ -35,7 +35,7 @@ class AssetPartAPIController extends Controller
     	$type 	= ['Major', 'Routine'];
 
     	// Check foreign keys
-        if($item->count() < 1 || $weight_uom->count() < 1) {
+        if($item->count() == 0 || $weight_uom->count() == 0) {
         	return response(['message' => 'inventory or uom table is empty!'], 200);
         }
 
@@ -125,7 +125,7 @@ class AssetPartAPIController extends Controller
 			->where('asset_part.id', '=', $asset_part_id)
 			->get();
 
-		if($datas->count() < 1) {
+		if($datas->count() == 0) {
 			return response(['message' => 'id was not found'], 200);
 		}
 

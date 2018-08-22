@@ -11,7 +11,6 @@ use Redirect;
 class AssetController extends Controller
 {
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
-    private $categories, $locations, $weight_uom, $vendors, $manufacturers, $costcodes, $depts, $items;
 
     // Get last data ID
     private function getID() {
@@ -25,6 +24,7 @@ class AssetController extends Controller
         return $last_id;
     }
 
+    // Show Error Info
     private function show_error($msg) {
         return view('asset.info', [
             'title' => 'Error!',
@@ -32,58 +32,62 @@ class AssetController extends Controller
             'link'  => 'asset'
         ]);
     }
-    
+
     // Query utk data dropdowns di form new/edit data
-    private function listQueries() {
+    private function batchQuery() {
         // Cek asset_type. Required as foreign key
         $categories = DB::table('asset_type')
             ->select('id', 'note')
             ->get();
         
-        if($categories->count() < 1)
-            return $this->show_error('asset_type table seems empty. Please add at least 1 data');
+        if($categories->count() == 0) {
+            $status = $this->show_error('asset_type table seems empty. Please add at least 1 data');
+            return compact('status');
+        }
 
-        $this->categories = $categories;
-
-        // Mendapat list asset location dari tabel asset_type
+        // Asset Locations
         $loc_id = DB::table('asset_type')
             ->select('id')
             ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
             ->take(1)->get();
 
-        $this->locations = [];
+        $locations = [];
         
         if($loc_id->count()) {
-            $this->locations = DB::table('asset')
+            $locations = DB::table('asset')
                 ->select('id', 'note')
                 ->where('type_id', '=', $loc_id[0]->id)
                 ->get();
         }
 
-        // Get others data
-        $this->weight_uom = DB::table('uom')
+        // Other Datas
+        $weight_uom = DB::table('uom')
             ->select('id', 'uom')
             ->get();
         
-        $this->vendors = DB::table('vendor')
+        $vendors = DB::table('vendor')
             ->select('id', 'vendor')
             ->get();
 
-        $this->manufacturers = DB::table('manufacturer')
+        $manufacturers = DB::table('manufacturer')
             ->select('id', 'manufacturer')
             ->get();
 
-        $this->costcodes = DB::table('costcode')
+        $costcodes = DB::table('costcode')
             ->select('id', 'note')
             ->get();
         
-        $this->depts = DB::table('dept')
+        $depts = DB::table('dept')
             ->select('id', 'dept')
             ->get();
 
-        $this->items = DB::table('inventory')
+        $items = DB::table('inventory')
             ->select('id', 'in_no')
             ->get();
+
+        $status = 'ok';
+
+        return compact('status', 'categories', 'locations', 'weight_uom', 'vendors', 'manufacturers', 'costcodes', 'depts', 'items');
     }
 
     // PUBLIC
@@ -100,22 +104,22 @@ class AssetController extends Controller
 
     // Menampilkan form data baru | GET
     public function new() {
-        $out = $this->listQueries();
-        if(!empty($out)) return $out;
+        $data = $this->batchQuery();
+        if($data['status'] != 'ok') return $data['status'];
         
         return view('asset.new', [
-            'categories'        => $this->categories,
-            'locations'         => $this->locations,
-            'wuoms'             => $this->weight_uom,
-            'vendors'           => $this->vendors,
-            'manufacturers'     => $this->manufacturers,
-            'costcodes'         => $this->costcodes,
-            'depts'             => $this->depts,
-            'items'             => $this->items
+            'categories'        => $data['categories'],
+            'locations'         => $data['locations'],
+            'wuoms'             => $data['weight_uom'],
+            'vendors'           => $data['vendors'],
+            'manufacturers'     => $data['manufacturers'],
+            'costcodes'         => $data['costcodes'],
+            'depts'             => $data['depts'],
+            'items'             => $data['items']
         ]);
     }
 
-    // Menambah data baru | POST
+    // Menambah data asset baru | POST
     public function store(Request $request) {
         $now = new DateTime();
         $last_id = $this->getID();
@@ -165,7 +169,7 @@ class AssetController extends Controller
         return redirect('asset');
     }
 
-    // Menghapus data | POST
+    // Menghapus asset | POST
     public function del(Request $request) {
         $asset_id = $request->id;
 
@@ -184,24 +188,25 @@ class AssetController extends Controller
             ->where('id', '=', $asset_id)
             ->get();
 
-        if($asset_data->count() < 1) {
+        if($asset_data->count() == 0) {
             return $this->show_error('Asset data was not found!');
         }
 
-        $out = $this->listQueries();
-        if(!empty($out)) return $out;
+        $data = $this->batchQuery();
+        if($data['status'] != 'ok') return $data['status'];
 
         return view('asset.edit', [
             'asset_id'          => $asset_id,
             'asset_data'        => $asset_data[0],
-            'categories'        => $this->categories,
-            'locations'         => $this->locations,
-            'wuoms'             => $this->weight_uom,
-            'vendors'           => $this->vendors,
-            'manufacturers'     => $this->manufacturers,
-            'costcodes'         => $this->costcodes,
-            'depts'             => $this->depts,
-            'items'             => $this->items
+
+            'categories'        => $data['categories'],
+            'locations'         => $data['locations'],
+            'wuoms'             => $data['weight_uom'],
+            'vendors'           => $data['vendors'],
+            'manufacturers'     => $data['manufacturers'],
+            'costcodes'         => $data['costcodes'],
+            'depts'             => $data['depts'],
+            'items'             => $data['items']
         ]);
     }
 
@@ -247,7 +252,8 @@ class AssetController extends Controller
         return redirect('asset');
     }
 
-    // Asset Overviews | GET
+
+    // Menampilkan rangkuman data asset | GET
     public function view() {
         $asset_id = request('id');
         
@@ -264,8 +270,9 @@ class AssetController extends Controller
             ->where('asset.id', '=', $asset_id)
             ->get();
 
-        if($asset_data->count() < 1)
+        if($asset_data->count() == 0) {
             return $this->show_error('Asset data id was not found!');
+        }
 
         return view('asset.view2', [
             'asset_id'      => $asset_id,
@@ -333,7 +340,7 @@ class AssetController extends Controller
             ->where('asset.id', '=', $asset_id)
             ->get();
 
-        if($asset_data->count() < 1) {
+        if($asset_data->count() == 0) {
             return $this->show_error('Asset data id was not found!');
         }
 
@@ -343,7 +350,8 @@ class AssetController extends Controller
         ]);
     }
 
-    // Mengecek apakah Asset No sudah ada | POST
+
+    // Mengecek apakah Asset No sudah ada/belum | POST
     public function cekNo() {
         $asset_no = request('no');
 
@@ -357,7 +365,7 @@ class AssetController extends Controller
             ->get();
 
         if($asset_data->count()) {
-            return response('false', 200); // Exists Error
+            return response('false', 200); // Sudah ada
         }
 
         return response('true', 200);

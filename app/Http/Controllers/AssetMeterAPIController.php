@@ -35,7 +35,7 @@ class AssetMeterAPIController extends Controller
     	$rollup 	= ['None', 'Rollup Change'];
 
     	// Check foreign keys
-        if($type->count() < 1 || $reading_unit->count() < 1) {
+        if($type->count() == 0 || $reading_unit->count() == 0) {
         	return response(['message' => 'meter_type or uom table is empty!'], 200);
         }
 
@@ -131,7 +131,7 @@ class AssetMeterAPIController extends Controller
 			->where('id', '=', $asset_meter_id)
 			->get();
 
-		if($datas->count() < 1) {
+		if($datas->count() == 0) {
 			return response(['message' => 'id was not found'], 200);
 		}
 

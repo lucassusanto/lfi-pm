@@ -90,7 +90,7 @@ class AssetTypeController extends Controller
             ->where('id', '=', $asset_type_id)
             ->get();
 
-        if($datas->count() < 1) {
+        if($datas->count() == 0) {
             return view('asset.info', [
                 'title' => 'Error!',
                 'msg'   => 'Asset data id was not found!',
@@ -106,8 +106,8 @@ class AssetTypeController extends Controller
     // Menyimpan hasil edit | POST
     public function update(Request $request) {
         $this->validate(request(), [
-            'id' => 'required',
-            'note' => 'required'
+            'id'    => 'required',
+            'note'  => 'required'
         ]);
 
         $now = new DateTime();
@@ -124,7 +124,7 @@ class AssetTypeController extends Controller
         return redirect('asset/type');
     }
 
-    // Mengecek apakah Asset Type sudah ada | GET
+    // Mengecek apakah Asset Type sudah ada/belum | GET
     public function cekType() {        
         $asset_type = request('type');
 
@@ -138,7 +138,7 @@ class AssetTypeController extends Controller
             ->get();
 
         if($asset_data->count()) {
-            return response('false', 200);  // Exists Error
+            return response('false', 200);  // Sudah ada
         }
 
         return response('true', 200);

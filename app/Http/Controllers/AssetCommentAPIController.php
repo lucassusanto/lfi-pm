@@ -25,7 +25,7 @@ class AssetCommentAPIController extends Controller
     }
 
     // PUBLIC
-    // Ambil data master | GET
+    // Mengambil data master | GET
     public function master() {
         $this->validate(request(), [
             'asset_id' => 'required'
@@ -95,7 +95,7 @@ class AssetCommentAPIController extends Controller
             ->where('id', '=', $asset_comment_id)
             ->get();
 
-        if($datas->count() < 1) {
+        if($datas->count() == 0) {
             return response(['message' => 'id was not found'], 200);
         }
 

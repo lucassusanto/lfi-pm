@@ -48,7 +48,7 @@ class AssetDowntimeAPIController extends Controller
         $reported_by 	= DB::table('users')->select('id', 'full_name')->get();
 
         // Check foreign keys
-        if($work_order->count() < 1 || $reported_by->count() < 1) {
+        if($work_order->count() == 0 || $reported_by->count() == 0) {
         	return response(['message' => 'workorder or users table is empty!'], 200);
         }
 
@@ -160,7 +160,7 @@ class AssetDowntimeAPIController extends Controller
 			->where('id', '=', $asset_downtime_id)
 			->get();
 
-        if($datas->count() < 1) {
+        if($datas->count() == 0) {
             return response(['message' => 'id was not found'], 200);
         }
 

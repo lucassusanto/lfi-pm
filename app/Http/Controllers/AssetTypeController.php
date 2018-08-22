@@ -129,6 +129,10 @@ class AssetTypeController extends Controller
     public function cekType() {        
         $asset_type = request('type');
 
+        if(empty($asset_type)) {
+            return response('', 200);
+        }
+
         $asset_data = DB::table('asset_type')
             ->where('type', '=', $asset_type)
             ->limit(1)

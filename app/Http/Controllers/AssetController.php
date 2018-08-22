@@ -119,9 +119,6 @@ class AssetController extends Controller
         $now = new DateTime();
         $last_id = $this->getID();
 
-        $cek = DB::table('asset')->where('asset_no', '=', $request->no)->limit(1)->get();
-        if($cek->count()) return Redirect::back()->with('asset_no_err', 'true');
-
         DB::table('asset')->insert([
             'id'                => $last_id,
             'asset_no'          => $request->no,
@@ -332,10 +329,13 @@ class AssetController extends Controller
         ]);
     }
 
-    // DEBUG
     // Mengecek apakah Asset No sudah ada | POST
     public function cekNo() {
-        $asset_no = request('asset_no');
+        $asset_no = request('no');
+
+        if(empty($asset_no)) {
+            return response('', 200);
+        }
 
         $asset_data = DB::table('asset')
             ->where('asset_no', '=', $asset_no)
@@ -343,9 +343,9 @@ class AssetController extends Controller
             ->get();
 
         if($asset_data->count()) {
-            return response(['msg' => 'error'], 200);
+            return response('false', 200); // Exists Error
         }
 
-        return response(['msg' => 'ok'], 200);
+        return response('true', 200);
     }
 }

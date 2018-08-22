@@ -10,21 +10,13 @@ function getID(doc) {
 @endsection
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/store') }}">
+<form id="assetForm" class="form-horizontal" method="POST" action="{{ url('asset/store') }}">
 @csrf
 
 <div class="row">
     <div class="col-md-12">
         <h2 align="center">Tambah Asset</h2>
     </div>
-    @if(!empty(session('asset_no_err')))
-        <!-- Asset No Error -->
-        <div class="col-md-12">
-            <div class="alert alert-danger">
-                <b>Error!</b>Asset No exists!
-            </div>
-        </div>
-    @endif
     <div class="col-md-4">
         <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
     </div>
@@ -72,7 +64,7 @@ function getID(doc) {
         <label class="control-label col-sm-2" for="asset_category">Asset Category: *</label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_category" name="category" value="{{ $categories[0]->id }}">
-            <select class="form-control" onchange="document.getElementById('asset_category').value = getID(this);" required>
+            <select class="form-control" onchange="$('#asset_category').val(getID(this))" required>
                 @foreach($categories as $cat)
                     <option id="{{ $cat->id }}">{{ $cat->note }}</option>
                 @endforeach
@@ -81,7 +73,7 @@ function getID(doc) {
         <label class="control-label col-sm-3" for="asset_wuom">Weight UOM:</label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_wuom" name="wuom" value="">
-            <select class="form-control" onchange="document.getElementById('asset_wuom').value = getID(this);">
+            <select class="form-control" onchange="$('#asset_wuom').val(getID(this))">
                 <option></option>
                 @foreach($wuoms as $wuom)
                     <option id="{{ $wuom->id }}">{{ $wuom->uom }}</option>
@@ -93,7 +85,7 @@ function getID(doc) {
         <label class="control-label col-sm-2" for="asset_location">Location:</label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_location" name="location" value="">
-            <select class="form-control" onchange="document.getElementById('asset_location').value = getID(this);" >
+            <select class="form-control" onchange="$('#asset_location').val(getID(this))" >
                 <option></option>
                 @foreach($locations as $loc)
                     <option id="{{ $loc->id }}">{{ $loc->note }}</option>
@@ -143,7 +135,7 @@ function getID(doc) {
         <label class="control-label col-sm-2" for="asset_vendor">Vendor:</label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_vendor" name="vendor" value="">
-            <select class="form-control" onchange="document.getElementById('asset_vendor').value = getID(this);" >
+            <select class="form-control" onchange="$('#asset_vendor').val(getID(this))" >
                 <option></option>
                 @foreach($vendors as $vendor)
                     <option id="{{ $vendor->id }}">{{ $vendor->vendor }}</option>
@@ -153,7 +145,7 @@ function getID(doc) {
         <label class="control-label col-sm-3" for="asset_manufacturer">Manufacturer:</label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_manufacturer" name="manufacturer" value="">
-            <select class="form-control" onchange="document.getElementById('asset_manufacturer').value = getID(this);" >
+            <select class="form-control" onchange="$('#asset_manufacturer').val(getID(this))" >
                 <option></option>
                 @foreach($manufacturers as $manufacturer)
                     <option id="{{ $manufacturer->id }}">{{ $manufacturer->manufacturer }}</option>
@@ -203,7 +195,7 @@ function getID(doc) {
         <label class="control-label col-sm-2" for="asset_cc">Cost Code:</label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_cc" name="cc" value="">
-            <select class="form-control" onchange="document.getElementById('asset_cc').value = getID(this);" >
+            <select class="form-control" onchange="$('#asset_cc').val(getID(this))" >
                 <option></option>
                 @foreach($costcodes as $costcode)
                     <option id="{{ $costcode->id }}">{{ $costcode->note }}</option>
@@ -213,7 +205,7 @@ function getID(doc) {
         <label class="control-label col-sm-3" for="asset_dept">Department:</label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_dept" name="dept" value="">
-            <select class="form-control" onchange="document.getElementById('asset_dept').value = getID(this);" >
+            <select class="form-control" onchange="$('#asset_dept').val(getID(this))" >
                 <option></option>
                 @foreach($depts as $dept)
                     <option id="{{ $dept->id }}">{{ $dept->dept }}</option>
@@ -226,7 +218,7 @@ function getID(doc) {
         <label class="control-label col-sm-2" for="asset_item">Item:</label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_item" name="ai" value="">
-            <select class="form-control" onchange="document.getElementById('asset_item').value = getID(this);" >
+            <select class="form-control" onchange="$('#asset_item').val(getID(this))" >
                 <option></option>
                 @foreach($items as $item)
                     <option id="{{ $item->id }}">{{ $item->in_no }}</option>
@@ -269,4 +261,22 @@ function getID(doc) {
     </div>
 </div>
 </form>
+
+
+<script type="text/javascript">
+$(function() {
+    $('#assetForm').validate({
+        rules: {
+            no: {
+                remote: '{{ url('api/asset/cekAssetNo') }}'
+            }
+        },
+        messages: {
+            no: {
+                remote: 'This Asset No already exists.'
+            }
+        }
+    });
+});
+</script>
 @endsection

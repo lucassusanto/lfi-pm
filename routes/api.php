@@ -58,6 +58,6 @@ Route::prefix('part')->group(function() {
 
 // DEBUG
 Route::prefix('asset')->group(function() {
-    // Route::post('cekAssetNo',   'AssetController@cekNo');
-    Route::get('cekAssetType',   'AssetTypeController@cekType');
+    Route::get('cekAssetNo',   'AssetController@cekNo');
+    Route::get('cekAssetType', 'AssetTypeController@cekType');
 });

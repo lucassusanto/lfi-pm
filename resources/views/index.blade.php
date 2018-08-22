@@ -42,7 +42,10 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-4 col-sm-offset-4 kotak">
-      <h2 align="center">Login</h2><br>
+      <h2 align="center">Login</h2>
+
+      <h5 align="center" style="color: red">Click Login to get into the app. This is only a login mockup. Delete this line in the future</h5><br>
+
       <form>
         <div class="form-group input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>

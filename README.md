@@ -33,3 +33,6 @@ DB_PASSWORD=<password>
 Access 'public' folder through Apache
 OR
 Execute 'php artisan serve' and then open 127.0.0.1:8080 (?)
+
+
+lfi-template folder

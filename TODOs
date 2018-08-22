@@ -2,18 +2,23 @@ TODOs:
 - Layout
 -- Add Lasalle logo in navbar
 
-- Performance
--- Optimize AssetContoller
-
 - Security
--- Unique asset no and asset type
+-- Unique asset no (DEBUGING) and asset type (DEBUGING)
 -- Advanced validation controller
 -- Change non-standard routes names
+-- Validate in every POST function
 
 - Security UI
 -- More user friendly Asset type validation
 -- Make ajax required field error user friendly
 -- Client side date begin/end validation
+
+- Performance
+-- Optimize AssetContoller
+-- Limit row return
+
+- Readibility
+-- Wrap api routes with 'asset'
 
 - Usability
 -- Update manual Readme.md

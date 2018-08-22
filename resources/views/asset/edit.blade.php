@@ -10,7 +10,7 @@ function getID(doc) {
 @endsection
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/commit_edit') }}">
+<form class="form-horizontal" method="POST" action="{{ url('asset/update') }}">
 <input type="hidden" name="id" value="{{ $asset_data->id }}">
 @csrf
 

@@ -10,9 +10,7 @@ function getID(doc) {
 @endsection
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/new') }}">
-<!-- Mandatory: asset no, asset priority, status, cat, dep type, dep interval
-Query: category, uom, location, vendor, manufacturer, costcode, dept, item  -->
+<form class="form-horizontal" method="POST" action="{{ url('asset/store') }}">
 @csrf
 
 <div class="row">

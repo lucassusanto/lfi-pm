@@ -1,7 +1,7 @@
 @extends('layouts.lfi')
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/type/store') }}">
+<form id="typeForm" class="form-horizontal" method="POST" action="{{ url('asset/type/store') }}">
 @csrf
 
 <div class="row">
@@ -20,9 +20,6 @@
     <label class="control-label col-sm-3" for="asset_type">Type: *</label>
     <div class="col-sm-3">
         <input type="text" class="form-control" id="asset_type" name="type" required>
-        @if ($errors->has('type'))
-            <p>This field is required</p>
-        @endif
     </div>
 </div>
 
@@ -30,10 +27,24 @@
     <label class="control-label col-sm-3" for="asset_note">Note: *</label>
     <div class="col-sm-6">
         <textarea class="form-control" id="asset_note" name="note" required></textarea>
-        @if ($errors->has('type'))
-            <p>This field is required</p>
-        @endif
     </div>
 </div>
 </form>
+
+<script type="text/javascript">
+$(function() {
+    $('#typeForm').validate({
+        rules: {
+            type: {
+                remote: '{{ url('api/asset/cekAssetType') }}'
+            }
+        },
+        messages: {
+            type: {
+                remote: 'This type already exists.'
+            }
+        }
+    });
+});
+</script>
 @endsection

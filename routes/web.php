@@ -2,12 +2,12 @@
 
 // Asset
 Route::prefix('asset')->group(function() {
-    Route::get('/',             'AssetController@index');
-    Route::get('new',           'AssetController@new');
-    Route::post('new',          'AssetController@store');
-    Route::post('delete',       'AssetController@del');
-    Route::post('edit',         'AssetController@edit');
-    Route::post('commit_edit',  'AssetController@update');
+    Route::get('/',         'AssetController@index');
+    Route::get('new',       'AssetController@new');
+    Route::post('store',    'AssetController@store');
+    Route::post('delete',   'AssetController@del');
+    Route::post('edit',     'AssetController@edit');
+    Route::post('update',   'AssetController@update');
 
     // Type
     Route::prefix('type')->group(function() {
@@ -21,6 +21,7 @@ Route::prefix('asset')->group(function() {
     
     Route::get('{id}',           'AssetController@view');
     Route::get('{id}/details',   'AssetController@details');
+    // Route::get('{id}/details',   'AssetController@details2'); // DEBUG
 });
 
 Route::get('/', function () {

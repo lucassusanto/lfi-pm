@@ -55,3 +55,9 @@ Route::prefix('part')->group(function() {
 
     Route::get('options',  'AssetPartAPIController@options');
 });
+
+// DEBUG
+Route::prefix('asset')->group(function() {
+    // Route::post('cekAssetNo',   'AssetController@cekNo');
+    Route::get('cekAssetType',   'AssetTypeController@cekType');
+});

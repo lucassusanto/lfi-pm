@@ -124,4 +124,20 @@ class AssetTypeController extends Controller
         
         return redirect('asset/type');
     }
+
+    // Mengecek apakah Asset Type sudah ada | GET
+    public function cekType() {        
+        $asset_type = request('type');
+
+        $asset_data = DB::table('asset_type')
+            ->where('type', '=', $asset_type)
+            ->limit(1)
+            ->get();
+
+        if($asset_data->count()) {
+            return response('false', 200);  // Exists Error
+        }
+
+        return response('true', 200);
+    }
 }

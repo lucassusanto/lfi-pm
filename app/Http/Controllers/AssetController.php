@@ -88,9 +88,9 @@ class AssetController extends Controller
     // PUBLIC
     public function index() {
         $datas = DB::table('asset')
-        ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as category', 'asset.note')
-        ->leftjoin('asset_type', 'asset.type_id', '=', 'asset_type.id')
-        ->get();
+            ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as category', 'asset.note')
+            ->leftjoin('asset_type', 'asset.type_id', '=', 'asset_type.id')
+            ->get();
 
         return view('asset.master', [
             'datas' => $datas
@@ -248,40 +248,7 @@ class AssetController extends Controller
         return redirect('asset');
     }
 
-    private function getContract($id) {
-        $contracts = DB::table('contract')
-            ->select('id', 'contract')
-            ->get();
-
-        if($contracts->count() < 1) return false;
-
-        return $contracts;
-    }
-
-
-    // Required as foreign key (Work order)
-    private function getWO() {
-        $wos = DB::table('workorder')
-            ->select('id', 'note')
-            ->get();
-
-        if($wos->count() < 1) return false;
-        
-        return $wos;
-    }
-    
-    // Required as foreign key (reported_by_id)
-    private function getUsers() {
-        $users = DB::table('users')
-            ->select('id', 'full_name')
-            ->get();
-
-        if($users->count() < 1) return false;
-        
-        return $users;
-    }
-
-    // Asset Overviews (AJAX)
+    // Asset Overviews | GET
     public function view() {
         $asset_id = request('id');
         
@@ -333,5 +300,52 @@ class AssetController extends Controller
             'depts'             => $this->depts,
             'items'             => $this->items
         ]);
+    }
+
+    // DEBUG
+    // Menampilkan detail asset | GET
+    public function details2(Request $request) {
+        $asset_id = $request->id;
+        
+        $asset_data = DB::table('asset')
+            ->where('id', '=', $asset_id)
+            ->get();
+
+        if($asset_data->count() < 1)
+            return $this->show_error('Asset data id was not found!');
+
+        
+        $out = $this->listQueries();
+        if(!empty($out)) return $out;
+
+        return view('asset.details2', [
+            'asset_id'          => $asset_id,
+            'asset_data'        => $asset_data[0],
+            'categories'        => $this->categories,
+            'locations'         => $this->locations,
+            'wuoms'             => $this->weight_uom,
+            'vendors'           => $this->vendors,
+            'manufacturers'     => $this->manufacturers,
+            'costcodes'         => $this->costcodes,
+            'depts'             => $this->depts,
+            'items'             => $this->items
+        ]);
+    }
+
+    // DEBUG
+    // Mengecek apakah Asset No sudah ada | POST
+    public function cekNo() {
+        $asset_no = request('asset_no');
+
+        $asset_data = DB::table('asset')
+            ->where('asset_no', '=', $asset_no)
+            ->limit(1)
+            ->get();
+
+        if($asset_data->count()) {
+            return response(['msg' => 'error'], 200);
+        }
+
+        return response(['msg' => 'ok'], 200);
     }
 }

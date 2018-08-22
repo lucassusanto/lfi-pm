@@ -19,9 +19,8 @@ Route::prefix('asset')->group(function() {
         Route::post('update',    'AssetTypeController@update');
     });
     
-    Route::get('{id}',           'AssetController@view');
     Route::get('{id}/details',   'AssetController@details');
-    // Route::get('{id}/details',   'AssetController@details2'); // DEBUG
+    Route::get('{id}',           'AssetController@view');
 });
 
 Route::get('/', function () {

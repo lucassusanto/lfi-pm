@@ -5,9 +5,10 @@ TODOs:
 - Security
 -- Advanced validation controller
 -- Controller request validation in every POST function
+-- All ajax edit validation
 
 - Security UI
--- user friendly error validation in sub-modules (ajax)
+-- All ajax new data validation/user friendly error validation in sub-modules (ajax)
 -- Client side date begin/end validation
 
 - Performance

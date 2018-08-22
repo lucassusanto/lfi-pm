@@ -10,7 +10,7 @@ function getID(doc) {
 @endsection
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/update') }}">
+<form id="assetForm" class="form-horizontal" method="POST" action="{{ url('asset/update') }}">
 <input type="hidden" name="id" value="{{ $asset_data->id }}">
 @csrf
 
@@ -265,4 +265,11 @@ function getID(doc) {
     </div>
 </div>
 </form>
+
+
+<script type="text/javascript">
+$(function() {
+    $('#assetForm').validate();
+});
+</script>
 @endsection

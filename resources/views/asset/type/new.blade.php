@@ -31,6 +31,7 @@
 </div>
 </form>
 
+
 <script type="text/javascript">
 $(function() {
     $('#typeForm').validate({

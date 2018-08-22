@@ -68,10 +68,10 @@ class AssetTypeController extends Controller
             'id' => 'required'
         ]);
 
-        $id = $request->id;
+        $asset_type_id = $request->id;
 
         DB::table('asset_type')
-            ->where('id', '=', $id)
+            ->where('id', '=', $asset_type_id)
             ->delete();
 
         return redirect('asset/type');
@@ -83,11 +83,11 @@ class AssetTypeController extends Controller
             'id' => 'required'
         ]);
 
-        $id = $request->id;
+        $asset_type_id = $request->id;
 
         $datas = DB::table('asset_type')
             ->select('id', 'type', 'note')
-            ->where('id', '=', $id)
+            ->where('id', '=', $asset_type_id)
             ->get();
 
         if($datas->count() < 1) {
@@ -106,17 +106,16 @@ class AssetTypeController extends Controller
     // Menyimpan hasil edit | POST
     public function update(Request $request) {
         $this->validate(request(), [
-            'type' => 'required',
+            'id' => 'required',
             'note' => 'required'
         ]);
 
         $now = new DateTime();
-        $id = $request->id;
+        $asset_type_id = $request->id;
         
         DB::table('asset_type')
-            ->where('id', $id)
+            ->where('id', $asset_type_id)
             ->update([
-                'type'          => $request->type,
                 'note'          => $request->note,
                 'modified_time' => $now,
                 'modified_id'   => $this->user_id

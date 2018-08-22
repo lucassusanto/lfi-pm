@@ -16,8 +16,8 @@ class AssetController extends Controller
     // Get last data ID
     private function getID() {
         $last_id = DB::table('asset')
-        ->select('id')->orderBy('id', 'desc')
-        ->take(1)->get();
+            ->select('id')->orderBy('id', 'desc')
+            ->take(1)->get();
 
         if($last_id->count())   $last_id = $last_id[0]->id + 1;
         else                    $last_id = 1;
@@ -37,8 +37,8 @@ class AssetController extends Controller
     private function listQueries() {
         // Cek asset_type. Required as foreign key
         $categories = DB::table('asset_type')
-        ->select('id', 'note')
-        ->get();
+            ->select('id', 'note')
+            ->get();
         
         if($categories->count() < 1)
             return $this->show_error('asset_type table seems empty. Please add at least 1 data');
@@ -47,42 +47,43 @@ class AssetController extends Controller
 
         // Mendapat list asset location dari tabel asset_type
         $loc_id = DB::table('asset_type')
-        ->select('id')
-        ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
-        ->take(1)->get();
+            ->select('id')
+            ->where(DB::raw('upper(note)'), 'like', '%LOCATION%')
+            ->take(1)->get();
 
         $this->locations = [];
         
-        if($loc_id->count())
+        if($loc_id->count()) {
             $this->locations = DB::table('asset')
-        ->select('id', 'note')
-        ->where('type_id', '=', $loc_id[0]->id)
-        ->get();
+                ->select('id', 'note')
+                ->where('type_id', '=', $loc_id[0]->id)
+                ->get();
+        }
 
         // Get others data
         $this->weight_uom = DB::table('uom')
-        ->select('id', 'uom')
-        ->get();
+            ->select('id', 'uom')
+            ->get();
         
         $this->vendors = DB::table('vendor')
-        ->select('id', 'vendor')
-        ->get();
+            ->select('id', 'vendor')
+            ->get();
 
         $this->manufacturers = DB::table('manufacturer')
-        ->select('id', 'manufacturer')
-        ->get();
+            ->select('id', 'manufacturer')
+            ->get();
 
         $this->costcodes = DB::table('costcode')
-        ->select('id', 'note')
-        ->get();
+            ->select('id', 'note')
+            ->get();
         
         $this->depts = DB::table('dept')
-        ->select('id', 'dept')
-        ->get();
+            ->select('id', 'dept')
+            ->get();
 
         $this->items = DB::table('inventory')
-        ->select('id', 'in_no')
-        ->get();
+            ->select('id', 'in_no')
+            ->get();
     }
 
     // PUBLIC
@@ -183,8 +184,9 @@ class AssetController extends Controller
             ->where('id', '=', $asset_id)
             ->get();
 
-        if($asset_data->count() < 1)
+        if($asset_data->count() < 1) {
             return $this->show_error('Asset data was not found!');
+        }
 
         $out = $this->listQueries();
         if(!empty($out)) return $out;
@@ -271,61 +273,73 @@ class AssetController extends Controller
         ]); 
     }
 
+    // Menampilkan detail asset | GET
     public function details(Request $request) {
         $asset_id = $request->id;
         
         $asset_data = DB::table('asset')
-            ->where('id', '=', $asset_id)
+            ->select(
+                // OVERVIEW
+                'asset.asset_no', 'asset.priority_id', 'asset.status_id', 'asset.weight',
+                // Category
+                DB::raw('asset_type.note as category'),
+                // Wuom
+                DB::raw('uom.uom as wuom'),
+                // Location
+                DB::raw('asset_loc.note as location'),
+                //
+                'asset.serial_no', 'asset.note',
+
+                // WARRANTY
+                'asset.start_date', 'asset.purchase_date', 'asset.warranty_start_date', 'asset.warranty_end_date',
+                // Vendor
+                'vendor.vendor',
+                // Manufacturer
+                'manufacturer.manufacturer',
+                //
+                'asset.original_cost',
+
+                // COST
+                'asset.maint_material_cost', 'asset.maint_labor_cost', 'asset.maint_labor_hours', 'asset.maint_cost',
+
+                // CODES
+                // Costcode
+                DB::raw('costcode.note as costcode'),
+                // Department
+                'dept.dept',
+                // Item
+                DB::raw('inventory.in_no as item'),
+
+                // DEPRECIATION
+                'asset.depreciation_type_id', 'asset.depreciation_start', 'asset.depreciation_time_id', 'asset.depreciation_rate'
+                )
+            // Category
+            ->join('asset_type', 'asset_type.id', '=', 'asset.type_id')
+            // Weight uom
+            ->leftjoin('uom', 'uom.id', '=', 'asset.weight_uom_id')
+            // Location
+            ->leftjoin(DB::raw('asset as asset_loc'), 'asset_loc.id', '=', 'asset.location_id')
+            // Vendor
+            ->leftjoin('vendor', 'vendor.id', '=', 'asset.vendor_id')
+            // Manufacturer
+            ->leftjoin('manufacturer', 'manufacturer.id', '=', 'asset.manufacturer_id')
+            // Costcode
+            ->leftjoin('costcode', 'costcode.id', '=', 'asset.costcode_id')
+            // Department
+            ->leftjoin('dept', 'dept.id', '=', 'asset.dept_id')
+            // Item
+            ->leftjoin('inventory', 'inventory.id', '=', 'asset.in_id')
+
+            ->where('asset.id', '=', $asset_id)
             ->get();
 
-        if($asset_data->count() < 1)
+        if($asset_data->count() < 1) {
             return $this->show_error('Asset data id was not found!');
-
-        
-        $out = $this->listQueries();
-        if(!empty($out)) return $out;
+        }
 
         return view('asset.details', [
-            'asset_id'          => $asset_id,
-            'asset_data'        => $asset_data[0],
-            'categories'        => $this->categories,
-            'locations'         => $this->locations,
-            'wuoms'             => $this->weight_uom,
-            'vendors'           => $this->vendors,
-            'manufacturers'     => $this->manufacturers,
-            'costcodes'         => $this->costcodes,
-            'depts'             => $this->depts,
-            'items'             => $this->items
-        ]);
-    }
-
-    // DEBUG
-    // Menampilkan detail asset | GET
-    public function details2(Request $request) {
-        $asset_id = $request->id;
-        
-        $asset_data = DB::table('asset')
-            ->where('id', '=', $asset_id)
-            ->get();
-
-        if($asset_data->count() < 1)
-            return $this->show_error('Asset data id was not found!');
-
-        
-        $out = $this->listQueries();
-        if(!empty($out)) return $out;
-
-        return view('asset.details2', [
-            'asset_id'          => $asset_id,
-            'asset_data'        => $asset_data[0],
-            'categories'        => $this->categories,
-            'locations'         => $this->locations,
-            'wuoms'             => $this->weight_uom,
-            'vendors'           => $this->vendors,
-            'manufacturers'     => $this->manufacturers,
-            'costcodes'         => $this->costcodes,
-            'depts'             => $this->depts,
-            'items'             => $this->items
+            'asset_id'      => $asset_id,
+            'asset_data'    => $asset_data[0]
         ]);
     }
 

@@ -56,23 +56,13 @@
                 <label class="control-label col-sm-2">Asset Category: *</label>
                 <div class="col-sm-3">
                     <select class="form-control" disabled>
-                        @foreach($categories as $cat)
-                            @if($asset_data->type_id == $cat->id)
-                                <option>{{ $cat->note }}</option>
-                                @break
-                            @endif
-                        @endforeach
+                        <option>{{ $asset_data->category }}</option>
                     </select>
                 </div>
                 <label class="control-label col-sm-3">Weight UOM:</label>
                 <div class="col-sm-3">
                     <select class="form-control" disabled>
-                        @foreach($wuoms as $wuom)
-                            @if($asset_data->weight_uom_id == $wuom->id)
-                                <option>{{ $wuom->uom }}</option>
-                                @break
-                            @endif
-                        @endforeach
+                        <option>{{ $asset_data->wuom }}</option>
                     </select>
                 </div>
             </div>
@@ -80,12 +70,7 @@
                 <label class="control-label col-sm-2">Location:</label>
                 <div class="col-sm-3">
                     <select class="form-control" disabled>
-                        @foreach($locations as $loc)
-                            @if($asset_data->location_id == $loc->id)
-                                <option>{{ $loc->note }}</option>
-                                @break
-                            @endif
-                        @endforeach
+                        <option>{{ $asset_data->location }}</option>
                     </select>
                 </div>
                 <label class="control-label col-sm-3">Serial No:</label>
@@ -131,23 +116,13 @@
                 <label class="control-label col-sm-2">Vendor:</label>
                 <div class="col-sm-3">
                     <select class="form-control" disabled>
-                        @foreach($vendors as $vendor)
-                            @if($asset_data->vendor_id == $cat->id)
-                                <option>{{ $vendor->vendor }}</option>
-                                @break
-                            @endif
-                        @endforeach
+                        <option>{{ $asset_data->vendor }}</option>
                     </select>
                 </div>
                 <label class="control-label col-sm-3">Manufacturer:</label>
                 <div class="col-sm-3">
                     <select class="form-control" disabled>
-                        @foreach($manufacturers as $manufacturer)
-                            @if($asset_data->manufacturer_id == $manufacturer->id)
-                                <option>{{ $manufacturer->manufacturer }}</option>
-                                @break
-                            @endif
-                        @endforeach
+                        <option>{{ $asset_data->manufacturer }}</option>
                     </select>
                 </div>
             </div>
@@ -193,23 +168,13 @@
                 <label class="control-label col-sm-2">Cost Code:</label>
                 <div class="col-sm-3">
                     <select class="form-control" disabled>
-                        @foreach($manufacturers as $manufacturer)
-                            @if($asset_data->manufacturer_id == $manufacturer->id)
-                                <option>{{ $manufacturer->manufacturer }}</option>
-                                @break
-                            @endif
-                        @endforeach
+                        <option>{{ $asset_data->costcode }}</option>
                     </select>
                 </div>
                 <label class="control-label col-sm-3">Department:</label>
                 <div class="col-sm-3">
                     <select class="form-control" disabled>
-                        @foreach($depts as $dept)
-                            @if($asset_data->dept_id == $dept->id)
-                                <option>{{ $dept->dept }}</option>
-                                @break
-                            @endif
-                        @endforeach
+                        <option>{{ $asset_data->dept }}</option>
                     </select>
                 </div>
             </div>
@@ -218,12 +183,7 @@
                 <label class="control-label col-sm-2">Item:</label>
                 <div class="col-sm-3">
                     <select class="form-control" disabled>
-                        @foreach($items as $item)
-                            @if($asset_data->in_id == $item->id)
-                                <option>{{ $item->in_no }}</option>
-                                @break
-                            @endif
-                        @endforeach
+                        <option>{{ $asset_data->item }}</option>
                     </select>
                 </div>
             </div>

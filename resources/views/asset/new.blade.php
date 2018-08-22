@@ -72,7 +72,7 @@ function getID(doc) {
         </div>
         <label class="control-label col-sm-3" for="asset_wuom">Weight UOM:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_wuom" name="wuom" value="">
+            <input type="hidden" id="asset_wuom" name="wuom">
             <select class="form-control" onchange="$('#asset_wuom').val(getID(this))">
                 <option></option>
                 @foreach($wuoms as $wuom)
@@ -84,7 +84,7 @@ function getID(doc) {
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_location">Location:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_location" name="location" value="">
+            <input type="hidden" id="asset_location" name="location">
             <select class="form-control" onchange="$('#asset_location').val(getID(this))" >
                 <option></option>
                 @foreach($locations as $loc)
@@ -134,7 +134,7 @@ function getID(doc) {
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_vendor">Vendor:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_vendor" name="vendor" value="">
+            <input type="hidden" id="asset_vendor" name="vendor">
             <select class="form-control" onchange="$('#asset_vendor').val(getID(this))" >
                 <option></option>
                 @foreach($vendors as $vendor)
@@ -144,7 +144,7 @@ function getID(doc) {
         </div>
         <label class="control-label col-sm-3" for="asset_manufacturer">Manufacturer:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_manufacturer" name="manufacturer" value="">
+            <input type="hidden" id="asset_manufacturer" name="manufacturer">
             <select class="form-control" onchange="$('#asset_manufacturer').val(getID(this))" >
                 <option></option>
                 @foreach($manufacturers as $manufacturer)
@@ -194,7 +194,7 @@ function getID(doc) {
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_cc">Cost Code:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_cc" name="cc" value="">
+            <input type="hidden" id="asset_cc" name="cc">
             <select class="form-control" onchange="$('#asset_cc').val(getID(this))" >
                 <option></option>
                 @foreach($costcodes as $costcode)
@@ -204,7 +204,7 @@ function getID(doc) {
         </div>
         <label class="control-label col-sm-3" for="asset_dept">Department:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_dept" name="dept" value="">
+            <input type="hidden" id="asset_dept" name="dept">
             <select class="form-control" onchange="$('#asset_dept').val(getID(this))" >
                 <option></option>
                 @foreach($depts as $dept)
@@ -217,7 +217,7 @@ function getID(doc) {
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_item">Item:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_item" name="ai" value="">
+            <input type="hidden" id="asset_item" name="ai">
             <select class="form-control" onchange="$('#asset_item').val(getID(this))" >
                 <option></option>
                 @foreach($items as $item)

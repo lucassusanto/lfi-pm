@@ -1,7 +1,7 @@
 @extends('layouts.lfi')
 
 @section('content')
-<form class="form-horizontal" method="POST" action="{{ url('asset/type/update') }}">
+<form id="typeForm" class="form-horizontal" method="POST" action="{{ url('asset/type/update') }}">
     <input type="hidden" name="id" value="{{ $data->id }}">
     @csrf
 
@@ -20,7 +20,7 @@
     <div class="form-group">
         <label class="control-label col-sm-3" for="asset_type">Type: *</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="asset_type" name="type" value="{{ $data->type }}" required>
+            <input type="text" class="form-control" id="asset_type" name="type" value="{{ $data->type }}" disabled>
         </div>
     </div>
 
@@ -31,4 +31,11 @@
         </div>
     </div>
 </form>
+
+
+<script type="text/javascript">
+$(function() {
+    $('#typeForm').validate();
+});
+</script>
 @endsection

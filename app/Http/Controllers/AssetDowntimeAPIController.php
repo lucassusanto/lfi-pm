@@ -70,6 +70,7 @@ class AssetDowntimeAPIController extends Controller
         $datas = DB::table('asset_downtime')
 			->select('id', 'start_time', 'end_time', 'hours', 'note')
 			->where('asset_id', '=', $asset_id)
+            // ->limit(50)
 			->get();
 
         return response([

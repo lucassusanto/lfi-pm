@@ -57,6 +57,7 @@ class AssetMeterAPIController extends Controller
         $datas = DB::table('asset_meter')
 			->select('id', 'meter_no', 'reading', 'time_taken', 'note')
 			->where('asset_id', '=', $asset_id)
+            // ->limit(50)
 			->get();
 
         return response([

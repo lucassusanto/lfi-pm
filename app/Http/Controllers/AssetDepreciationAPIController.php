@@ -36,6 +36,7 @@ class AssetDepreciationAPIController extends Controller
         $datas = DB::table('asset_depreciation')
             ->select('id', 'start_date', 'end_date', 'end_value', 'note', 'depreciation_rate')
             ->where('asset_id', '=', $asset_id)
+            // ->limit(50)
             ->get();
 
         return response([

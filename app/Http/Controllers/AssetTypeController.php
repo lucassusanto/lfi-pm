@@ -27,6 +27,7 @@ class AssetTypeController extends Controller
     public function index() {
         $datas = DB::table('asset_type')
             ->select('id', 'type', 'note')
+            // ->limit(50)
             ->get();
 
         return view('asset.type.master', [

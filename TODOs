@@ -1,19 +1,11 @@
 TODOs:
-- Layout
--- Add Lasalle logo in navbar*
--- Update navbar color*
-
 - Security
 -- Advanced validation controller
--- Controller request validation in every POST function*
--- All ajax add + edit user friendly jQuery validation*
+-- All ajax add + edit user friendly jQuery validation* // Bug: downtime, meter, part
 -- Client side date begin/end validation*
 
 - Performance
 -- Limit row return
-
-- Readibility
--- Wrap api routes with 'asset'*
 
 - Usability
 -- Update manual Readme.md*

@@ -58,6 +58,7 @@ class AssetPartAPIController extends Controller
 			->select('asset_part.id', 'asset_part.asset_id', 'inventory.in_no', 'asset_part.type_id', 'asset_part.note')
 			->join('inventory', 'asset_part.in_id', '=', 'inventory.id')
 			->where('asset_id','=', $asset_id)
+            // ->limit(50)
 			->get();
 
         return response([

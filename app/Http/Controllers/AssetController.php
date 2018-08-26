@@ -34,7 +34,7 @@ class AssetController extends Controller
     }
 
     // Query utk data dropdowns di form new/edit data
-    private function batchQuery() {
+    private function getOptions() {
         // Cek asset_type. Required as foreign key
         $categories = DB::table('asset_type')
             ->select('id', 'note')
@@ -95,6 +95,7 @@ class AssetController extends Controller
         $datas = DB::table('asset')
             ->select('asset.id', 'asset.asset_no', 'asset.status_id', 'asset_type.note as category', 'asset.note')
             ->leftjoin('asset_type', 'asset.type_id', '=', 'asset_type.id')
+            // ->limit(50)
             ->get();
 
         return view('asset.master', [
@@ -104,7 +105,7 @@ class AssetController extends Controller
 
     // Menampilkan form data baru | GET
     public function new() {
-        $data = $this->batchQuery();
+        $data = $this->getOptions();
         if($data['status'] != 'ok') return $data['status'];
         
         return view('asset.new', [
@@ -121,6 +122,14 @@ class AssetController extends Controller
 
     // Menambah data asset baru | POST
     public function store(Request $request) {
+        $this->validate(request(), [
+            'id'        => 'required',
+            'status'    => 'required',
+            'category'  => 'required',
+            'note'      => 'required',
+            'priority'  => 'required'
+        ]);
+
         $now = new DateTime();
         $last_id = $this->getID();
 
@@ -171,6 +180,10 @@ class AssetController extends Controller
 
     // Menghapus asset | POST
     public function del(Request $request) {
+        $this->validate(request(), [
+            'id' => 'required'
+        ]);
+
         $asset_id = $request->id;
 
         DB::table('asset')
@@ -182,6 +195,10 @@ class AssetController extends Controller
 
     // Menampilkan detil data edit | POST
     public function edit(Request $request) {
+        $this->validate(request(), [
+            'id' => 'required'
+        ]);
+
         $asset_id = $request->id;
 
         $asset_data = DB::table('asset')
@@ -192,7 +209,7 @@ class AssetController extends Controller
             return $this->show_error('Asset data was not found!');
         }
 
-        $data = $this->batchQuery();
+        $data = $this->getOptions();
         if($data['status'] != 'ok') return $data['status'];
 
         return view('asset.edit', [
@@ -212,6 +229,14 @@ class AssetController extends Controller
 
     // Menyimpan hasil edit | POST
     public function update(Request $request) {
+        $this->validate(request(), [
+            'id'        => 'required',
+            'status'    => 'required',
+            'category'  => 'required',
+            'note'      => 'required',
+            'priority'  => 'required'
+        ]);
+
         $now = new DateTime();
         $asset_id = $request->id;
 

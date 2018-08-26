@@ -49,6 +49,7 @@ class AssetContractAPIController extends Controller
             ->select('asset_contract.id', 'contract.contract', 'asset_contract.note', 'asset_contract.status_id')
             ->join('contract', 'contract.id', '=', 'asset_contract.contract_id')
             ->where('asset_contract.asset_id', '=', $asset_id)
+            // ->limit(50)
             ->get();
 
         return response([

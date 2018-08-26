@@ -5,6 +5,10 @@
         <a class="btn btn-primary" onclick="getDepreciation()"><span class="glyphicon glyphicon-repeat"></span></a>
         <a id="btn_depreciation_edit" class='btn btn-primary' data-toggle='pill' href='#depreciation_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
     </div>
+
+    <div class="col-md-1 col-md-offset-8">
+        <div id="depreciation_loader" class="loader"></div>
+    </div>
     
     <table id="depreciation_table" width="100%" class="table">
         <thead>
@@ -25,7 +29,7 @@
 </div>
 <!-- Add Depreciation Form -->
 <div id="depreciation_add" class="tab-pane fade">
-    <div class="form-horizontal">
+    <form id="form_add_depreciation" class="form-horizontal">
         <div class="row">
             <div class="col-md-12">
                 <h4 align="center">Tambah Asset Depreciation</h4>
@@ -34,7 +38,7 @@
                 <a class="btn btn-default" id="btn_depreciation_index" data-toggle="pill" href="#depreciation_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
             </div>
             <div class="col-md-2 col-md-offset-6">
-                <button onclick="addDepreciation();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                <button onclick="addDepreciation()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </div>
         </div><br>
 
@@ -74,12 +78,12 @@
                 <textarea class="form-control" id="add_depreciation_note" name="note" placeholder="Tuliskan catatan.."></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <!-- Edit Depreciation Form -->
 <div id="depreciation_edit" class="tab-pane fade">
-    <div class="form-horizontal">
-        <input type="hidden" id="edit_depreciation_id" value="">
+    <form id="form_edit_depreciation" class="form-horizontal">
+        <input type="hidden" id="edit_depreciation_id">
 
         <div class="row">
             <div class="col-md-12">
@@ -96,31 +100,31 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_depreciation_sd">Start Date: *</label>
             <div class="col-sm-3">
-                <input type="date" class="form-control" id="edit_depreciation_sd" name="sd" value="" required>
+                <input type="date" class="form-control" id="edit_depreciation_sd" name="sd" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_depreciation_ed">End Date: *</label>
             <div class="col-sm-3">
-                <input type="date" class="form-control" id="edit_depreciation_ed" name="ed" value="" required>
+                <input type="date" class="form-control" id="edit_depreciation_ed" name="ed" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_depreciation_rate">Depreciation rate: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_depreciation_rate" name="rate" value="" required>
+                <input type="text" class="form-control" id="edit_depreciation_rate" name="rate" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_depreciation_sv">Start Value: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_depreciation_sv" name="sv" value="" required>
+                <input type="text" class="form-control" id="edit_depreciation_sv" name="sv" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_depreciation_ev">End Value: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_depreciation_ev" name="ev" value="" required>
+                <input type="text" class="form-control" id="edit_depreciation_ev" name="ev" required>
             </div>
         </div>
         <div class="form-group">
@@ -129,7 +133,7 @@
                 <textarea class="form-control" id="edit_depreciation_note" name="note" placeholder="Tuliskan catatan.."></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 
@@ -138,7 +142,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="form-horizontal">
-                <input type="hidden" id="del_depreciation_id" name="id" value=""></input>
+                <input type="hidden" id="del_depreciation_id" name="id"></input>
                 <!-- Header -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -194,12 +198,20 @@
 </div>
 
 
-<!-- Depreciation AJAX -->
+<!-- Depreciation JS -->
 <script type="text/javascript">
+$('#form_add_depreciation').submit(function(e) {
+    e.preventDefault();
+});
+$('#form_edit_depreciation').submit(function(e) {
+    e.preventDefault();
+});
 
 /*  Load Master data */
 function getDepreciation() {
-    $.post('{{ url('api/depreciation') }}', {
+    $('#depreciation_loader').show();
+
+    $.post('{{ url('api/asset/depreciation') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -218,6 +230,7 @@ function getDepreciation() {
 
             table.draw();
         }
+        $('#depreciation_loader').hide();
     });
 }
 
@@ -251,7 +264,7 @@ function editDepreciationData(doc) {
     var row_data = table.row(tr).data();
     var ad_id = row_data[0];
 
-    $.post('{{ url('api/depreciation/detail') }}', {
+    $.post('{{ url('api/asset/depreciation/detail') }}', {
         asset_depreciation_id: ad_id
     },
     function(data, textStatus) {
@@ -282,7 +295,7 @@ function clearDepreciationData(tag) {
 
 /* Create New Data */
 function addDepreciation() {
-    $.post('{{ url('api/depreciation/store') }}', {
+    $.post('{{ url('api/asset/depreciation/store') }}', {
         asset_id:   {{ $asset_id }},
         sd:     $('#add_depreciation_sd').val(),
         ed:     $('#add_depreciation_ed').val(),
@@ -301,7 +314,7 @@ function addDepreciation() {
 
 /* Delete a Data */
 function delDepreciation() {
-    $.post('{{ url('api/depreciation/del') }}', {
+    $.post('{{ url('api/asset/depreciation/del') }}', {
         asset_depreciation_id: $('#del_depreciation_id').val()
     },
     function(data, textStatus) {
@@ -312,7 +325,7 @@ function delDepreciation() {
 
 /* Update a Data */
 function updateDepreciation() {
-    $.post('{{ url('api/depreciation/update') }}', {
+    $.post('{{ url('api/asset/depreciation/update') }}', {
         asset_depreciation_id : $('#edit_depreciation_id').val(),
         sd:     $('#edit_depreciation_sd').val(),
         ed:     $('#edit_depreciation_ed').val(),

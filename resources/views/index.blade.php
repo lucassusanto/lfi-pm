@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>LFI - Login</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-  <link rel="stylesheet" href="{{ asset('bootstrap-3.3.7/w3.css') }}">
-  <link rel="stylesheet" href="{{ asset('bootstrap-3.3.7/bootstrap.min.css') }}">
-  <script src="{{ asset('bootstrap-3.3.7/jquery.min.js') }}"></script>
-  <script src="{{ asset('bootstrap-3.3.7/bootstrap.min.js') }}"></script>
+    <title>LFI - Login</title>
 
+    @include('layouts.style.login')
 </head>
-<body style="background: linear-gradient(to right, rgb(34, 134, 255), rgb(153, 230, 234));">
+<body>
 
 <!-- NavBar -->
 <nav class="navbar navbar-default">
@@ -22,7 +19,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">PT Lasallefood Indonesia - SI Data</a>
+        <a href="#" class="navbar-left"><img src="{{ url('images/logo.png') }}" height="50px"></a>
+        <a class="navbar-brand" href="#">Sistem Informasi Terintegrasi</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
@@ -32,13 +30,6 @@
   </div>
 </nav>
 
-<style>
-.kotak {
-  background-color: rgb(245,245,245);
-  border-radius: 8px;
-}
-</style>
-
 <div class="container">
   <div class="row">
     <div class="col-sm-4 col-sm-offset-4 kotak">
@@ -47,6 +38,7 @@
       <h5 align="center" style="color: red">Click Login to get into the app. This is only a login mockup. Delete this line in the future</h5><br>
 
       <form>
+        @csrf
         <div class="form-group input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
           <input type="text" class="form-control" id="username" placeholder="Username">

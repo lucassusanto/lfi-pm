@@ -5,6 +5,10 @@
         <a class="btn btn-primary" onclick="getMeter()"><span class="glyphicon glyphicon-repeat"></span></a>
         <a id="btn_meter_edit" class='btn btn-primary' data-toggle='pill' href='#meter_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
     </div>
+
+    <div class="col-md-1 col-md-offset-8">
+        <div id="meter_loader" class="loader"></div>
+    </div>
     
     <table id="meter_table" width="100%" class="table">
         <thead>
@@ -24,7 +28,7 @@
 </div>
 <!-- Add Meter Form -->
 <div id="meter_add" class="tab-pane fade">
-    <div class="form-horizontal">
+    <form id="form_add_meter" class="form-horizontal">
         <div class="row">
             <div class="col-md-12">
                 <h4 align="center">Tambah Asset Meter</h4>
@@ -87,12 +91,12 @@
                 <textarea class="form-control" id="add_meter_note" placeholder="Tuliskan catatan .."></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <!-- Edit Meter Form -->
 <div id="meter_edit" class="tab-pane fade">
-    <div class="form-horizontal">
-        <input type="hidden" id="edit_meter_id" value="">
+    <form id="form_edit_meter" class="form-horizontal">
+        <input type="hidden" id="edit_meter_id">
 
         <div class="row">
             <div class="col-md-12">
@@ -156,7 +160,7 @@
                 <textarea class="form-control" id="edit_meter_note" placeholder="Tuliskan catatan .."></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 
@@ -165,7 +169,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="form-horizontal">
-                <input type="hidden" id="del_meter_id" name="id" value=""></input>
+                <input type="hidden" id="del_meter_id" name="id"></input>
                 <!-- Header -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -216,12 +220,20 @@
 </div>
 
 
-<!-- Meter AJAX -->
+<!-- Meter JS -->
 <script type="text/javascript">
+$('#form_add_meter').submit(function(e) {
+    e.preventDefault();
+});
+$('#form_edit_meter').submit(function(e) {
+    e.preventDefault();
+});
 
 /*  Load Master data */
 function getMeter() {
-    $.post('{{ url('api/meter') }}', {
+    $('#meter_loader').show();
+
+    $.post('{{ url('api/asset/meter') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -240,12 +252,13 @@ function getMeter() {
 
             table.draw();
         }
+        $('#meter_loader').hide();
     });
 }
 
 /* Options Dropdowns in Add/Edit Data */
 function fetchMeterOptions(tag) {
-    $.get('{{ url('api/meter/options') }}', function(data) {
+    $.get('{{ url('api/asset/meter/options') }}', function(data) {
         var type 	        = data[0].type;
         var reading_unit    = data[0].reading_unit;
         var rollup          = data[0].rollup;
@@ -306,7 +319,7 @@ function editMeterData(doc) {
 
     fetchMeterOptions('edit');
 
-    $.post('{{ url('api/meter/detail') }}', {
+    $.post('{{ url('api/asset/meter/detail') }}', {
         asset_meter_id: am_id
     },
     function(data, textStatus) {
@@ -347,7 +360,7 @@ function clearMeterOptions(tag) {
 
 /* Create New Data */
 function addMeter() {
-    $.post('{{ url('api/meter/store') }}', {
+    $.post('{{ url('api/asset/meter/store') }}', {
         asset_id:           {{ $asset_id }},
         no:    	            $('#add_meter_no').val(),
         type:      	        $('#add_meter_type_id').val(),
@@ -367,7 +380,7 @@ function addMeter() {
 
 /* Delete a Data */
 function delMeter() {
-    $.post('{{ url('api/meter/del') }}', {
+    $.post('{{ url('api/asset/meter/del') }}', {
         asset_meter_id: $('#del_meter_id').val()
     },
     function(data, textStatus) {
@@ -378,7 +391,7 @@ function delMeter() {
 
 /* Update a Data */
 function updateMeter() {
-    $.post('{{ url('api/meter/update') }}', {
+    $.post('{{ url('api/asset/meter/update') }}', {
         asset_meter_id:     $('#edit_meter_id').val(),
         no:                 $('#edit_meter_no').val(),
         type:               $('#edit_meter_type_id').val(),

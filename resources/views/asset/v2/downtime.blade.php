@@ -5,6 +5,10 @@
         <a class="btn btn-primary" onclick="getDowntime()"><span class="glyphicon glyphicon-repeat"></span></a>
         <a id="btn_downtime_edit" class='btn btn-primary' data-toggle='pill' href='#downtime_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
     </div>
+
+    <div class="col-md-1 col-md-offset-8">
+        <div id="downtime_loader" class="loader"></div>
+    </div>
     
     <table id="downtime_table" width="100%" class="table">
         <thead>
@@ -24,7 +28,7 @@
 </div>
 <!-- Add Downtime Form -->
 <div id="downtime_add" class="tab-pane fade">
-    <div class="form-horizontal">
+    <form id="form_add_downtime" class="form-horizontal">
         <div class="row">
             <div class="col-md-12">
                 <h4 align="center">Tambah Asset Downtime</h4>
@@ -33,7 +37,7 @@
                 <a class="btn btn-default" id="btn_downtime_index" data-toggle="pill" href="#downtime_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
             </div>
             <div class="col-md-2 col-md-offset-6">
-                <button onclick="addDowntime();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                <button onclick="addDowntime()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </div>
         </div><br>
 
@@ -78,7 +82,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3">Work Order: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_downtime_wo_id">
+                <input type="hidden" id="add_downtime_wo_id" required>
                 <select class="form-control" id="add_downtime_wo" onchange="$('#add_downtime_wo_id').val(getID(this))">
                 </select>
             </div>
@@ -86,7 +90,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3">Reported by: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_downtime_reported_id">
+                <input type="hidden" id="add_downtime_reported_id" required>
                 <select class="form-control" id="add_downtime_reported" onchange="$('#add_downtime_reported_id').val(getID(this))">
                 </select>
             </div>
@@ -107,12 +111,12 @@
                 <textarea class="form-control" id="add_downtime_note" placeholder="Tuliskan catatan.."></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <!-- Edit Downtime Form -->
 <div id="downtime_edit" class="tab-pane fade">
-    <div class="form-horizontal">
-        <input type="hidden" id="edit_downtime_id" value="">
+    <form id="form_edit_downtime" class="form-horizontal">
+        <input type="hidden" id="edit_downtime_id">
 
         <div class="row">
             <div class="col-md-12">
@@ -167,7 +171,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3">Work Order: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_downtime_wo_id">
+                <input type="hidden" id="edit_downtime_wo_id" required>
                 <select class="form-control" id="edit_downtime_wo" onchange="$('#edit_downtime_wo_id').val(getID(this))">
                 </select>
             </div>
@@ -175,7 +179,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3">Reported by: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_downtime_reported_id">
+                <input type="hidden" id="edit_downtime_reported_id" required>
                 <select class="form-control" id="edit_downtime_reported" onchange="$('#edit_downtime_reported_id').val(getID(this))">
                 </select>
             </div>
@@ -196,7 +200,7 @@
                 <textarea class="form-control" id="edit_downtime_note" placeholder="Tuliskan catatan.."></textarea>
             </div>
         </div>        
-    </div>
+    </form>
 </div>
 
 
@@ -205,7 +209,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="form-horizontal">
-                <input type="hidden" id="del_downtime_id" name="id" value=""></input>
+                <input type="hidden" id="del_downtime_id" name="id"></input>
                 <!-- Header -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -255,12 +259,20 @@
 </div>
 
 
-<!-- Downtime AJAX -->
+<!-- Downtime JS -->
 <script type="text/javascript">
+$('#form_add_downtime').submit(function(e) {
+    e.preventDefault();
+});
+$('#form_edit_downtime').submit(function(e) {
+    e.preventDefault();
+});
 
 /*  Load Master data */
 function getDowntime() {
-    $.post('{{ url('api/downtime') }}', {
+    $('#downtime_loader').show();
+
+    $.post('{{ url('api/asset/downtime') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -279,12 +291,13 @@ function getDowntime() {
 
             table.draw();
         }
+        $('#downtime_loader').hide();
     });
 }
 
 /* Options Dropdowns in Add/Edit Data */
 function fetchDowntimeOptions(tag) {
-    $.get('{{ url('api/downtime/options') }}', function(data) {
+    $.get('{{ url('api/asset/downtime/options') }}', function(data) {
         var downtime 	= data[0].downtime;
         var cause 		= data[0].cause;
         var work_order 	= data[0].work_order;
@@ -352,7 +365,7 @@ function editDowntimeData(doc) {
 
     fetchDowntimeOptions('edit');
 
-    $.post('{{ url('api/downtime/detail') }}', {
+    $.post('{{ url('api/asset/downtime/detail') }}', {
         asset_downtime_id: ad_id
     },
     function(data, textStatus) {
@@ -404,7 +417,7 @@ function clearDowntimeOptions(tag) {
 
 /* Create New Data */
 function addDowntime() {
-    $.post('{{ url('api/downtime/store') }}', {
+    $.post('{{ url('api/asset/downtime/store') }}', {
         asset_id:       {{ $asset_id }},
         st_date:    	$('#add_downtime_st_date').val(),
         st_time:      	$('#add_downtime_st_time').val(),
@@ -429,7 +442,7 @@ function addDowntime() {
 
 /* Delete a Data */
 function delDowntime() {
-    $.post('{{ url('api/downtime/del') }}', {
+    $.post('{{ url('api/asset/downtime/del') }}', {
         asset_downtime_id: $('#del_downtime_id').val()
     },
     function(data, textStatus) {
@@ -440,7 +453,7 @@ function delDowntime() {
 
 /* Update a Data */
 function updateDowntime() {
-    $.post('{{ url('api/downtime/update') }}', {
+    $.post('{{ url('api/asset/downtime/update') }}', {
         asset_downtime_id:  $('#edit_downtime_id').val(),
         st_date:    	$('#edit_downtime_st_date').val(),
         st_time:      	$('#edit_downtime_st_time').val(),

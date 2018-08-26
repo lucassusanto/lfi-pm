@@ -5,6 +5,10 @@
         <a class="btn btn-primary" onclick="getContract()"><span class="glyphicon glyphicon-repeat"></span></a>
         <a id="btn_contract_edit" class='btn btn-primary' data-toggle='pill' href='#contract_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
     </div>
+
+    <div class="col-md-1 col-md-offset-8">
+        <div id="contract_loader" class="loader"></div>
+    </div>
     
     <table id="contract_table" width="100%" class="table">
         <thead>
@@ -23,7 +27,7 @@
 </div>
 <!-- Add Contract Form -->
 <div id="contract_add" class="tab-pane fade">
-    <div class="form-horizontal">
+    <form id="form_add_contract" class="form-horizontal">
         <div class="row">
             <div class="col-md-12">
                 <h4 align="center">Tambah Kontrak Asset</h4>
@@ -32,15 +36,15 @@
                 <a class="btn btn-default" id="btn_contract_index" data-toggle="pill" href="#contract_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
             </div>
             <div class="col-md-2 col-md-offset-6">
-                <button onclick="addContract();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                <button onclick="addContract()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </div>
         </div><br>
 
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_contract_contract">Contract: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_contract_contract_id" name="contract" value="">
-                <select class="form-control" id="add_contract_contract" onchange="$('#add_contract_contract_id').val(getID(this));">
+                <input type="hidden" id="add_contract_contract_id" name="contract" required>
+                <select class="form-control" id="add_contract_contract" onchange="$('#add_contract_contract_id').val(getID(this))">
 
                 </select>
             </div>
@@ -74,12 +78,12 @@
                 <textarea class="form-control" id="add_contract_note" name="note" placeholder="Tuliskan catatan.." required></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <!-- Edit Contract Form -->
 <div id="contract_edit" class="tab-pane fade">
-    <div class="form-horizontal">
-        <input type="hidden" id="edit_contract_id" value="">
+    <form id="form_edit_contract" class="form-horizontal">
+        <input type="hidden" id="edit_contract_id">
 
         <div class="row">
             <div class="col-md-12">
@@ -96,8 +100,8 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_contract_contract">Contract: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_contract_contract_id" name="contract" value="">
-                <select class="form-control" id="edit_contract_contract" onchange="document.getElementById('edit_contract_contract_id').value = getID(this);">
+                <input type="hidden" id="edit_contract_contract_id" name="contract" required>
+                <select class="form-control" id="edit_contract_contract" onchange="$('#edit_contract_contract_id').val(getID(this))">
 
                 </select>
             </div>
@@ -131,7 +135,7 @@
                 <textarea class="form-control" id="edit_contract_note" name="note" placeholder="Tuliskan catatan.." required></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 
@@ -140,7 +144,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="form-horizontal">
-                <input type="hidden" id="del_contract_id" name="id" value=""></input>
+                <input type="hidden" id="del_contract_id" name="id"></input>
                 <!-- Header -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -184,12 +188,20 @@
 </div>
 
 
-<!-- Contract AJAX -->
+<!-- Contract JS -->
 <script type="text/javascript">
+$('#form_add_contract').submit(function(e) {
+    e.preventDefault();
+});
+$('#form_edit_contract').submit(function(e) {
+    e.preventDefault();
+});
 
 /*  Load Master data */
 function getContract() {
-    $.post('{{ url('api/contract') }}', {
+    $('#contract_loader').show();
+
+    $.post('{{ url('api/asset/contract') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -208,12 +220,13 @@ function getContract() {
 
             table.draw();
         }
+        $('#contract_loader').hide();
     });
 }
 
 /* Options Dropdowns in Add/Edit Data */
 function fetchContractOptions(tag) {
-    $.get('{{ url('api/contract/options') }}', function(data) {
+    $.get('{{ url('api/asset/contract/options') }}', function(data) {
         var status = data.status;
         var contract = data.contract;
 
@@ -263,7 +276,7 @@ function editContractData(doc) {
 
     fetchContractOptions('edit');
 
-    $.post('{{ url('api/contract/detail') }}', {
+    $.post('{{ url('api/asset/contract/detail') }}', {
         asset_contract_id: ac_id
     },
     function(data, textStatus) {
@@ -299,7 +312,7 @@ function clearContractOptions(tag) {
 
 /* Create New Data */
 function addContract() {
-    $.post('{{ url('api/contract/store') }}', {
+    $.post('{{ url('api/asset/contract/store') }}', {
         asset_id:       {{ $asset_id }},
         contract_id:    $('#add_contract_contract_id').val(),
         status_id:      $('#add_contract_status').val(),
@@ -317,7 +330,7 @@ function addContract() {
 
 /* Delete a Data */
 function delContract() {
-    $.post('{{ url('api/contract/del') }}', {
+    $.post('{{ url('api/asset/contract/del') }}', {
         asset_contract_id: $('#del_contract_id').val()
     },
     function(data, textStatus) {
@@ -328,7 +341,7 @@ function delContract() {
 
 /* Update a Data */
 function updateContract() {
-    $.post('{{ url('api/contract/update') }}', {
+    $.post('{{ url('api/asset/contract/update') }}', {
         asset_contract_id:  $('#edit_contract_id').val(),
         contract_id:        $('#edit_contract_contract_id').val(),
         status_id:          $('#edit_contract_status').val(),

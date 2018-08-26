@@ -58,6 +58,24 @@ $(function() {
     meter_table.columns(0).visible(false);
     part_table.columns(0).visible(false);
 
+    $('#form_add_comment').validate();
+    $('#form_edit_comment').validate();
+
+    $('#form_add_contract').validate();
+    $('#form_edit_contract').validate();
+
+    $('#form_add_depreciation').validate();
+    $('#form_edit_depreciation').validate();
+
+    $('#form_add_downtime').validate();
+    $('#form_edit_downtime').validate();
+
+    $('#form_add_meter').validate();
+    $('#form_edit_meter').validate();
+
+    $('#form_add_part').validate();
+    $('#form_edit_part').validate();
+
     getComment();
 });
 </script>

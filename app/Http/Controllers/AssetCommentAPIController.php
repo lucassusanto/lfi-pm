@@ -36,6 +36,7 @@ class AssetCommentAPIController extends Controller
         $datas = DB::table('asset_comment')
             ->select('id', 'comment', 'modified_time')
             ->where('asset_id', '=', $asset_id)
+            // ->limit(50)
             ->get();
 
         return response([

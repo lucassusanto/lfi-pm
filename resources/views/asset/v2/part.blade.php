@@ -5,6 +5,10 @@
         <a class="btn btn-primary" onclick="getPart()"><span class="glyphicon glyphicon-repeat"></span></a>
         <a id="btn_part_edit" class='btn btn-primary' data-toggle='pill' href='#part_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
     </div>
+
+    <div class="col-md-1 col-md-offset-8">
+        <div id="part_loader" class="loader"></div>
+    </div>
     
     <table id="part_table" width="100%" class="table">
         <thead>
@@ -23,7 +27,7 @@
 </div>
 <!-- Add Part Form -->
 <div id="part_add" class="tab-pane fade">
-    <div class="form-horizontal">
+    <form id="form_add_part" class="form-horizontal">
         <div class="row">
             <div class="col-md-12">
                 <h4 align="center">Tambah Asset Part</h4>
@@ -39,7 +43,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_part_item">Item: *</label>
             <div class="col-sm-4">
-                <input type="hidden" id="add_part_item_id">
+                <input type="hidden" id="add_part_item_id" required>
                 <select class="form-control" id="add_part_item" onchange="$('#add_part_item_id').val(getID(this))">
                     
                 </select>
@@ -54,7 +58,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3" for="add_part_qty">Quantity:</label>
+            <label class="control-label col-sm-3" for="add_part_qty">Quantity: *</label>
             <div class="col-sm-3">
                 <input type="text" class="form-control" id="add_part_qty" required>
             </div>
@@ -62,7 +66,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_part_wuom">Weight UOM: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_part_wuom_id">
+                <input type="hidden" id="add_part_wuom_id" required>
                 <select class="form-control" id="add_part_wuom" onchange="$('#add_part_wuom_id').val(getID(this))">
                     
                 </select>
@@ -71,15 +75,15 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_part_note">Notes: *</label>
             <div class="col-sm-6">
-                <textarea class="form-control" id="add_part_note" placeholder="Tuliskan catatan .."></textarea>
+                <textarea class="form-control" id="add_part_note" placeholder="Tuliskan catatan .." required></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <!-- Edit Part Form -->
 <div id="part_edit" class="tab-pane fade">
-    <div class="form-horizontal">
-        <input type="hidden" id="edit_part_id" value="">
+    <form id="form_edit_part" class="form-horizontal">
+        <input type="hidden" id="edit_part_id">
 
         <div class="row">
             <div class="col-md-12">
@@ -96,7 +100,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_part_item">Item: *</label>
             <div class="col-sm-4">
-                <input type="hidden" id="edit_part_item_id">
+                <input type="hidden" id="edit_part_item_id" required>
                 <select class="form-control" id="edit_part_item" onchange="$('#edit_part_item_id').val(getID(this))">
                     
                 </select>
@@ -111,7 +115,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3" for="edit_part_qty">Quantity:</label>
+            <label class="control-label col-sm-3" for="edit_part_qty">Quantity: *</label>
             <div class="col-sm-3">
                 <input type="text" class="form-control" id="edit_part_qty" required>
             </div>
@@ -119,7 +123,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_part_wuom">Weight UOM: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_part_wuom_id">
+                <input type="hidden" id="edit_part_wuom_id" required>
                 <select class="form-control" id="edit_part_wuom" onchange="$('#edit_part_wuom_id').val(getID(this))">
                     
                 </select>
@@ -128,10 +132,10 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_part_note">Notes: *</label>
             <div class="col-sm-6">
-                <textarea class="form-control" id="edit_part_note" placeholder="Tuliskan catatan .."></textarea>
+                <textarea class="form-control" id="edit_part_note" placeholder="Tuliskan catatan .." required></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <!-- Delete Part Modal -->
@@ -139,7 +143,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="form-horizontal">
-                <input type="hidden" id="del_part_id" name="id" value=""></input>
+                <input type="hidden" id="del_part_id" name="id"></input>
                 <!-- Header -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -183,12 +187,20 @@
 </div>
 
 
-<!-- Part AJAX -->
+<!-- Part JS -->
 <script type="text/javascript">
+$('#form_add_part').submit(function(e) {
+    e.preventDefault();
+});
+$('#form_edit_part').submit(function(e) {
+    e.preventDefault();
+});
 
 /*  Load Master data */
 function getPart() {
-    $.post('{{ url('api/part') }}', {
+    $('#part_loader').show();
+
+    $.post('{{ url('api/asset/part') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -207,12 +219,13 @@ function getPart() {
 
             table.draw();
         }
+        $('#part_loader').hide();
     });
 }
 
 /* Options Dropdowns in Add/Edit Data */
 function fetchPartOptions(tag) {
-    $.get('{{ url('api/part/options') }}', function(data) {
+    $.get('{{ url('api/asset/part/options') }}', function(data) {
         var item        = data[0].item;
         var weight_uom  = data[0].weight_uom;
         var type        = data[0].type;
@@ -271,7 +284,7 @@ function editPartData(doc) {
 
     fetchPartOptions('edit');
 
-    $.post('{{ url('api/part/detail') }}', {
+    $.post('{{ url('api/asset/part/detail') }}', {
         asset_part_id: ap_id
     },
     function(data, textStatus) {
@@ -310,7 +323,7 @@ function clearPartOptions(tag) {
 
 /* Create New Data */
 function addPart() {
-    $.post('{{ url('api/part/store') }}', {
+    $.post('{{ url('api/asset/part/store') }}', {
         asset_id:   {{ $asset_id }},
         item:       $('#add_part_item_id').val(),
         type:       $('#add_part_type').val(),
@@ -328,7 +341,7 @@ function addPart() {
 
 /* Delete a Data */
 function delPart() {
-    $.post('{{ url('api/part/del') }}', {
+    $.post('{{ url('api/asset/part/del') }}', {
         asset_part_id: $('#del_part_id').val()
     },
     function(data, textStatus) {
@@ -339,7 +352,7 @@ function delPart() {
 
 /* Update a Data */
 function updatePart() {
-    $.post('{{ url('api/part/update') }}', {
+    $.post('{{ url('api/asset/part/update') }}', {
         asset_part_id:  $('#edit_part_id').val(),
         item:           $('#edit_part_item_id').val(),
         type:           $('#edit_part_type').val(),

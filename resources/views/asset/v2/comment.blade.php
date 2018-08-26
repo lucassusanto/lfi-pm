@@ -6,6 +6,10 @@
         <a id="btn_comment_edit" class='btn btn-primary' data-toggle='pill' href='#comment_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
     </div>
     
+    <div class="col-md-1 col-md-offset-8">
+        <div id="comment_loader" class="loader"></div>
+    </div>
+
     <table id="comment_table" width="100%" class="table">
         <thead>
             <tr>
@@ -22,7 +26,7 @@
 </div>
 <!-- Add Comment Form -->
 <div id="comment_add" class="tab-pane fade">
-    <div class="form-horizontal">
+    <form id="form_add_comment" class="form-horizontal">
         <div class="row">
             <div class="col-md-12">
                 <h4 align="center">Tambah Komentar Asset</h4>
@@ -31,7 +35,7 @@
                 <a class="btn btn-default" id="btn_comment_index" data-toggle="pill" href="#comment_index"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
             </div>
             <div class="col-md-2 col-md-offset-6">
-                <button onclick="addComment();" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
+                <button onclick="addComment()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
             </div>
         </div><br>
 
@@ -41,12 +45,12 @@
                 <textarea class="form-control" id="add_comment_data" name="comment" placeholder="Tuliskan komentar.." required></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <!-- Edit Comment Form -->
 <div id="comment_edit" class="tab-pane fade">
-    <div class="form-horizontal">
-        <input type="hidden" id="edit_comment_id" value="">
+    <form id="form_edit_comment" class="form-horizontal">
+        <input type="hidden" id="edit_comment_id">
 
         <div class="row">
             <div class="col-md-12">
@@ -66,7 +70,7 @@
                 <textarea class="form-control" id="edit_comment_data" name="comment" required></textarea>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 
@@ -75,7 +79,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="form-horizontal">
-                <input type="hidden" id="del_comment_id" name="id" value=""></input>
+                <input type="hidden" id="del_comment_id" name="id"></input>
                 <!-- Header -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -106,12 +110,20 @@
 </div>
 
 
-<!-- Comment AJAX -->
+<!-- Comment JS -->
 <script type="text/javascript">
-    
+$('#form_add_comment').submit(function(e) {
+    e.preventDefault();
+});
+$('#form_edit_comment').submit(function(e) {
+    e.preventDefault();
+});
+
 /* Load Master Data */
 function getComment() {
-    $.post('{{ url('api/comment') }}', {
+    $('#comment_loader').show();
+
+    $.post('{{ url('api/asset/comment') }}', {
         asset_id:   {{ $asset_id }}
     },
     function(data, textStatus) {
@@ -130,6 +142,7 @@ function getComment() {
 
             table.draw();
         }
+        $('#comment_loader').hide();
     });
 }
 
@@ -154,7 +167,7 @@ function editCommentData(doc) {
     var row_data = table.row(tr).data();
     var id = row_data[0];
 
-    $.post('{{ url('api/comment/detail') }}', {
+    $.post('{{ url('api/asset/comment/detail') }}', {
         asset_comment_id: id
     },
     function(data, textStatus) {
@@ -168,7 +181,7 @@ function editCommentData(doc) {
 
 /* Create New Data */
 function addComment() {
-    $.post('{{ url('api/comment/store') }}', {
+    $.post('{{ url('api/asset/comment/store') }}', {
         asset_id:   {{ $asset_id }},
         comment:    $('#add_comment_data').val()
     },
@@ -181,7 +194,7 @@ function addComment() {
 
 /* Delete a Data */
 function delComment() {
-    $.post('{{ url('api/comment/del') }}', {
+    $.post('{{ url('api/asset/comment/del') }}', {
         asset_comment_id: $('#del_comment_id').val()
     },
     function(data, textStatus) {
@@ -192,7 +205,7 @@ function delComment() {
 
 /* Update a Data */
 function updateComment() {
-    $.post('{{ url('api/comment/update') }}', {
+    $.post('{{ url('api/asset/comment/update') }}', {
         asset_comment_id:   $('#edit_comment_id').val(),
         comment: $('#edit_comment_data').val()
     },

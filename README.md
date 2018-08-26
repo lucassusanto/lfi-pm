@@ -9,8 +9,8 @@ CalemEAM Asset Preventive Management
 
 - XAMPP
 - PHP >= 7.1.3
-- Composer
-- postgresql
+- Composer https://getcomposer.org/
+- postgresql https://www.apachefriends.org/index.html
 
 
 ### INSTALLATION
@@ -30,7 +30,7 @@ database/postgresql_backup/pgadmin_lfi_tables_dataset.sql
 3. Change directory to the repo
 
 ```
-cd /to/the/repo (e.g. cd C:\\xampp\\htdocs\\pweb\\lfi-pm)
+cd lfi-pm
 ```
 
 4. Create new .env file
@@ -56,13 +56,13 @@ DB_PASSWORD=<password>
 composer update
 ```
 
-7. Start Laravel web server
+7. Start Laravel web server, then access http://127.0.0.1:8000
 
 ```
 php artisan serve
 ```
 
-then access http://127.0.0.1:8000
+
 
 OR
 

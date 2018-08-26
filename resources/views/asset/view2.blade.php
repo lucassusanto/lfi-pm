@@ -73,8 +73,16 @@ $(function() {
     $('#form_add_meter').validate();
     $('#form_edit_meter').validate();
 
-    $('#form_add_part').validate();
-    $('#form_edit_part').validate();
+    $('#form_add_part').validate({
+        rules: {
+            qty: 'number'
+        }
+    });
+    $('#form_edit_part').validate({
+        rules: {
+            qty: 'number'
+        }
+    });
 
     getComment();
 });

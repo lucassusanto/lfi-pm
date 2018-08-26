@@ -73,7 +73,7 @@ class AssetPartAPIController extends Controller
             'asset_id'		=> 'required',
             'item' 			=> 'required',  // Advanced Validation
             'type'			=> 'required',	// Advanced Validation
-            // 'qty'
+            'qty'           => 'nullable|numeric',
             'weight_uom' 	=> 'required',	// Advanced Validation
             'note' 			=> 'required'
         ]);
@@ -142,7 +142,7 @@ class AssetPartAPIController extends Controller
             'asset_part_id'	=> 'required',
             'item' 			=> 'required',  // Advanced Validation
             'type'			=> 'required',	// Advanced Validation
-            // 'qty'
+            'qty'           => 'nullable|numeric',
             'weight_uom' 	=> 'required',	// Advanced Validation
             'note' 			=> 'required'
         ]);

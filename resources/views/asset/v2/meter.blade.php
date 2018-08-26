@@ -44,13 +44,13 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_meter_no">Meter No: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="add_meter_no" required>
+                <input type="text" class="form-control" id="add_meter_no" name="no" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_meter_type">Type:</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_meter_type_id">
+                <input type="hidden" id="add_meter_type_id" name="type_id">
                 <select class="form-control" id="add_meter_type" onchange="$('#add_meter_type_id').val(getID(this))">
                     
                 </select>
@@ -59,7 +59,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_meter_ru">Reading Unit:</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_meter_ru_id">
+                <input type="hidden" id="add_meter_ru_id" name="ru_id">
                 <select class="form-control" id="add_meter_ru" onchange="$('#add_meter_ru_id').val(getID(this))">
                     
                 </select>
@@ -68,13 +68,13 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_meter_reading">Reading: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="add_meter_reading" required>
+                <input type="text" class="form-control" id="add_meter_reading" name="reading" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_meter_rollup">Meter Rollup: *</label>
             <div class="col-sm-3">
-                <select class="form-control" id="add_meter_rollup" required>
+                <select class="form-control" id="add_meter_rollup" name="rollup" required>
 
                 </select>
             </div>
@@ -82,13 +82,13 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_meter_rr">Rollover Reading: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="add_meter_rr" required>
+                <input type="text" class="form-control" id="add_meter_rr" name="rr" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_meter_note">Note:</label>
             <div class="col-sm-6">
-                <textarea class="form-control" id="add_meter_note" placeholder="Tuliskan catatan .."></textarea>
+                <textarea class="form-control" id="add_meter_note" name="note" placeholder="Tuliskan catatan .."></textarea>
             </div>
         </div>
     </form>
@@ -113,13 +113,13 @@
 		<div class="form-group">
             <label class="control-label col-sm-3" for="edit_meter_no">Meter No: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_meter_no" required>
+                <input type="text" class="form-control" id="edit_meter_no" name="no" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_meter_type">Type:</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_meter_type_id">
+                <input type="hidden" id="edit_meter_type_id" name="type">
                 <select class="form-control" id="edit_meter_type" onchange="$('#edit_meter_type_id').val(getID(this))">
                     
                 </select>
@@ -128,7 +128,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_meter_ru">Reading Unit:</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_meter_ru_id">
+                <input type="hidden" id="edit_meter_ru_id" name="ru">
                 <select class="form-control" id="edit_meter_ru" onchange="$('#edit_meter_ru_id').val(getID(this))">
                     
                 </select>
@@ -137,13 +137,13 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_meter_reading">Reading: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_meter_reading" required>
+                <input type="text" class="form-control" id="edit_meter_reading" name="reading" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_meter_rollup">Meter Rollup: *</label>
             <div class="col-sm-3">
-                <select class="form-control" id="edit_meter_rollup" required>
+                <select class="form-control" id="edit_meter_rollup" name="rollup" required>
 
                 </select>
             </div>
@@ -151,13 +151,13 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_meter_rr">Rollover Reading: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_meter_rr" required>
+                <input type="text" class="form-control" id="edit_meter_rr" name="rr" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_meter_note">Note:</label>
             <div class="col-sm-6">
-                <textarea class="form-control" id="edit_meter_note" placeholder="Tuliskan catatan .."></textarea>
+                <textarea class="form-control" id="edit_meter_note" name="note" placeholder="Tuliskan catatan .."></textarea>
             </div>
         </div>
     </form>

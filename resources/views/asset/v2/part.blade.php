@@ -43,7 +43,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_part_item">Item: *</label>
             <div class="col-sm-4">
-                <input type="hidden" id="add_part_item_id" required>
+                <input type="hidden" id="add_part_item_id" name="item_id" required>
                 <select class="form-control" id="add_part_item" onchange="$('#add_part_item_id').val(getID(this))">
                     
                 </select>
@@ -52,21 +52,21 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_part_type">Type: *</label>
             <div class="col-sm-3">
-                <select class="form-control" id="add_part_type">
+                <select class="form-control" id="add_part_type" name="type" required>
                     
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3" for="add_part_qty">Quantity: *</label>
+            <label class="control-label col-sm-3" for="add_part_qty">Quantity:</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="add_part_qty" required>
+                <input type="text" class="form-control" id="add_part_qty" name="qty">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_part_wuom">Weight UOM: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_part_wuom_id" required>
+                <input type="hidden" id="add_part_wuom_id" name="wuom_id" required>
                 <select class="form-control" id="add_part_wuom" onchange="$('#add_part_wuom_id').val(getID(this))">
                     
                 </select>
@@ -75,7 +75,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_part_note">Notes: *</label>
             <div class="col-sm-6">
-                <textarea class="form-control" id="add_part_note" placeholder="Tuliskan catatan .." required></textarea>
+                <textarea class="form-control" id="add_part_note" name="note" placeholder="Tuliskan catatan .." required></textarea>
             </div>
         </div>
     </form>
@@ -100,7 +100,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_part_item">Item: *</label>
             <div class="col-sm-4">
-                <input type="hidden" id="edit_part_item_id" required>
+                <input type="hidden" id="edit_part_item_id" name="item_id" required>
                 <select class="form-control" id="edit_part_item" onchange="$('#edit_part_item_id').val(getID(this))">
                     
                 </select>
@@ -109,21 +109,21 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_part_type">Type: *</label>
             <div class="col-sm-3">
-                <select class="form-control" id="edit_part_type">
+                <select class="form-control" id="edit_part_type" name="type" required>
                     
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3" for="edit_part_qty">Quantity: *</label>
+            <label class="control-label col-sm-3" for="edit_part_qty">Quantity:</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_part_qty" required>
+                <input type="text" class="form-control" id="edit_part_qty" name="qty">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_part_wuom">Weight UOM: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_part_wuom_id" required>
+                <input type="hidden" id="edit_part_wuom_id" name="wuom_id" required>
                 <select class="form-control" id="edit_part_wuom" onchange="$('#edit_part_wuom_id').val(getID(this))">
                     
                 </select>
@@ -132,7 +132,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_part_note">Notes: *</label>
             <div class="col-sm-6">
-                <textarea class="form-control" id="edit_part_note" placeholder="Tuliskan catatan .." required></textarea>
+                <textarea class="form-control" id="edit_part_note" name="note" placeholder="Tuliskan catatan .." required></textarea>
             </div>
         </div>
     </form>

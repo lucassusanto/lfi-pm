@@ -1,8 +1,8 @@
 TODOs:
 - Security
 -- Advanced validation controller
--- All ajax add + edit user friendly jQuery validation* // Bug: downtime, meter, part
--- Client side date begin/end validation*
+-- more validation in add/edit asset meter_no*
+-- Client side date start/end validation
 
 - Performance
 -- Limit row return

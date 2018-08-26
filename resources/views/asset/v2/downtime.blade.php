@@ -44,45 +44,45 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_downtime_st_date">Start Time: *</label>
             <div class="col-sm-2">
-                <input type="date" class="form-control" id="add_downtime_st_date" required>
+                <input type="date" class="form-control" id="add_downtime_st_date" name="st_date" required>
             </div>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="add_downtime_st_time" required>
+                <input type="time" class="form-control" id="add_downtime_st_time" name="st_time" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_downtime_et_date">End Time: *</label>
             <div class="col-sm-2">
-                <input type="date" class="form-control" id="add_downtime_et_date" required>
+                <input type="date" class="form-control" id="add_downtime_et_date" name="et_date" required>
             </div>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="add_downtime_et_time" required>
+                <input type="time" class="form-control" id="add_downtime_et_time" name="et_time" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_downtime_hours">Hours: *</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="add_downtime_hours" required>
+                <input type="text" class="form-control" id="add_downtime_hours" name="hours" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_downtime_downtime">Downtime: *</label>
             <div class="col-sm-3">
-                <select class="form-control" id="add_downtime_downtime">
+                <select class="form-control" id="add_downtime_downtime" name="downtime">
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_downtime_cause">Downtime Cause: *</label>
             <div class="col-sm-3">
-                <select class="form-control" id="add_downtime_cause">
+                <select class="form-control" id="add_downtime_cause" name="cause">
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">Work Order: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_downtime_wo_id" required>
+                <input type="hidden" id="add_downtime_wo_id" name="wo_id" required>
                 <select class="form-control" id="add_downtime_wo" onchange="$('#add_downtime_wo_id').val(getID(this))">
                 </select>
             </div>
@@ -90,7 +90,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3">Reported by: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="add_downtime_reported_id" required>
+                <input type="hidden" id="add_downtime_reported_id" name="reported_id" required>
                 <select class="form-control" id="add_downtime_reported" onchange="$('#add_downtime_reported_id').val(getID(this))">
                 </select>
             </div>
@@ -98,17 +98,17 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_downtime_ra_date">Reported at:</label>
             <div class="col-sm-2">
-                <input type="date" class="form-control" id="add_downtime_reported_date">
+                <input type="date" class="form-control" id="add_downtime_reported_date" name="reported_date">
             </div>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="add_downtime_reported_time">
+                <input type="time" class="form-control" id="add_downtime_reported_time" name="reported_time">
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-3" for="add_downtime_note">Note:</label>
             <div class="col-sm-6">
-                <textarea class="form-control" id="add_downtime_note" placeholder="Tuliskan catatan.."></textarea>
+                <textarea class="form-control" id="add_downtime_note" name="note" placeholder="Tuliskan catatan.."></textarea>
             </div>
         </div>
     </form>
@@ -133,45 +133,45 @@
 		<div class="form-group">
             <label class="control-label col-sm-3" for="edit_downtime_st_date">Start Time: *</label>
             <div class="col-sm-2">
-                <input type="date" class="form-control" id="edit_downtime_st_date" required>
+                <input type="date" class="form-control" id="edit_downtime_st_date" name="st_date" required>
             </div>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="edit_downtime_st_time" required>
+                <input type="time" class="form-control" id="edit_downtime_st_time" name="st_time" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_downtime_et_date">End Time: *</label>
             <div class="col-sm-2">
-                <input type="date" class="form-control" id="edit_downtime_et_date" required>
+                <input type="date" class="form-control" id="edit_downtime_et_date" name="et_date" required>
             </div>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="edit_downtime_et_time" required>
+                <input type="time" class="form-control" id="edit_downtime_et_time" name="et_time" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_downtime_hours">Hours: *</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="edit_downtime_hours" required>
+                <input type="text" class="form-control" id="edit_downtime_hours" name="hours" required>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_downtime_downtime">Downtime: *</label>
             <div class="col-sm-3">
-                <select class="form-control" id="edit_downtime_downtime">
+                <select class="form-control" id="edit_downtime_downtime" name="downtime">
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_downtime_cause">Downtime Cause: *</label>
             <div class="col-sm-3">
-                <select class="form-control" id="edit_downtime_cause">
+                <select class="form-control" id="edit_downtime_cause" name="cause">
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-3">Work Order: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_downtime_wo_id" required>
+                <input type="hidden" id="edit_downtime_wo_id" name="wo_id" required>
                 <select class="form-control" id="edit_downtime_wo" onchange="$('#edit_downtime_wo_id').val(getID(this))">
                 </select>
             </div>
@@ -179,7 +179,7 @@
         <div class="form-group">
             <label class="control-label col-sm-3">Reported by: *</label>
             <div class="col-sm-3">
-                <input type="hidden" id="edit_downtime_reported_id" required>
+                <input type="hidden" id="edit_downtime_reported_id" name="reported_id" required>
                 <select class="form-control" id="edit_downtime_reported" onchange="$('#edit_downtime_reported_id').val(getID(this))">
                 </select>
             </div>
@@ -187,17 +187,17 @@
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_downtime_ra_date">Reported at:</label>
             <div class="col-sm-2">
-                <input type="date" class="form-control" id="edit_downtime_reported_date">
+                <input type="date" class="form-control" id="edit_downtime_reported_date" name="reported_date">
             </div>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="edit_downtime_reported_time">
+                <input type="time" class="form-control" id="edit_downtime_reported_time" name="reported_time">
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-3" for="edit_downtime_note">Note:</label>
             <div class="col-sm-6">
-                <textarea class="form-control" id="edit_downtime_note" placeholder="Tuliskan catatan.."></textarea>
+                <textarea class="form-control" id="edit_downtime_note" name="note" placeholder="Tuliskan catatan.."></textarea>
             </div>
         </div>        
     </form>

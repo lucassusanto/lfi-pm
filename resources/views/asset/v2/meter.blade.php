@@ -113,7 +113,7 @@
 		<div class="form-group">
             <label class="control-label col-sm-3" for="edit_meter_no">Meter No: *</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="edit_meter_no" name="no" required>
+                <input type="text" class="form-control" id="edit_meter_no" name="no" disabled>
             </div>
         </div>
         <div class="form-group">

@@ -134,6 +134,7 @@ class AssetTypeController extends Controller
         }
 
         $asset_data = DB::table('asset_type')
+            ->select('id')
             ->where('type', '=', $asset_type)
             ->limit(1)
             ->get();

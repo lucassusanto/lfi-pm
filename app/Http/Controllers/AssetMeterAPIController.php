@@ -73,11 +73,18 @@ class AssetMeterAPIController extends Controller
             'no' 				=> 'required',
             // 'type'			// Advanced Validation
             // 'reading_unit'	// Advanced Validation
-            // 'reading'
+            'reading'           => 'required',
             'rollup' 			=> 'required',		// Advanced Validation
             'rollover_reading' 	=> 'required|int'
             // 'note'
         ]);
+
+        if($this->cekMeterNo(request('no')) == false) {
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+               'no' => ['Asset meter no exists']
+            ]);
+            throw $error;
+        }
 
         $now 		= new DateTime();
         $last_id 	= $this->getID();
@@ -146,10 +153,9 @@ class AssetMeterAPIController extends Controller
     public function update() {
         $this->validate(request(), [
             'asset_meter_id'	=> 'required',
-            'no' 				=> 'required',
             // 'type'			// Advanced Validation
             // 'reading_unit'	// Advanced Validation
-            // 'reading'
+            'reading'           => 'required',
             'rollup' 			=> 'required',		// Advanced Validation
             'rollover_reading' 	=> 'required|int'
             // 'note'
@@ -161,7 +167,6 @@ class AssetMeterAPIController extends Controller
         DB::table('asset_meter')
         	->where('id', $asset_meter_id)
         	->update([
-				'meter_no'          => request('no'),
 				'type_id'			=> request('type'),
 				'reading_uom_id'	=> request('reading_unit'),
 				'reading'			=> request('reading'),
@@ -173,5 +178,37 @@ class AssetMeterAPIController extends Controller
 		    ]);
 
         return response(['status' => 'ok'], 200);
+    }
+
+
+    // Mengecek apakah Asset Meter No sudah ada/belum | GET
+    private function cekMeterNo($asset_meter_no) {
+        $asset_data = DB::table('asset_meter')
+            ->select('id')
+            ->where('meter_no', '=', $asset_meter_no)
+            ->limit(1)
+            ->get();
+
+        if($asset_data->count()) {
+            return false; // Sudah ada
+        }
+
+        return true;
+    }
+
+    public function cekNo() {
+        $asset_meter_no = request('no');
+
+        if(empty($asset_meter_no)) {
+            return response('', 200);
+        }
+
+        $hasil = $this->cekMeterNo($asset_meter_no);
+
+        if($hasil == false) {
+            return response('false', 200); // Sudah ada
+        }
+
+        return response('true', 200);
     }
 }

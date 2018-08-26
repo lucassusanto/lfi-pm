@@ -70,7 +70,18 @@ $(function() {
     $('#form_add_downtime').validate();
     $('#form_edit_downtime').validate();
 
-    $('#form_add_meter').validate();
+    $('#form_add_meter').validate({
+        rules: {
+            no: {
+                remote: '{{ url('api/asset/meter/cekNo') }}'
+            }
+        },
+        messages: {
+            no: {
+                remote: 'This Meter No already exists.'
+            }
+        }
+    });
     $('#form_edit_meter').validate();
 
     $('#form_add_part').validate({

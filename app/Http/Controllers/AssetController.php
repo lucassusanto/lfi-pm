@@ -376,7 +376,7 @@ class AssetController extends Controller
     }
 
 
-    // Mengecek apakah Asset No sudah ada/belum | POST
+    // Mengecek apakah Asset No sudah ada/belum | GET
     public function cekNo() {
         $asset_no = request('no');
 
@@ -385,6 +385,7 @@ class AssetController extends Controller
         }
 
         $asset_data = DB::table('asset')
+            ->select('id')
             ->where('asset_no', '=', $asset_no)
             ->limit(1)
             ->get();

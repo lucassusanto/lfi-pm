@@ -44,6 +44,7 @@ Route::prefix('asset')->group(function() {
         Route::post('update',  'AssetMeterAPIController@update');
 
         Route::get('options',  'AssetMeterAPIController@options');
+        Route::get('cekNo',    'AssetMeterAPIController@cekNo');
     });
 
     Route::prefix('part')->group(function() {
@@ -56,6 +57,6 @@ Route::prefix('asset')->group(function() {
         Route::get('options',  'AssetPartAPIController@options');
     });
 
-    Route::get('cekAssetNo',   'AssetController@cekNo');
-    Route::get('cekAssetType', 'AssetTypeController@cekType');
+    Route::get('cekAssetNo',    'AssetController@cekNo');
+    Route::get('cekAssetType',  'AssetTypeController@cekType');
 });

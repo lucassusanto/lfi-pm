@@ -56,7 +56,7 @@ DB_PASSWORD=<password>
 composer update
 ```
 
-7. Start Laravel web server (below) and then access http://127.0.0.1:8000 OR access 'public' folder if you are using Apache XAMPP (e.g. http://localhost/pweb/lfi-pm/public)
+7. Start Laravel web server (command below) and then access http://127.0.0.1:8000 OR access 'public' folder if you are using Apache XAMPP (e.g. http://localhost/pweb/lfi-pm/public)
 
 ```
 php artisan serve

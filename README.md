@@ -2,7 +2,7 @@
 
 ![Image of LFI-PM](https://github.com/lucassusanto/lfi-pm/blob/lucas/public/images/sample.png)
 
-CalemEAM Asset Preventive Management
+Based on CalemEAM Asset Preventive Management. This project uses Laravel framework
 
 
 ### REQUIREMENTS
@@ -61,3 +61,9 @@ composer update
 ```
 php artisan serve
 ```
+
+### Non-Default Folders
+
+- **database/postgresql_backup** contains backed up postgres DDL and DML. They can be imported through pgAdmin or psql
+
+- **lfi-template** contains front end template to develop this project

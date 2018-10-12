@@ -1,7 +1,2 @@
 TODOs:
-- Security
--- Advanced validation controller
--- Client side date start/end validation
-
-- Performance
--- Limit row return
+- Integrate with AdminLTE

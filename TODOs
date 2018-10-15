@@ -1,3 +1,4 @@
 TODOs:
 - Change CRUD routes into Route::resource()
 - Change Controllers into resources
+- Standarize php functions' name

@@ -1,2 +1,5 @@
 TODOs:
 - Integrate with AdminLTE
+- Use value in <select> elements
+- Delete setID and getID JS
+- Standarize js functions' name

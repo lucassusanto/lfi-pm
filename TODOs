@@ -1,7 +1,3 @@
 TODOs:
-- Security
--- Advanced validation controller
--- Client side date start/end validation
-
-- Performance
--- Limit row return
+- Change CRUD routes into Route::resource()
+- Change Controllers into resources

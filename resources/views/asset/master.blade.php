@@ -9,7 +9,7 @@
 @section('content')
 <div class="box">
     <div class="box-header">
-        <h2 class="box-title">Asset List</h2>
+        <h2 class="box-title">Asset Table</h2>
         <div class="pull-right">
             <a class="btn btn-success" href="asset/new"><span class="glyphicon glyphicon-plus"></span> Add</a>
         </div>

@@ -149,12 +149,12 @@ return [
                     'url'  => 'asset/part',
                     'icon' => 'folder',
                 ],
+                [
+                    'text' => 'Type',
+                    'url'  => 'asset/type',
+                    'icon' => 'object-ungroup',
+                ],
             ],
-        ],
-        [
-            'text' => 'Asset Type',
-            'url'  => 'asset/type',
-            'icon' => 'object-ungroup',
         ],
     ],
 

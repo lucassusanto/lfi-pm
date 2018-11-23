@@ -1,21 +1,26 @@
-@extends('layouts.lfi')
+@extends('adminlte::page')
+
+@section('title', 'LFI - Asset Type')
+
+@section('content_header')
+    <h1>Asset Type</h1>
+@stop
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <h2 align="center">Asset Type</h2>
-    </div>
-    <div class="col-md-4">
+<div class="box">
+    <div class="box-header">
+        <h2 class="box-title">Asset Type Table</h2>
+        <div class="pull-right">
         <a class="btn btn-success" href="{{ url('asset/type/new') }}"><span class="glyphicon glyphicon-plus"></span> Add</a>
+        </div>
     </div>
-</div>
-
-<table id="asset_type_table" width="100%" class="table">
+    <div class="box-body">
+<table id="asset_type_table" class="table table-bordered table-hover">
 <thead>
     <tr>
         <th>Type</th>
         <th>Note</th>
-        <th>Action</th>
+        <th style="text-align:center">Action</th>
     </tr>
 </thead>
 <tbody>
@@ -31,6 +36,8 @@
     @endforeach
 </tbody>
 </table>
+</div>
+</div>
 
 <!-- Delete Data Modal -->
 <div id="modal-konfirmasi" class="modal fade" role="dialog">
@@ -82,8 +89,9 @@
     <input type="hidden" id="edit_type_id" name="id">
     @csrf
 </form>
+@stop
 
-
+@section('js')
 <!-- Scripts -->
 <script type="text/javascript">
 $(function() {

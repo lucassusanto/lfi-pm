@@ -60,13 +60,14 @@ class AssetTypeController extends Controller
             'created_id'        => $this->user_id
         ]);
         
-        return redirect('asset/type');
+        return redirect('asset/type')->with(['successes' => ['Asset type \''.$request->type.'\' was added.']]);
     }
 
     // Menghapus data | POST
     public function del(Request $request) {
         $this->validate(request(), [
-            'id' => 'required'
+            'id'    => 'required',
+            'type'  => 'required'
         ]);
 
         $asset_type_id = $request->id;
@@ -75,7 +76,7 @@ class AssetTypeController extends Controller
             ->where('id', '=', $asset_type_id)
             ->delete();
 
-        return redirect('asset/type');
+        return redirect('asset/type')->with(['successes' => ['Asset type \''.$request->type.'\' was deleted.']]);
     }
 
     // Menampilkan detil data edit | POST

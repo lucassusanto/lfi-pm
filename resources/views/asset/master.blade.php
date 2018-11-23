@@ -7,6 +7,8 @@
 @stop
 
 @section('content')
+@include('status')
+
 <div class="box">
     <div class="box-header">
         <h2 class="box-title">Asset Table</h2>

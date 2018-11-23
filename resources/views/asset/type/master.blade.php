@@ -7,6 +7,8 @@
 @stop
 
 @section('content')
+@include('status')
+
 <div class="box">
     <div class="box-header">
         <h2 class="box-title">Asset Type Table</h2>
@@ -47,6 +49,7 @@
     <!-- Delete Data Form -->
     <form class="form-horizontal" method="POST" action="{{ url('asset/type/delete') }}">
         <input type="hidden" id="del_type_id" name="id"></input>
+        <input type="hidden" id="del_type_type_hidden" name="type"></input>
         @csrf
 
         <div class="modal-header">
@@ -106,6 +109,7 @@ function showModal(doc) {
     var note = tr.childNodes[3].innerHTML;
     
     $('#del_type_id').val(id);
+    $('#del_type_type_hidden').val(type);
     $('#del_type_type').text(type);
     $('#del_type_note').text(note);
 }
@@ -117,4 +121,12 @@ function editData(doc) {
     $('#edit_type').submit();
 }
 </script>
-@endsection
+@stop
+
+@section('css')
+<style>
+td.highlight {
+    background-color: green !important;
+}
+</style>
+@stop

@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => 'SI Terintegrasi',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>LFI</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'skin' => 'blue',
+    'skin' => 'green-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,10 +109,11 @@ return [
 
     // Icons: file, user, lock, share
     'menu' => [
-        'MAIN NAVIGATION',
+        'MAIN MODULES',
         [
             'text' => 'Asset',
             'url'  => 'asset',
+            'icon' => 'cube',
             'submenu' => [
                 [
                     'text' => 'Master',
@@ -120,29 +121,40 @@ return [
                 ],
                 [
                     'text' => 'Comment',
-                    'url'  => 'comment',
+                    'url'  => 'asset/comment',
+                    'icon' => 'comment-o',
                 ],
                 [
                     'text' => 'Contract',
-                    'url'  => 'contract',
+                    'url'  => 'asset/contract',
+                    'icon' => 'sticky-note-o',
                 ],
                 [
                     'text' => 'Depreciation',
-                    'url'  => 'asset',
+                    'url'  => 'asset/depreciation',
+                    'icon' => 'ban',
                 ],
                 [
                     'text' => 'Downtime',
-                    'url'  => 'asset',
+                    'url'  => 'asset/downtime',
+                    'icon' => 'clock-o',
                 ],
                 [
                     'text' => 'Meter',
-                    'url'  => 'asset',
+                    'url'  => 'asset/meter',
+                    'icon' => 'tachometer',
                 ],
                 [
                     'text' => 'Part',
-                    'url'  => 'asset',
+                    'url'  => 'asset/part',
+                    'icon' => 'folder',
                 ],
             ],
+        ],
+        [
+            'text' => 'Asset Type',
+            'url'  => 'asset/type',
+            'icon' => 'object-ungroup',
         ],
     ],
 

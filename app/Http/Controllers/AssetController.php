@@ -98,9 +98,7 @@ class AssetController extends Controller
             // ->limit(50)
             ->get();
 
-        return view('asset.master', [
-            'datas' => $datas
-        ]);
+        return view('asset.master', compact('datas'));
     }
 
     // Menampilkan form data baru | GET

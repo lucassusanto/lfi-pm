@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-@include('status')
+@include('status.msg')
 <div class="box">
     <div class="box-header">
         <div class="pull-left">

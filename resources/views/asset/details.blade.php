@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-@include('status')
+@include('status.msg')
 <form id="edit_asset" method="POST" action="{{ url('asset/edit') }}">
     <input type="hidden" name="id" value="{{ $asset_id }}">
     @csrf

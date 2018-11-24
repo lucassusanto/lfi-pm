@@ -104,7 +104,7 @@ class AssetTypeController extends Controller
             ->get();
 
         if($data->count() == 0) {
-            return view('asset.info')
+            return view('status.index')
                 ->with(['link' => 'asset/type'])
                 ->withErrors([
                     'Asset type \''.$asset_type.'\' was not found!'

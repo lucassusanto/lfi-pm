@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-@include('status')
+@include('status.msg')
 
 <form id="assetForm" class="form-horizontal" method="POST" action="{{ url('asset/store') }}">
 @csrf

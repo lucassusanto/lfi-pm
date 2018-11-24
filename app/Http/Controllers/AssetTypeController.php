@@ -12,7 +12,7 @@ class AssetTypeController extends Controller
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
     // Get last data ID
-    private function getID() {
+    private function getId() {
         $last_id = DB::table('asset_type')
             ->select('id')->orderBy('id', 'desc')
             ->take(1)->get();
@@ -30,9 +30,7 @@ class AssetTypeController extends Controller
             // ->limit(50)
             ->get();
 
-        return view('asset.type.master', [
-            'datas' => $datas
-        ]);
+        return view('asset.type.master', compact('datas'));
     }
 
     // Menampilkan form data baru | GET
@@ -48,19 +46,21 @@ class AssetTypeController extends Controller
         ]);
 
         $now = new DateTime();
-        $last_id = $this->getID();
+        $last_id = $this->getId();
         
         DB::table('asset_type')->insert([
             'id'                => $last_id,
-            'type'              => $request->type,
-            'note'              => $request->note,
+            'type'              => request('type'),
+            'note'              => request('note'),
             'modified_time'     => $now,
             'modified_id'       => $this->user_id,
             'created_time'      => $now,
             'created_id'        => $this->user_id
         ]);
         
-        return redirect('asset/type')->with(['successes' => ['Asset type \''.$request->type.'\' was added.']]);
+        return redirect('asset/type')->with([
+            'successes' => ['Asset type \''.request('type').'\' was added.']
+        ]);
     }
 
     // Menghapus data | POST
@@ -70,39 +70,50 @@ class AssetTypeController extends Controller
             'type'  => 'required'
         ]);
 
-        $asset_type_id = $request->id;
+        $asset_type_id = request('id');
 
-        DB::table('asset_type')
-            ->where('id', '=', $asset_type_id)
-            ->delete();
+        try {
+            DB::table('asset_type')
+                ->where('id', '=', $asset_type_id)
+                ->delete();
 
-        return redirect('asset/type')->with(['successes' => ['Asset type \''.$request->type.'\' was deleted.']]);
+            return redirect('asset/type')->with([
+                'successes' => ['Asset type \''.request('type').'\' was deleted.']
+            ]);
+        }
+        catch(\Exception $e) {
+            return redirect('asset/type')->withErrors([
+                'Asset type \''.request('type').'\' is stil being referenced by some assets.'
+            ]);
+        }
     }
 
     // Menampilkan detil data edit | POST
     public function details(Request $request) {
         $this->validate(request(), [
-            'id' => 'required'
+            'id'   => 'required',
+            'type' => 'required'
         ]);
 
-        $asset_type_id = $request->id;
+        $asset_type_id  = request('id');
+        $asset_type     = request('type');
 
-        $datas = DB::table('asset_type')
+        $data = DB::table('asset_type')
             ->select('id', 'type', 'note')
             ->where('id', '=', $asset_type_id)
             ->get();
 
-        if($datas->count() == 0) {
-            return view('asset.info', [
-                'title' => 'Error!',
-                'msg'   => 'Asset data id was not found!',
-                'link'  => 'asset/type'
-            ]);
+        if($data->count() == 0) {
+            return view('asset.info')
+                ->with(['link' => 'asset/type'])
+                ->withErrors([
+                    'Asset type \''.$asset_type.'\' was not found!'
+                ]);
         }
-        
-        return view('asset.type.edit', [
-            'data' => $datas[0]
-        ]);
+
+        $data = $data[0];
+
+        return view('asset.type.edit', compact('data'));
     }
 
     // Menyimpan hasil edit | POST
@@ -114,17 +125,19 @@ class AssetTypeController extends Controller
         ]);
 
         $now = new DateTime();
-        $asset_type_id = $request->id;
+        $asset_type_id = request('id');
         
         DB::table('asset_type')
             ->where('id', $asset_type_id)
             ->update([
-                'note'          => $request->note,
+                'note'          => request('note'),
                 'modified_time' => $now,
                 'modified_id'   => $this->user_id
             ]);
         
-        return redirect('asset/type')->with(['successes' => ['Asset type \''.$request->type.'\' was updated.']]);
+        return redirect('asset/type')->with([
+            'successes' => ['Asset type \''.request('type').'\' was updated.']
+        ]);
     }
 
     // Mengecek apakah Asset Type sudah ada/belum | GET

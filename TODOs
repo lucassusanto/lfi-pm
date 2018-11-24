@@ -2,9 +2,10 @@ TODOs:
 - Integrate with AdminLTE (in process)
 -- Fix add and update ajax required field interactive UI (on add adn edit data)
 -- Show processing fail or success (after delete, add, update data)
--- Currently in: Asset type
+-- Currently in: Asset
 
 - Use value in <select> elements
 - Delete setID and getID JS
 - Standarize js functions' name
 - Highlight new added data
+- Form validations in Add

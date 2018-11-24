@@ -17,28 +17,28 @@
         </div>
     </div>
     <div class="box-body">
-<table id="asset_type_table" class="table table-bordered table-hover">
-<thead>
-    <tr>
-        <th>Type</th>
-        <th>Note</th>
-        <th style="text-align:center">Action</th>
-    </tr>
-</thead>
-<tbody>
-    @foreach($datas as $data)
-    <tr id="{{ $data->id }}">
-        <td>{{ $data->type }}</td>
-        <td>{{ $data->note }}</td>
-        <td align="center">
-            <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-            <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
-        </td>
-    </tr>
-    @endforeach
-</tbody>
-</table>
-</div>
+        <table id="asset_type_table" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Note</th>
+                <th style="text-align:center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($datas as $data)
+            <tr id="{{ $data->id }}">
+                <td>{{ $data->type }}</td>
+                <td>{{ $data->note }}</td>
+                <td align="center">
+                    <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
+                    <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Delete Data Modal -->
@@ -90,6 +90,7 @@
 <!-- Edit Data Form -->
 <form method="POST" action="{{ url('asset/type/edit') }}" id="edit_type" style="visibility: hidden;">
     <input type="hidden" id="edit_type_id" name="id">
+    <input type="hidden" id="edit_type_type" name="type">
     @csrf
 </form>
 @stop
@@ -115,9 +116,12 @@ function showModal(doc) {
 }
 
 function editData(doc) {
-    var id = doc.parentNode.parentNode.id;
+    var par = doc.parentNode.parentNode;
+    var id = par.id;
+    var type = par.children[0].innerHTML;
 
     $('#edit_type_id').val(id);
+    $('#edit_type_type').val(type);
     $('#edit_type').submit();
 }
 </script>

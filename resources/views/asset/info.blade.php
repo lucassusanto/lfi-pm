@@ -1,9 +1,12 @@
-@extends('layouts.lfi')
+@extends('adminlte::page')
+
+@section('title', 'LFI - Whoops!')
+
+@section('content_header')
+    <h1>Whoops!</h1>
+@stop
 
 @section('content')
-<div class="alert alert-danger">
-    <b>{{ $title }}</b> {{ $msg }}
-</div>
-
+@include('status')
 <a class="btn btn-default" href="{{ url($link) }}">Go Back</a>
-@endsection
+@stop

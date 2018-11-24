@@ -110,7 +110,6 @@
 <!-- Edit Data Form -->
 <form method="POST" action="{{ url('asset/edit') }}" id="edit_asset" style="visibility: hidden;">
     <input type="hidden" id="edit_asset_id" name="id">
-    <input type="hidden" id="edit_asset_type" name="type">
     @csrf
 </form>
 @stop
@@ -138,12 +137,9 @@ function showModal(doc) {
 }
 
 function editData(doc) {
-    var tr = doc.parentNode.parentNode;
-    var id = tr.id;
-    var type = tr.children[0].innerHTML;
+    var id = doc.parentNode.parentNode.id;
 
     $('#edit_asset_id').val(id);
-    $('#edit_asset_type').val(type);
     $('#edit_asset').submit();
 }
 </script>

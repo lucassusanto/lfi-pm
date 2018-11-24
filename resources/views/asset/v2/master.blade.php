@@ -1,14 +1,3 @@
-<h2 align="center">Asset</h2>
-
-<div class="row">
-    <div class="col-md-1">
-        <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
-    </div>
-    <div class="col-md-2 col-md-offset-9">
-        <a class="btn btn-primary" href="{{ url('asset/'.$asset_id.'/details') }}">View Details</a>
-    </div>
-</div><br>
-
 <div class="form-horizontal">
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_id">Asset No: *</label>

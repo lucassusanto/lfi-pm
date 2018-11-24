@@ -119,6 +119,7 @@ return [
                     'text' => 'Master',
                     'url'  => 'asset',
                 ],
+                /*
                 [
                     'text' => 'Comment',
                     'url'  => 'asset/comment',
@@ -149,6 +150,7 @@ return [
                     'url'  => 'asset/part',
                     'icon' => 'folder',
                 ],
+                */
                 [
                     'text' => 'Type',
                     'url'  => 'asset/type',

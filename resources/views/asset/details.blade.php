@@ -1,22 +1,28 @@
-@extends('layouts.lfi')
+@extends('adminlte::page')
+
+@section('title', 'LFI - Asset Details')
+
+@section('content_header')
+    <h1>Asset Details</h1>
+@stop
 
 @section('content')
-<h2 align="center">Asset Details</h2>
-
+@include('status')
 <form id="edit_asset" method="POST" action="{{ url('asset/edit') }}">
     <input type="hidden" name="id" value="{{ $asset_id }}">
     @csrf
 </form>
 
-<div class="row">
-    <div class="col-md-1">
+<div class="box">
+<div class="box-header">
+    <div class="pull-left">
         <a class="btn btn-default" href="{{ url('asset/'.$asset_id) }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
     </div>
-    <div class="col-md-2 col-md-offset-9">
+    <div class="pull-right">
         <button class="btn btn-primary" onclick="$('#edit_asset').submit()"><span class="glyphicon glyphicon-edit"></span> Edit</button>
     </div>
-</div><br>
-
+</div>
+<div class="box-body">
 <ul class="nav nav-tabs nav-justified">
     <li class="active"><a data-toggle="pill" href="#asset_menu_overview">Overview</a></li>
     <li><a data-toggle="pill" href="#asset_menu_warranty">Warranty</a></li>
@@ -220,4 +226,6 @@
         </div>
     </div>
 </div>
-@endsection
+</div>
+</div>
+@stop

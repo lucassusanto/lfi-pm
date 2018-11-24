@@ -8,4 +8,7 @@ TODOs:
 - Delete setID and getID JS
 - Standarize js functions' name
 - Highlight new added data
-- Form validations in Add
+- Form primary key validations in Add
+- Client side validation
+- Move lfi-template page to some dir
+- Delete lfi layouts

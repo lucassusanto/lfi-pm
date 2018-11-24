@@ -109,6 +109,7 @@ class AssetTypeController extends Controller
     public function update(Request $request) {
         $this->validate(request(), [
             'id'    => 'required',
+            'type'  => 'required',
             'note'  => 'required'
         ]);
 
@@ -123,7 +124,7 @@ class AssetTypeController extends Controller
                 'modified_id'   => $this->user_id
             ]);
         
-        return redirect('asset/type');
+        return redirect('asset/type')->with(['successes' => ['Asset type \''.$request->type.'\' was updated.']]);
     }
 
     // Mengecek apakah Asset Type sudah ada/belum | GET

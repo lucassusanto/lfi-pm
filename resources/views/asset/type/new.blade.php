@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'LFI - Tambah Asset Type')
+@section('title', 'LFI - Add Asset Type')
 
 @section('content_header')
-    <h1>Tambah Asset Type</h1>
+    <h1>Add Asset Type</h1>
 @stop
 
 @section('content')

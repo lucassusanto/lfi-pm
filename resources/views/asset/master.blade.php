@@ -117,10 +117,6 @@
 
 @section('js')
 <script type="text/javascript">
-$(function() {
-    $('#asset_table').DataTable();
-})
-
 function showModal(doc) {
     var tr = doc.parentNode.parentNode;
 
@@ -144,5 +140,9 @@ function editData(doc) {
     $('#edit_asset_id').val(id);
     $('#edit_asset').submit();
 }
+
+$(function() {
+    $('#asset_table').DataTable();
+})
 </script>
 @stop

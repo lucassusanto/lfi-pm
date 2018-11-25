@@ -233,6 +233,7 @@ class AssetController extends Controller
     public function update(Request $request) {
         $this->validate(request(), [
             'id'        => 'required',
+            'no'        => 'required',
             'status'    => 'required',
             'category'  => 'required',
             'note'      => 'required',
@@ -276,7 +277,9 @@ class AssetController extends Controller
             'modified_id'               => $this->user_id
         ]);
         
-        return redirect('asset');
+        return redirect('asset')->with([
+            'successes' => ['Asset \''.request('no').'\' was updated.']
+        ]);;
     }
 
 

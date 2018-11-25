@@ -59,20 +59,18 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="asset_category">Asset Category: <span class="red">*</span></label>
                 <div class="col-sm-3">
-                    <input type="hidden" id="asset_category" name="category" value="{{ $categories[0]->id }}">
-                    <select class="form-control" onchange="$('#asset_category').val(getID(this))" required>
+                    <select class="form-control" name="category" required>
                         @foreach($categories as $cat)
-                            <option id="{{ $cat->id }}">{{ $cat->note }}</option>
+                            <option VALUE="{{ $cat->id }}">{{ $cat->note }}</option>
                         @endforeach
                     </select>
                 </div>
                 <label class="control-label col-sm-3" for="asset_wuom">Weight UOM:</label>
                 <div class="col-sm-3">
-                    <input type="hidden" id="asset_wuom" name="wuom">
-                    <select class="form-control" onchange="$('#asset_wuom').val(getID(this))">
+                    <select class="form-control" name="wuom">
                         <option></option>
                         @foreach($wuoms as $wuom)
-                            <option id="{{ $wuom->id }}">{{ $wuom->uom }}</option>
+                            <option value="{{ $wuom->id }}">{{ $wuom->uom }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -80,11 +78,10 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="asset_location">Location:</label>
                 <div class="col-sm-3">
-                    <input type="hidden" id="asset_location" name="location">
-                    <select class="form-control" onchange="$('#asset_location').val(getID(this))" >
+                    <select class="form-control" name="location">
                         <option></option>
                         @foreach($locations as $loc)
-                            <option id="{{ $loc->id }}">{{ $loc->note }}</option>
+                            <option value="{{ $loc->id }}">{{ $loc->note }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -130,21 +127,19 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="asset_vendor">Vendor:</label>
                 <div class="col-sm-3">
-                    <input type="hidden" id="asset_vendor" name="vendor">
-                    <select class="form-control" onchange="$('#asset_vendor').val(getID(this))" >
+                    <select class="form-control" name="vendor">
                         <option></option>
                         @foreach($vendors as $vendor)
-                            <option id="{{ $vendor->id }}">{{ $vendor->vendor }}</option>
+                            <option value="{{ $vendor->id }}">{{ $vendor->vendor }}</option>
                         @endforeach
                     </select>
                 </div>
                 <label class="control-label col-sm-3" for="asset_manufacturer">Manufacturer:</label>
                 <div class="col-sm-3">
-                    <input type="hidden" id="asset_manufacturer" name="manufacturer">
-                    <select class="form-control" onchange="$('#asset_manufacturer').val(getID(this))" >
+                    <select class="form-control" name="manufacturer">
                         <option></option>
                         @foreach($manufacturers as $manufacturer)
-                            <option id="{{ $manufacturer->id }}">{{ $manufacturer->manufacturer }}</option>
+                            <option value="{{ $manufacturer->id }}">{{ $manufacturer->manufacturer }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -190,21 +185,19 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="asset_cc">Cost Code:</label>
                 <div class="col-sm-3">
-                    <input type="hidden" id="asset_cc" name="cc">
-                    <select class="form-control" onchange="$('#asset_cc').val(getID(this))" >
+                    <select class="form-control" name="cc">
                         <option></option>
                         @foreach($costcodes as $costcode)
-                            <option id="{{ $costcode->id }}">{{ $costcode->note }}</option>
+                            <option value="{{ $costcode->id }}">{{ $costcode->note }}</option>
                         @endforeach
                     </select>
                 </div>
                 <label class="control-label col-sm-3" for="asset_dept">Department:</label>
                 <div class="col-sm-3">
-                    <input type="hidden" id="asset_dept" name="dept">
-                    <select class="form-control" onchange="$('#asset_dept').val(getID(this))" >
+                    <select class="form-control" name="dept">
                         <option></option>
                         @foreach($depts as $dept)
-                            <option id="{{ $dept->id }}">{{ $dept->dept }}</option>
+                            <option value="{{ $dept->id }}">{{ $dept->dept }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -213,11 +206,10 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="asset_item">Item:</label>
                 <div class="col-sm-3">
-                    <input type="hidden" id="asset_item" name="ai">
-                    <select class="form-control" onchange="$('#asset_item').val(getID(this))" >
+                    <select class="form-control" name="ai">
                         <option></option>
                         @foreach($items as $item)
-                            <option id="{{ $item->id }}">{{ $item->in_no }}</option>
+                            <option value="{{ $item->id }}">{{ $item->in_no }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -277,11 +269,6 @@ $(function() {
         }
     });
 });
-
-function getID(doc) {
-    var options = doc.options;
-    return options[options.selectedIndex].id;
-}
 </script>
 @stop
 

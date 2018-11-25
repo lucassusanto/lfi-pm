@@ -11,6 +11,7 @@
 
 <form id="assetForm" class="form-horizontal" method="POST" action="{{ url('asset/update') }}">
 <input type="hidden" name="id" value="{{ $asset_data->id }}">
+<input type="hidden" name="no" value="{{ $asset_data->asset_no }}">
 @csrf
 
 <div class="box">

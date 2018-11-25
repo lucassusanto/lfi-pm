@@ -72,7 +72,7 @@ php artisan serve
 
 ### How to Login
 
-![Login Screenshot](https://github.com/lucassusanto/lfi-pm/blob/admin-page/public/images/login.png)
+![Login Screenshot](https://github.com/lucassusanto/lfi-pm/blob/master/public/images/login.png)
 
 To login, click the 'Sign In' button leaving Email and Password field empty
 

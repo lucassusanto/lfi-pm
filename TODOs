@@ -9,8 +9,6 @@ TODOs:
 - Highlight new added data
 - Form primary key validations in Add
 - Client side validation
-- Move lfi-template page to some dir
 - Delete lfi layouts
 - Replace README.md screenshot
 -- Update url
-- Delete unused plugins in public folder

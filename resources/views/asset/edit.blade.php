@@ -260,6 +260,8 @@
 @stop
 
 @section('js')
+<script src="{{ url('js/jquery.validate.min.js') }}"></script>
+
 <script type="text/javascript">
 $(function() {
     $('#assetForm').validate();

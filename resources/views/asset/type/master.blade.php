@@ -126,11 +126,3 @@ function editData(doc) {
 }
 </script>
 @stop
-
-@section('css')
-<style>
-td.highlight {
-    background-color: green !important;
-}
-</style>
-@stop

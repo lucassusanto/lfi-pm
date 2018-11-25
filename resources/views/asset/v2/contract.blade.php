@@ -1,13 +1,10 @@
 <!-- Contract -->
 <div id="contract_index" class="tab-pane fade">
-    <div class="col-md-3">
+    <div class="col-md-12">
         <a class="btn btn-success" onclick="fetchContractOptions('add')" data-toggle="pill" href="#contract_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
-        <a class="btn btn-primary" onclick="getContract()"><span class="glyphicon glyphicon-repeat"></span></a>
+        <a class="btn btn-primary" id="contract_refresh_btn" onclick="getContract()">Refresh</a>
         <a id="btn_contract_edit" class='btn btn-primary' data-toggle='pill' href='#contract_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
-    </div>
-
-    <div class="col-md-1 col-md-offset-8">
-        <div id="contract_loader" class="loader"></div>
+        <br><br>
     </div>
     
     <table id="contract_table" width="100%" class="table">
@@ -44,7 +41,7 @@
             <label class="control-label col-sm-3" for="add_contract_contract">Contract: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_contract_contract_id" name="contract" required>
-                <select class="form-control" id="add_contract_contract" onchange="$('#add_contract_contract_id').val(getID(this))">
+                <select class="form-control" id="add_contract_contract" onchange="$('#add_contract_contract_id').val(getId(this))">
 
                 </select>
             </div>
@@ -101,7 +98,7 @@
             <label class="control-label col-sm-3" for="edit_contract_contract">Contract: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_contract_contract_id" name="contract" required>
-                <select class="form-control" id="edit_contract_contract" onchange="$('#edit_contract_contract_id').val(getID(this))">
+                <select class="form-control" id="edit_contract_contract" onchange="$('#edit_contract_contract_id').val(getId(this))">
 
                 </select>
             </div>
@@ -199,7 +196,7 @@ $('#form_edit_contract').submit(function(e) {
 
 /*  Load Master data */
 function getContract() {
-    $('#contract_loader').show();
+    $('#contract_refresh_btn').text('Refreshing ...');
 
     $.post('{{ url('api/asset/contract') }}', {
         asset_id:   {{ $asset_id }}
@@ -220,7 +217,8 @@ function getContract() {
 
             table.draw();
         }
-        $('#contract_loader').hide();
+
+        $('#contract_refresh_btn').text('Refresh');
     });
 }
 

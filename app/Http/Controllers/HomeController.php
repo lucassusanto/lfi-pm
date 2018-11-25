@@ -28,7 +28,7 @@ class HomeController extends Controller
 
     public function login()
     {
-        return view('home');
+        return redirect('/home');
     }
     
     public function logout()

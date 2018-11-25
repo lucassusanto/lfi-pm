@@ -63,20 +63,18 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_category">Asset Category: <span class="red">*</span></label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_category" name="category" value="{{ $asset_data->type_id }}">
-            <select class="form-control" onchange="document.getElementById('asset_category').value = getID(this);" required>
+            <select class="form-control" name="category" required>
                 @foreach($categories as $cat)
-                    <option id="{{ $cat->id }}" @if($asset_data->type_id == $cat->id) selected @endif>{{ $cat->note }}</option>
+                    <option value="{{ $cat->id }}" @if($asset_data->type_id == $cat->id) selected @endif>{{ $cat->note }}</option>
                 @endforeach
             </select>
         </div>
         <label class="control-label col-sm-3" for="asset_wuom">Weight UOM:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_wuom" name="wuom" value="{{ $asset_data->weight_uom_id }}">
-            <select class="form-control" onchange="document.getElementById('asset_wuom').value = getID(this);">
+            <select class="form-control" name="wuom">
                 <option></option>
                 @foreach($wuoms as $wuom)
-                    <option id="{{ $wuom->id }}" @if($asset_data->weight_uom_id == $wuom->id) selected @endif>{{ $wuom->uom }}</option>
+                    <option value="{{ $wuom->id }}" @if($asset_data->weight_uom_id == $wuom->id) selected @endif>{{ $wuom->uom }}</option>
                 @endforeach
             </select>
         </div>
@@ -84,11 +82,10 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_location">Location:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_location" name="location" value="{{ $asset_data->location_id }}">
-            <select class="form-control" onchange="document.getElementById('asset_location').value = getID(this);" >
+            <select class="form-control" name="location">
                 <option></option>
                 @foreach($locations as $loc)
-                    <option id="{{ $loc->id }}" @if($asset_data->location_id == $loc->id) selected @endif>{{ $loc->note }}</option>
+                    <option value="{{ $loc->id }}" @if($asset_data->location_id == $loc->id) selected @endif>{{ $loc->note }}</option>
                 @endforeach
             </select>
         </div>
@@ -134,22 +131,20 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_vendor">Vendor:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_vendor" name="vendor" value="{{ $asset_data->vendor_id }}">
-            <select class="form-control" onchange="document.getElementById('asset_vendor').value = getID(this);" >
+            <select class="form-control" name="vendor">
                 <option></option>
                 @foreach($vendors as $vendor)
-                    <option id="{{ $vendor->id }}" @if($asset_data->vendor_id == $vendor->id) selected @endif>{{ $vendor->vendor }}</option>
+                    <option value="{{ $vendor->id }}" @if($asset_data->vendor_id == $vendor->id) selected @endif>{{ $vendor->vendor }}</option>
                 @endforeach
             </select>
 
         </div>
         <label class="control-label col-sm-3" for="asset_manufacturer">Manufacturer:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_manufacturer" name="manufacturer" value="{{ $asset_data->manufacturer_id }}">
-            <select class="form-control" onchange="document.getElementById('asset_manufacturer').value = getID(this);" >
+            <select class="form-control" name="manufacturer">
                 <option></option>
                 @foreach($manufacturers as $manufacturer)
-                    <option id="{{ $manufacturer->id }}" @if($asset_data->manufacturer_id == $manufacturer->id) selected @endif>{{ $manufacturer->manufacturer }}</option>
+                    <option value="{{ $manufacturer->id }}" @if($asset_data->manufacturer_id == $manufacturer->id) selected @endif>{{ $manufacturer->manufacturer }}</option>
                 @endforeach
             </select>
 
@@ -196,21 +191,19 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_cc">Cost Code:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_cc" name="cc" value="{{ $asset_data->costcode_id }}">
-            <select class="form-control" onchange="document.getElementById('asset_cc').value = getID(this);">
+            <select class="form-control" name="cc">
                 <option></option>
                 @foreach($costcodes as $costcode)
-                    <option id="{{ $costcode->id }}" @if($asset_data->costcode_id == $costcode->id) selected @endif>{{ $costcode->note }}</option>
+                    <option value="{{ $costcode->id }}" @if($asset_data->costcode_id == $costcode->id) selected @endif>{{ $costcode->note }}</option>
                 @endforeach
             </select>
         </div>
         <label class="control-label col-sm-3" for="asset_dept">Department:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_dept" name="dept" value="{{ $asset_data->dept_id }}">
-            <select class="form-control" onchange="document.getElementById('asset_dept').value = getID(this);" >
+            <select class="form-control" name="dept">
                 <option></option>
                 @foreach($depts as $dept)
-                    <option id="{{ $dept->id }}" @if($asset_data->dept_id == $dept->id) selected @endif>{{ $dept->dept }}</option>
+                    <option value="{{ $dept->id }}" @if($asset_data->dept_id == $dept->id) selected @endif>{{ $dept->dept }}</option>
                 @endforeach
             </select>
         </div>
@@ -219,11 +212,10 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="asset_item">Item:</label>
         <div class="col-sm-3">
-            <input type="hidden" id="asset_item" name="ai" value="{{ $asset_data->in_id }}">
-            <select class="form-control" onchange="document.getElementById('asset_item').value = getID(this);" >
+            <select class="form-control" name="ai">
                 <option></option>
                 @foreach($items as $item)
-                    <option id="{{ $item->id }}" @if($asset_data->in_id == $item->id) selected @endif>{{ $item->in_no }}</option>
+                    <option value="{{ $item->id }}" @if($asset_data->in_id == $item->id) selected @endif>{{ $item->in_no }}</option>
                 @endforeach
             </select>
         </div>
@@ -269,11 +261,6 @@
 
 @section('js')
 <script type="text/javascript">
-function getID(doc) {
-    var options = doc.options;
-    return options[options.selectedIndex].id;
-}
-
 $(function() {
     $('#assetForm').validate();
 });

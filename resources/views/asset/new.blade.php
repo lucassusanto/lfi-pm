@@ -254,19 +254,13 @@
 @stop
 
 @section('js')
+<script src="{{ url('js/jquery.validate.min.js') }}"></script>
+
 <script type="text/javascript">
 $(function() {
     $('#assetForm').validate({
-        rules: {
-            no: {
-                remote: '{{ url('api/asset/cekAssetNo') }}'
-            }
-        },
-        messages: {
-            no: {
-                remote: 'This Asset No already exists.'
-            }
-        }
+        rules: { no: { remote: '{{ url('api/asset/cekAssetNo') }}' }},
+        messages: { no: { remote: 'This Asset No already exists.' }}
     });
 });
 </script>

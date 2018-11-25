@@ -40,19 +40,13 @@
 @stop
 
 @section('js')
+<script src="{{ url('js/jquery.validate.min.js') }}"></script>
+
 <script type="text/javascript">
 $(function() {
     $('#typeForm').validate({
-        rules: {
-            type: {
-                remote: '{{ url('api/asset/cekAssetType') }}'
-            }
-        },
-        messages: {
-            type: {
-                remote: 'This type already exists.'
-            }
-        }
+        rules: { type: { remote: '{{ url('api/asset/cekAssetType') }}' }},
+        messages: { type: { remote: 'This type already exists.' }}
     });
 });
 </script>

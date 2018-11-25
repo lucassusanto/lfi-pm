@@ -1,6 +1,6 @@
 ## LFI - Preventive Management
 
-![Image of LFI-PM](https://github.com/lucassusanto/lfi-pm/blob/master/public/images/sample.png)
+![Image of LFI-PM](https://github.com/lucassusanto/lfi-pm/blob/admin-page/public/images/main.png)
 
 Based on CalemEAM Asset Preventive Management. This project uses Laravel framework
 
@@ -70,8 +70,14 @@ php artisan key:generate
 php artisan serve
 ```
 
+### How to Login
+
+![Login Screenshot](https://github.com/lucassusanto/lfi-pm/blob/admin-page/public/images/login.png)
+
+To login, click the 'Sign In' button leaving Email and Password field empty
+
 ### Non-Default Folders
 
 - **database/postgresql_backup** contains backed up postgres DDL and DML. They can be imported through pgAdmin or psql
 
-- **lfi-template** contains front end template to develop this project
+- **resources/views/template** contains first front end template design

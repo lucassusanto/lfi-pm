@@ -1,51 +1,68 @@
-@extends('layouts.lfi')
+@extends('adminlte::page')
+
+@section('title', 'LFI - Asset')
+
+@section('content_header')
+    <h1>Asset</h1>
+@stop
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <h2 align="center">Asset</h2>
+@include('status.msg')
+
+<div class="box">
+    <div class="box-header">
+        <h2 class="box-title">Asset Table</h2>
+        <div class="pull-right">
+            <a class="btn btn-success" href="asset/new"><span class="glyphicon glyphicon-plus"></span> Add</a>
+        </div>
     </div>
-    <div class="col-md-2">
-        <a class="btn btn-success" href="asset/new"><span class="glyphicon glyphicon-plus"></span> Add</a>
+    <div class="box-body">
+    <table id="asset_table" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Asset No</th>
+                <th>Asset Status</th>
+                <th>Asset Category</th>
+                <th>Note</th>
+                <th style="text-align:center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($datas as $data)
+            <tr id="{{ $data->id }}">
+                <td>{{ $data->asset_no }}</td>
+
+                <td>
+                @if($data->status_id == 'In service')
+                <span class="label label-success">
+                @elseif ($data->status_id == 'In repair')
+                <span class="label label-warning">
+                @elseif ($data->status_id == 'Scrapped')
+                <span class="label label-danger">
+                @endif
+                {{ $data->status_id }}</span></td>
+
+                <td>@if(!empty($data->category)){{ $data->category }}@else<i style="color: red">Asset type is missing</i>@endif</td>            
+                <td>{{ $data->note }}</td>
+                <td align="center">
+                    <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
+                    <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
+                    <a class="btn btn-default" href="asset/{{ $data->id }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                </td>
+            </tr> 
+            @endforeach
+        </tbody>
+    </table>
     </div>
 </div>
-
-<table id="asset_table" width="100%" height="100%" class="table">
-    <thead>
-        <tr>
-            <!-- <th>ID</th> -->
-            <th>Asset No</th>
-            <th>Asset Status</th>
-            <th>Asset Category</th>
-            <th>Note</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($datas as $data)
-        <tr id="{{ $data->id }}">
-            <td>{{ $data->asset_no }}</td>
-            <td>{{ $data->status_id }}</td>
-            <td>@if(!empty($data->category)){{ $data->category }}@else<i style="color: red">Asset type is missing</i>@endif</td>            
-            <td>{{ $data->note }}</td>
-            <td align="center">
-                <button class="btn btn-danger" onclick="showModal(this)" data-toggle="modal" data-target="#modal-konfirmasi"><span class="glyphicon glyphicon-trash"></span></button>
-                <button class="btn btn-primary" onclick="editData(this)"><span class="glyphicon glyphicon-edit"></span></button>
-                <a class="btn btn-default" href="asset/{{ $data->id }}"><span class="glyphicon glyphicon-eye-open"></span></a>
-            </td>
-        </tr> 
-        @endforeach
-    </tbody>
-</table>
 
 <!-- Modal -->
 <div id="modal-konfirmasi" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
-
             <form class="form-horizontal" method="POST" action="{{ url('asset/delete') }}">
-                <input type="hidden" id="del_asset_id" name="id" value="">
+                <input type="hidden" id="del_asset_id" name="id">
+                <input type="hidden" id="del_asset_no_hidden" name="no">
                 @csrf
 
                 <div class="modal-header">
@@ -96,26 +113,21 @@
     <input type="hidden" id="edit_asset_id" name="id">
     @csrf
 </form>
-
-@endsection
-
+@stop
 
 @section('js')
 <script type="text/javascript">
-$(function() {
-    $('#asset_table').DataTable();
-})
-
 function showModal(doc) {
     var tr = doc.parentNode.parentNode;
 
     var id = tr.id;
     var no = tr.childNodes[1].innerHTML;
-    var status = tr.childNodes[3].innerHTML;
+    var status = tr.childNodes[3].children[0].innerHTML;
     var cat = tr.childNodes[5].innerHTML;
     var notes = tr.childNodes[7].innerHTML;
 
     $('#del_asset_id').val(id);
+    $('#del_asset_no_hidden').val(no);
     $('#del_asset_no').text(no);
     $('#del_asset_status').text(status);
     $('#del_asset_cat').text(cat);
@@ -123,11 +135,14 @@ function showModal(doc) {
 }
 
 function editData(doc) {
-    var tr = doc.parentNode.parentNode;
-    var id = tr.id;
+    var id = doc.parentNode.parentNode.id;
 
     $('#edit_asset_id').val(id);
     $('#edit_asset').submit();
 }
+
+$(function() {
+    $('#asset_table').DataTable();
+})
 </script>
-@endsection
+@stop

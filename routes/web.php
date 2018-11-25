@@ -1,6 +1,5 @@
 <?php
-
-// Asset
+/*
 Route::prefix('asset')->group(function() {
     Route::get('/',         'AssetController@index');
     Route::get('new',       'AssetController@new');
@@ -9,7 +8,6 @@ Route::prefix('asset')->group(function() {
     Route::post('edit',     'AssetController@edit');
     Route::post('update',   'AssetController@update');
 
-    // Type
     Route::prefix('type')->group(function() {
         Route::get('/',          'AssetTypeController@index');
         Route::get('new',        'AssetTypeController@new');
@@ -22,6 +20,10 @@ Route::prefix('asset')->group(function() {
     Route::get('{id}/details',   'AssetController@details');
     Route::get('{id}',           'AssetController@view');
 });
+*/
+
+Route::resource('asset', 'AssetController');
+Route::resource('asset/type', 'AssetTypeController');
 
 Route::get('/', function () {
     return view('index');

@@ -1,6 +1,6 @@
 ## LFI - Preventive Management
 
-![Image of LFI-PM](https://github.com/lucassusanto/lfi-pm/blob/admin-page/public/images/main.png)
+![Image of LFI-PM](https://github.com/lucassusanto/lfi-pm/blob/master/public/images/main.png)
 
 Based on CalemEAM Asset Preventive Management. This project uses Laravel framework
 
@@ -72,7 +72,7 @@ php artisan serve
 
 ### How to Login
 
-![Login Screenshot](https://github.com/lucassusanto/lfi-pm/blob/admin-page/public/images/login.png)
+![Login Screenshot](https://github.com/lucassusanto/lfi-pm/blob/master/public/images/login.png)
 
 To login, click the 'Sign In' button leaving Email and Password field empty
 

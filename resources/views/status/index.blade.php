@@ -7,6 +7,6 @@
 @stop
 
 @section('content')
-@include('status')
+@include('status.msg')
 <a class="btn btn-default" href="{{ url($link) }}">Go Back</a>
 @stop

@@ -1,15 +1,15 @@
 TODOs:
 - Integrate with AdminLTE (in process)
--- Fix add and update ajax required field interactive UI (on add adn edit data)
+-- Fix add and update ajax required field interactive UI (on add and edit data)
 -- Show processing fail or success (after delete, add, update data)
--- Currently in: Asset
+-- Currently in: Asset view2
 
-- Use value in <select> elements
-- Delete setID and getID JS
+- Destroy getID/setID
 - Standarize js functions' name
 - Highlight new added data
 - Form primary key validations in Add
 - Client side validation
 - Move lfi-template page to some dir
 - Delete lfi layouts
-- Replace index.me screenshot
+- Replace README.md screenshot
+- Delete unused plugins in public folder

@@ -80,4 +80,4 @@ To login, click the 'Sign In' button leaving Email and Password field empty
 
 - **database/postgresql_backup** contains backed up postgres DDL and DML. They can be imported through pgAdmin or psql
 
-- **resources/views/template** contains front end template to develop this project
+- **resources/views/template** contains first front end template design

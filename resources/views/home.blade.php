@@ -7,5 +7,6 @@
 @stop
 
 @section('content')
-    <p>Welcome to this admin panel. You are  <b>Admin</b>.</p>
+    <p>Welcome to this admin panel. You are <b>Admin</b>.</p>
+    <small>&copy PT Lasallefood Indonesia</small>
 @stop

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'LFI',
+    'title' => 'PT Lasallefood Indonesia',
 
     'title_prefix' => '',
 

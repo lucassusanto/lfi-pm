@@ -28,7 +28,9 @@ Route::get('/', function () {
 });
 
 /* AUTH */
-/*
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-*/
+// Auth::routes();
+Route::get  ('/home', 'HomeController@index')->name('home');
+Route::get  ('/login', 'HomeController@login');
+Route::post ('/login', 'HomeController@login');
+Route::get  ('/logout', 'HomeController@logout');
+Route::post ('/logout', 'HomeController@logout');

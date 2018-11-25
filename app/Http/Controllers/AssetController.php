@@ -13,7 +13,7 @@ class AssetController extends Controller
     private $user_id = '1000000';   // Sekarang masih pakai ID default user Admin
 
     // Get last data ID
-    private function getID() {
+    private function getId() {
         $last_id = DB::table('asset')
             ->select('id')->orderBy('id', 'desc')
             ->take(1)->get();
@@ -25,23 +25,21 @@ class AssetController extends Controller
     }
 
     // Show Error Info
-    private function show_error($msg) {
-        return view('asset.info', [
-            'title' => 'Error!',
-            'msg'   => $msg,
-            'link'  => 'asset'
-        ]);
+    private function showError($msg) {
+        return view('status.index')
+            ->with(['link' => 'asset'])
+            ->withErrors([$msg]);
     }
 
     // Query utk data dropdowns di form new/edit data
-    private function getOptions() {
+    private function getOptions() {        
         // Cek asset_type. Required as foreign key
         $categories = DB::table('asset_type')
             ->select('id', 'note')
             ->get();
         
         if($categories->count() == 0) {
-            $status = $this->show_error('asset_type table seems empty. Please add at least 1 data');
+            $status = $this->showError('asset_type table seems empty. Please add at least 1 data');
             return compact('status');
         }
 
@@ -98,15 +96,13 @@ class AssetController extends Controller
             // ->limit(50)
             ->get();
 
-        return view('asset.master', [
-            'datas' => $datas
-        ]);
+        return view('asset.master', compact('datas'));
     }
 
     // Menampilkan form data baru | GET
     public function new() {
         $data = $this->getOptions();
-        if($data['status'] != 'ok') return $data['status'];
+        if(is_object($data['status'])) return $data['status'];
         
         return view('asset.new', [
             'categories'        => $data['categories'],
@@ -123,7 +119,6 @@ class AssetController extends Controller
     // Menambah data asset baru | POST
     public function store(Request $request) {
         $this->validate(request(), [
-            'id'        => 'required',
             'status'    => 'required',
             'category'  => 'required',
             'note'      => 'required',
@@ -131,43 +126,43 @@ class AssetController extends Controller
         ]);
 
         $now = new DateTime();
-        $last_id = $this->getID();
+        $last_id = $this->getId();
 
         DB::table('asset')->insert([
             'id'                => $last_id,
-            'asset_no'          => $request->no,
-            'note'              => $request->note,
-            'priority_id'       => $request->priority,
-            'status_id'         => $request->status,
-            'type_id'           => $request->category,
+            'asset_no'          => request('no'),
+            'note'              => request('note'),
+            'priority_id'       => request('priority'),
+            'status_id'         => request('status'),
+            'type_id'           => request('category'),
             // 'category_id'    // Berhubungan dgn type_id 
             // 'parent_id'
             // 'template_id'
-            'location_id'       => $request->location,
-            'weight'            => $request->weight,
-            'weight_uom_id'     => $request->wuom,
-            'serial_no'         => $request->sn,
+            'location_id'       => request('location'),
+            'weight'            => request('weight'),
+            'weight_uom_id'     => request('wuom'),
+            'serial_no'         => request('sn'),
             'owner_user_id'     => $this->user_id,
-            'start_date'        => $request->sd,
-            'purchase_date'     => $request->pd,
-            'original_cost'     => $request->ori_cost,
-            'manufacturer_id'   => $request->manufacturer,
-            'vendor_id'         => $request->vendor,
+            'start_date'        => request('sd'),
+            'purchase_date'     => request('pd'),
+            'original_cost'     => request('ori_cost'),
+            'manufacturer_id'   => request('manufacturer'),
+            'vendor_id'         => request('vendor'),
             // 'upload_id'
-            'warranty_start_date'       => $request->ws,
-            'warranty_end_date'         => $request->we,
-            'maint_labor_hours'         => $request->mlh,
-            'maint_labor_cost'          => $request->mlc,
-            'maint_material_cost'       => $request->mmc,
-            'maint_cost'                => $request->mc,
+            'warranty_start_date'       => request('ws'),
+            'warranty_end_date'         => request('we'),
+            'maint_labor_hours'         => request('mlh'),
+            'maint_labor_cost'          => request('mlc'),
+            'maint_material_cost'       => request('mmc'),
+            'maint_cost'                => request('mc'),
             // 'rollup_cost'
-            'costcode_id'               => $request->cc,
-            'dept_id'                   => $request->dept,
-            'in_id'                     => $request->ai,
-            'depreciation_type_id'      => $request->dt,
-            'depreciation_start'        => $request->ds,
-            'depreciation_time_id'      => $request->di, // Depreciation interval
-            'depreciation_rate'         => $request->dr,
+            'costcode_id'               => request('cc'),
+            'dept_id'                   => request('dept'),
+            'in_id'                     => request('ai'),
+            'depreciation_type_id'      => request('dt'),
+            'depreciation_start'        => request('ds'),
+            'depreciation_time_id'      => request('di'), // Depreciation interval
+            'depreciation_rate'         => request('dr'),
             // 'description'
             'modified_time'             => $now,
             'modified_id'               => $this->user_id,
@@ -175,22 +170,27 @@ class AssetController extends Controller
             'created_id'                => $this->user_id
         ]);
         
-        return redirect('asset');
+        return redirect('asset')->with([
+            'successes' => ['Asset \''.request('no').'\' was added.']
+        ]);
     }
 
     // Menghapus asset | POST
     public function del(Request $request) {
         $this->validate(request(), [
-            'id' => 'required'
+            'id' => 'required',
+            'no' => 'required'
         ]);
 
-        $asset_id = $request->id;
+        $asset_id = request('id');
 
         DB::table('asset')
             ->where('id', '=', $asset_id)
             ->delete();
 
-        return redirect('asset');
+        return redirect('asset')->with([
+            'successes' => ['Asset \''.request('no').'\' was deleted.']
+        ]);
     }
 
     // Menampilkan detil data edit | POST
@@ -199,18 +199,18 @@ class AssetController extends Controller
             'id' => 'required'
         ]);
 
-        $asset_id = $request->id;
+        $asset_id = request('id');
 
         $asset_data = DB::table('asset')
             ->where('id', '=', $asset_id)
             ->get();
 
         if($asset_data->count() == 0) {
-            return $this->show_error('Asset data was not found!');
+            return $this->showError('Asset data was not found!');
         }
 
         $data = $this->getOptions();
-        if($data['status'] != 'ok') return $data['status'];
+        if(is_object($data['status'])) return $data['status'];
 
         return view('asset.edit', [
             'asset_id'          => $asset_id,
@@ -231,6 +231,7 @@ class AssetController extends Controller
     public function update(Request $request) {
         $this->validate(request(), [
             'id'        => 'required',
+            'no'        => 'required',
             'status'    => 'required',
             'category'  => 'required',
             'note'      => 'required',
@@ -238,43 +239,45 @@ class AssetController extends Controller
         ]);
 
         $now = new DateTime();
-        $asset_id = $request->id;
+        $asset_id = request('id');
 
         DB::table('asset')
         ->where('id', $asset_id)
         ->update([
-            'note'              => $request->note,
-            'priority_id'       => $request->priority,
-            'status_id'         => $request->status,
-            'type_id'           => $request->category,
-            'location_id'       => $request->location,
-            'weight'            => $request->weight,
-            'weight_uom_id'     => $request->wuom,
-            'serial_no'         => $request->sn,
+            'note'              => request('note'),
+            'priority_id'       => request('priority'),
+            'status_id'         => request('status'),
+            'type_id'           => request('category'),
+            'location_id'       => request('location'),
+            'weight'            => request('weight'),
+            'weight_uom_id'     => request('wuom'),
+            'serial_no'         => request('sn'),
             'owner_user_id'     => $this->user_id,
-            'start_date'        => $request->sd,
-            'purchase_date'     => $request->pd,
-            'original_cost'     => $request->ori_cost,
-            'manufacturer_id'   => $request->manufacturer,
-            'vendor_id'         => $request->vendor,
-            'warranty_start_date'       => $request->ws,
-            'warranty_end_date'         => $request->we,
-            'maint_labor_hours'         => $request->mlh,
-            'maint_labor_cost'          => $request->mlc,
-            'maint_material_cost'       => $request->mmc,
-            'maint_cost'                => $request->mc,
-            'costcode_id'               => $request->cc,
-            'dept_id'                   => $request->dept,
-            'in_id'                     => $request->ai,
-            'depreciation_type_id'      => $request->dt,
-            'depreciation_start'        => $request->ds,
-            'depreciation_time_id'      => $request->di, // Depreciation interval
-            'depreciation_rate'         => $request->dr,
+            'start_date'        => request('sd'),
+            'purchase_date'     => request('pd'),
+            'original_cost'     => request('ori_cost'),
+            'manufacturer_id'   => request('manufacturer'),
+            'vendor_id'         => request('vendor'),
+            'warranty_start_date'       => request('ws'),
+            'warranty_end_date'         => request('we'),
+            'maint_labor_hours'         => request('mlh'),
+            'maint_labor_cost'          => request('mlc'),
+            'maint_material_cost'       => request('mmc'),
+            'maint_cost'                => request('mc'),
+            'costcode_id'               => request('cc'),
+            'dept_id'                   => request('dept'),
+            'in_id'                     => request('ai'),
+            'depreciation_type_id'      => request('dt'),
+            'depreciation_start'        => request('ds'),
+            'depreciation_time_id'      => request('di'), // Depreciation interval
+            'depreciation_rate'         => request('dr'),
             'modified_time'             => $now,
             'modified_id'               => $this->user_id
         ]);
         
-        return redirect('asset');
+        return redirect('asset')->with([
+            'successes' => ['Asset \''.request('no').'\' was updated.']
+        ]);
     }
 
 
@@ -296,7 +299,7 @@ class AssetController extends Controller
             ->get();
 
         if($asset_data->count() == 0) {
-            return $this->show_error('Asset data id was not found!');
+            return $this->showError('Asset data id was not found!');
         }
 
         return view('asset.view2', [
@@ -307,7 +310,7 @@ class AssetController extends Controller
 
     // Menampilkan detail asset | GET
     public function details(Request $request) {
-        $asset_id = $request->id;
+        $asset_id = request('id');
         
         $asset_data = DB::table('asset')
             ->select(
@@ -366,7 +369,7 @@ class AssetController extends Controller
             ->get();
 
         if($asset_data->count() == 0) {
-            return $this->show_error('Asset data id was not found!');
+            return $this->showError('Asset data id was not found!');
         }
 
         return view('asset.details', [

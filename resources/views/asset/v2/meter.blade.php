@@ -1,13 +1,10 @@
 <!-- Meter -->
 <div id="meter_index" class="tab-pane fade">
-    <div class="col-md-3">
+    <div class="col-md-12">
         <a class="btn btn-success" onclick="fetchMeterOptions('add')" data-toggle="pill" href="#meter_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
-        <a class="btn btn-primary" onclick="getMeter()"><span class="glyphicon glyphicon-repeat"></span></a>
+        <a class="btn btn-primary" id="meter_refresh_btn" onclick="getMeter()">Refresh</a>
         <a id="btn_meter_edit" class='btn btn-primary' data-toggle='pill' href='#meter_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
-    </div>
-
-    <div class="col-md-1 col-md-offset-8">
-        <div id="meter_loader" class="loader"></div>
+        <br><br>
     </div>
     
     <table id="meter_table" width="100%" class="table">
@@ -51,7 +48,7 @@
             <label class="control-label col-sm-3" for="add_meter_type">Type:</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_meter_type_id" name="type_id">
-                <select class="form-control" id="add_meter_type" onchange="$('#add_meter_type_id').val(getID(this))">
+                <select class="form-control" id="add_meter_type" onchange="$('#add_meter_type_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -60,7 +57,7 @@
             <label class="control-label col-sm-3" for="add_meter_ru">Reading Unit:</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_meter_ru_id" name="ru_id">
-                <select class="form-control" id="add_meter_ru" onchange="$('#add_meter_ru_id').val(getID(this))">
+                <select class="form-control" id="add_meter_ru" onchange="$('#add_meter_ru_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -120,7 +117,7 @@
             <label class="control-label col-sm-3" for="edit_meter_type">Type:</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_meter_type_id" name="type">
-                <select class="form-control" id="edit_meter_type" onchange="$('#edit_meter_type_id').val(getID(this))">
+                <select class="form-control" id="edit_meter_type" onchange="$('#edit_meter_type_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -129,7 +126,7 @@
             <label class="control-label col-sm-3" for="edit_meter_ru">Reading Unit:</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_meter_ru_id" name="ru">
-                <select class="form-control" id="edit_meter_ru" onchange="$('#edit_meter_ru_id').val(getID(this))">
+                <select class="form-control" id="edit_meter_ru" onchange="$('#edit_meter_ru_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -222,16 +219,12 @@
 
 <!-- Meter JS -->
 <script type="text/javascript">
-$('#form_add_meter').submit(function(e) {
-    e.preventDefault();
-});
-$('#form_edit_meter').submit(function(e) {
-    e.preventDefault();
-});
+$('#form_add_meter').submit(function(e) { e.preventDefault(); });
+$('#form_edit_meter').submit(function(e) { e.preventDefault(); });
 
 /*  Load Master data */
 function getMeter() {
-    $('#meter_loader').show();
+    $('#meter_refresh_btn').text('Refreshing ...');
 
     $.post('{{ url('api/asset/meter') }}', {
         asset_id:   {{ $asset_id }}
@@ -252,7 +245,8 @@ function getMeter() {
 
             table.draw();
         }
-        $('#meter_loader').hide();
+
+        $('#meter_refresh_btn').text('Refresh');
     });
 }
 

@@ -1,13 +1,10 @@
 <!-- Depreciation -->
 <div id="depreciation_index" class="tab-pane fade">
-    <div class="col-md-3">
+    <div class="col-md-12">
         <a class="btn btn-success" data-toggle="pill" href="#depreciation_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
-        <a class="btn btn-primary" onclick="getDepreciation()"><span class="glyphicon glyphicon-repeat"></span></a>
+        <a class="btn btn-primary" id="depreciation_refresh_btn" onclick="getDepreciation()">Refresh</a>
         <a id="btn_depreciation_edit" class='btn btn-primary' data-toggle='pill' href='#depreciation_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
-    </div>
-
-    <div class="col-md-1 col-md-offset-8">
-        <div id="depreciation_loader" class="loader"></div>
+        <br><br>
     </div>
     
     <table id="depreciation_table" width="100%" class="table">
@@ -209,7 +206,7 @@ $('#form_edit_depreciation').submit(function(e) {
 
 /*  Load Master data */
 function getDepreciation() {
-    $('#depreciation_loader').show();
+    $('#depreciation_refresh_btn').text('Refreshing ...');
 
     $.post('{{ url('api/asset/depreciation') }}', {
         asset_id:   {{ $asset_id }}
@@ -230,7 +227,8 @@ function getDepreciation() {
 
             table.draw();
         }
-        $('#depreciation_loader').hide();
+
+        $('#depreciation_refresh_btn').text('Refresh');
     });
 }
 

@@ -1,42 +1,39 @@
-@extends('layouts.lfi')
+@extends('adminlte::page')
 
-@section('js')
-<script type="text/javascript">
-function getID(doc) {
-    var options = doc.options;
-    return options[options.selectedIndex].id;
-}
-</script>
-@endsection
+@section('title', 'LFI - Edit Asset')
+
+@section('content_header')
+    <h1>Edit Asset</h1>
+@stop
 
 @section('content')
+@include('status.msg')
+
 <form id="assetForm" class="form-horizontal" method="POST" action="{{ url('asset/update') }}">
 <input type="hidden" name="id" value="{{ $asset_data->id }}">
 @csrf
 
-<div class="row">
-    <div class="col-md-12">
-        <h2 align="center">Edit Asset</h2>
+<div class="box">
+    <div class="box-header">
+        <div class="pull-left">
+            <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/details' ) }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
+            <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+        <div class="pull-right">
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
+        </div>
     </div>
-    <div class="col-md-4">
-        <a class="btn btn-default" href="{{ url('asset/'.$asset_id.'/details' ) }}"><span class="glyphicon glyphicon-menu-left"></span> Back</a>
-        <a class="btn btn-default" href="{{ url('asset') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
-    </div>
-    <div class="col-md-2 col-md-offset-6">
-        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span> Update</button>
-    </div>
-</div><br>
-
+    <div class="box-body">
 <div class="col-md-12">
     <h4 align="left">ASSET</h4>
 </div><br><br><br>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="asset_no">Asset No: *</label>
+        <label class="control-label col-sm-2" for="asset_no">Asset No: <span class="red">*</span></label>
         <div class="col-sm-3">
             <textbox type="text" class="form-control" disabled>{{ $asset_data->asset_no }}</textbox>
         </div>
 
-        <label class="control-label col-sm-3" for="asset_priority">Asset Priority: *</label>
+        <label class="control-label col-sm-3" for="asset_priority">Asset Priority: <span class="red">*</span></label>
         <div class="col-sm-3">
             <select class="form-control" id="asset_priority" name="priority">
                 <option @if($asset_data->priority_id == 'Critical') selected @endif>Critical</option>
@@ -47,7 +44,7 @@ function getID(doc) {
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="asset_status">Asset Status: *</label>
+        <label class="control-label col-sm-2" for="asset_status">Asset Status: <span class="red">*</span></label>
         <div class="col-sm-3">
             <select class="form-control" id="asset_status" name="status">
                 <option @if($asset_data->status_id == 'In service') selected @endif>In service</option>
@@ -63,7 +60,7 @@ function getID(doc) {
     </div>
 
     <div class="form-group">
-        <label class="control-label col-sm-2" for="asset_category">Asset Category: *</label>
+        <label class="control-label col-sm-2" for="asset_category">Asset Category: <span class="red">*</span></label>
         <div class="col-sm-3">
             <input type="hidden" id="asset_category" name="category" value="{{ $asset_data->type_id }}">
             <select class="form-control" onchange="document.getElementById('asset_category').value = getID(this);" required>
@@ -101,7 +98,7 @@ function getID(doc) {
     </div><br>
     
     <div class="form-group">
-        <label class="control-label col-sm-2" for="asset_note">Notes: *</label>
+        <label class="control-label col-sm-2" for="asset_note">Notes: <span class="red">*</span></label>
         <div class="col-sm-9">
             <textarea class="form-control" id="asset_note" name="note" placeholder="Tuliskan catatan .." required>{{ $asset_data->note }}</textarea>
         </div>
@@ -264,12 +261,28 @@ function getID(doc) {
         <input type="text" class="form-control" id="asset_dr" name="dr" placeholder="Rate" value="{{ $asset_data->depreciation_rate }}">
     </div>
 </div>
+</div>
+</div>
 </form>
+@stop
 
-
+@section('js')
 <script type="text/javascript">
+function getID(doc) {
+    var options = doc.options;
+    return options[options.selectedIndex].id;
+}
+
 $(function() {
     $('#assetForm').validate();
 });
 </script>
-@endsection
+@stop
+
+@section('css')
+<style>
+.red {
+    color: red;
+}
+</style>
+@stop

@@ -25,14 +25,14 @@
         </div>
         <div class="box-body">
             <div class="form-group">
-                <label class="control-label col-sm-3" for="asset_type">Type: *</label>
+                <label class="control-label col-sm-3" for="asset_type">Type: <span class="red">*</span></label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" id="asset_type" name="type" value="{{ $data->type }}" disabled>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-3" for="asset_note">Note: *</label>
+                <label class="control-label col-sm-3" for="asset_note">Note: <span class="red">*</span></label>
                 <div class="col-sm-6">
                     <textarea class="form-control" id="asset_note" name="note" required>{{ $data->note }}</textarea>
                 </div>
@@ -40,4 +40,12 @@
         </div>
     </div>
 </form>
+@stop
+
+@section('css')
+<style>
+.red {
+    color: red;
+}
+</style>
 @stop

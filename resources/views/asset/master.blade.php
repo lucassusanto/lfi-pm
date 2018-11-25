@@ -61,7 +61,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form class="form-horizontal" method="POST" action="{{ url('asset/delete') }}">
-                <input type="hidden" id="del_asset_id" name="id" value="">
+                <input type="hidden" id="del_asset_id" name="id">
+                <input type="hidden" id="del_asset_no_hidden" name="no">
                 @csrf
 
                 <div class="modal-header">
@@ -130,6 +131,7 @@ function showModal(doc) {
     var notes = tr.childNodes[7].innerHTML;
 
     $('#del_asset_id').val(id);
+    $('#del_asset_no_hidden').val(no);
     $('#del_asset_no').text(no);
     $('#del_asset_status').text(status);
     $('#del_asset_cat').text(cat);

@@ -1,6 +1,6 @@
 ## LFI - Preventive Management
 
-![Image of LFI-PM](https://github.com/lucassusanto/lfi-pm/blob/master/public/images/sample.png)
+![Image of LFI-PM](https://github.com/lucassusanto/lfi-pm/blob/admin-page/public/images/sample.png)
 
 Based on CalemEAM Asset Preventive Management. This project uses Laravel framework
 

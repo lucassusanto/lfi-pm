@@ -1,13 +1,10 @@
 <!-- Part -->
 <div id="part_index" class="tab-pane fade">
-    <div class="col-md-3">
+    <div class="col-md-12">
         <a class="btn btn-success" onclick="fetchPartOptions('add')" data-toggle="pill" href="#part_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
-        <a class="btn btn-primary" onclick="getPart()"><span class="glyphicon glyphicon-repeat"></span></a>
+        <a class="btn btn-primary" id="part_refresh_btn" onclick="getPart()">Refresh</a>
         <a id="btn_part_edit" class='btn btn-primary' data-toggle='pill' href='#part_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
-    </div>
-
-    <div class="col-md-1 col-md-offset-8">
-        <div id="part_loader" class="loader"></div>
+        <br><br>
     </div>
     
     <table id="part_table" width="100%" class="table">
@@ -189,16 +186,12 @@
 
 <!-- Part JS -->
 <script type="text/javascript">
-$('#form_add_part').submit(function(e) {
-    e.preventDefault();
-});
-$('#form_edit_part').submit(function(e) {
-    e.preventDefault();
-});
+$('#form_add_part').submit(function(e) { e.preventDefault(); });
+$('#form_edit_part').submit(function(e) { e.preventDefault(); });
 
 /*  Load Master data */
 function getPart() {
-    $('#part_loader').show();
+    $('#part_refresh_btn').text('Refreshing ...');
 
     $.post('{{ url('api/asset/part') }}', {
         asset_id:   {{ $asset_id }}
@@ -219,7 +212,8 @@ function getPart() {
 
             table.draw();
         }
-        $('#part_loader').hide();
+
+        $('#part_refresh_btn').text('Refresh');
     });
 }
 

@@ -7,7 +7,9 @@
 @stop
 
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 @include('status.msg')
+
 <div class="box">
     <div class="box-header">
         <div class="pull-left">
@@ -43,7 +45,9 @@
 
 
 @section('js')
-<script>
+<script type="text/javascript" src="{{ url('js/jquery.validate.min.js') }}"></script>
+
+<script type="text/javascript">
 function getID(doc) {
     var options = doc.options;
     return options[options.selectedIndex].id;
@@ -90,29 +94,13 @@ $(function() {
     $('#form_edit_downtime').validate();
 
     $('#form_add_meter').validate({
-        rules: {
-            no: {
-                remote: '{{ url('api/asset/meter/cekNo') }}'
-            }
-        },
-        messages: {
-            no: {
-                remote: 'This Meter No already exists.'
-            }
-        }
+        rules: { no: { remote: '{{ url('api/asset/meter/cekNo') }}' }},
+        messages: { no: { remote: 'This Meter No already exists.' }}
     });
     $('#form_edit_meter').validate();
 
-    $('#form_add_part').validate({
-        rules: {
-            qty: 'number'
-        }
-    });
-    $('#form_edit_part').validate({
-        rules: {
-            qty: 'number'
-        }
-    });
+    $('#form_add_part').validate({ rules: { qty: 'number' }});
+    $('#form_edit_part').validate({ rules: { qty: 'number' }});
 
     getComment();
 });

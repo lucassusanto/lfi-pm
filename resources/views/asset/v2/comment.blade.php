@@ -1,13 +1,10 @@
 <!-- Comment -->
 <div id="comment_index" class="tab-pane fade in active">
-    <div class="col-md-3">
+    <div class="col-md-12">
         <a class="btn btn-success" data-toggle="pill" href="#comment_add"><span class="glyphicon glyphicon-plus"></span> Add</a>
-        <a class="btn btn-primary" onclick="getComment()"><span class="glyphicon glyphicon-repeat"></span></a>
+        <a class="btn btn-primary" id="comment_refresh_btn" onclick="getComment()">Refresh</a>
         <a id="btn_comment_edit" class='btn btn-primary' data-toggle='pill' href='#comment_edit' style="visibility: hidden;"><span class='glyphicon glyphicon-edit'></span>Edit Page</a>
-    </div>
-    
-    <div class="col-md-1 col-md-offset-8">
-        <div id="comment_loader" class="loader"></div>
+        <br><br>
     </div>
 
     <table id="comment_table" width="100%" class="table">
@@ -112,16 +109,12 @@
 
 <!-- Comment JS -->
 <script type="text/javascript">
-$('#form_add_comment').submit(function(e) {
-    e.preventDefault();
-});
-$('#form_edit_comment').submit(function(e) {
-    e.preventDefault();
-});
+$('#form_add_comment').submit(function(e) { e.preventDefault(); });
+$('#form_edit_comment').submit(function(e) { e.preventDefault(); });
 
 /* Load Master Data */
 function getComment() {
-    $('#comment_loader').show();
+    $('#comment_refresh_btn').text('Refreshing ...');
 
     $.post('{{ url('api/asset/comment') }}', {
         asset_id:   {{ $asset_id }}
@@ -142,7 +135,8 @@ function getComment() {
 
             table.draw();
         }
-        $('#comment_loader').hide();
+
+        $('#comment_refresh_btn').text('Refresh');
     });
 }
 

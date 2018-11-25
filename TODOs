@@ -1,7 +1,2 @@
 TODOs:
--- Required field form validations (using js validate)
---- Recheck asset and asset type
-
-- Destroy getID/setID (in v2)
-- Standarize js functions' name
 - Highlight new added data

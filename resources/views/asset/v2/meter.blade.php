@@ -48,7 +48,7 @@
             <label class="control-label col-sm-3" for="add_meter_type">Type:</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_meter_type_id" name="type_id">
-                <select class="form-control" id="add_meter_type" onchange="$('#add_meter_type_id').val(getID(this))">
+                <select class="form-control" id="add_meter_type" onchange="$('#add_meter_type_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -57,7 +57,7 @@
             <label class="control-label col-sm-3" for="add_meter_ru">Reading Unit:</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_meter_ru_id" name="ru_id">
-                <select class="form-control" id="add_meter_ru" onchange="$('#add_meter_ru_id').val(getID(this))">
+                <select class="form-control" id="add_meter_ru" onchange="$('#add_meter_ru_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -117,7 +117,7 @@
             <label class="control-label col-sm-3" for="edit_meter_type">Type:</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_meter_type_id" name="type">
-                <select class="form-control" id="edit_meter_type" onchange="$('#edit_meter_type_id').val(getID(this))">
+                <select class="form-control" id="edit_meter_type" onchange="$('#edit_meter_type_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -126,7 +126,7 @@
             <label class="control-label col-sm-3" for="edit_meter_ru">Reading Unit:</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_meter_ru_id" name="ru">
-                <select class="form-control" id="edit_meter_ru" onchange="$('#edit_meter_ru_id').val(getID(this))">
+                <select class="form-control" id="edit_meter_ru" onchange="$('#edit_meter_ru_id').val(getId(this))">
                     
                 </select>
             </div>

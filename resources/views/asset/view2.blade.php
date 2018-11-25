@@ -48,7 +48,7 @@
 <script type="text/javascript" src="{{ url('js/jquery.validate.min.js') }}"></script>
 
 <script type="text/javascript">
-function getID(doc) {
+function getId(doc) {
     var options = doc.options;
     return options[options.selectedIndex].id;
 }

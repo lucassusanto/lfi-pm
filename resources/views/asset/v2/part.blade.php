@@ -41,7 +41,7 @@
             <label class="control-label col-sm-3" for="add_part_item">Item: *</label>
             <div class="col-sm-4">
                 <input type="hidden" id="add_part_item_id" name="item_id" required>
-                <select class="form-control" id="add_part_item" onchange="$('#add_part_item_id').val(getID(this))">
+                <select class="form-control" id="add_part_item" onchange="$('#add_part_item_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -64,7 +64,7 @@
             <label class="control-label col-sm-3" for="add_part_wuom">Weight UOM: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_part_wuom_id" name="wuom_id" required>
-                <select class="form-control" id="add_part_wuom" onchange="$('#add_part_wuom_id').val(getID(this))">
+                <select class="form-control" id="add_part_wuom" onchange="$('#add_part_wuom_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -98,7 +98,7 @@
             <label class="control-label col-sm-3" for="edit_part_item">Item: *</label>
             <div class="col-sm-4">
                 <input type="hidden" id="edit_part_item_id" name="item_id" required>
-                <select class="form-control" id="edit_part_item" onchange="$('#edit_part_item_id').val(getID(this))">
+                <select class="form-control" id="edit_part_item" onchange="$('#edit_part_item_id').val(getId(this))">
                     
                 </select>
             </div>
@@ -121,7 +121,7 @@
             <label class="control-label col-sm-3" for="edit_part_wuom">Weight UOM: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_part_wuom_id" name="wuom_id" required>
-                <select class="form-control" id="edit_part_wuom" onchange="$('#edit_part_wuom_id').val(getID(this))">
+                <select class="form-control" id="edit_part_wuom" onchange="$('#edit_part_wuom_id').val(getId(this))">
                     
                 </select>
             </div>

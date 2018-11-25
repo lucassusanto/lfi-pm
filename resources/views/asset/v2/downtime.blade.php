@@ -80,7 +80,7 @@
             <label class="control-label col-sm-3">Work Order: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_downtime_wo_id" name="wo_id" required>
-                <select class="form-control" id="add_downtime_wo" onchange="$('#add_downtime_wo_id').val(getID(this))">
+                <select class="form-control" id="add_downtime_wo" onchange="$('#add_downtime_wo_id').val(getId(this))">
                 </select>
             </div>
         </div>
@@ -88,7 +88,7 @@
             <label class="control-label col-sm-3">Reported by: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_downtime_reported_id" name="reported_id" required>
-                <select class="form-control" id="add_downtime_reported" onchange="$('#add_downtime_reported_id').val(getID(this))">
+                <select class="form-control" id="add_downtime_reported" onchange="$('#add_downtime_reported_id').val(getId(this))">
                 </select>
             </div>
         </div>
@@ -169,7 +169,7 @@
             <label class="control-label col-sm-3">Work Order: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_downtime_wo_id" name="wo_id" required>
-                <select class="form-control" id="edit_downtime_wo" onchange="$('#edit_downtime_wo_id').val(getID(this))">
+                <select class="form-control" id="edit_downtime_wo" onchange="$('#edit_downtime_wo_id').val(getId(this))">
                 </select>
             </div>
         </div>
@@ -177,7 +177,7 @@
             <label class="control-label col-sm-3">Reported by: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_downtime_reported_id" name="reported_id" required>
-                <select class="form-control" id="edit_downtime_reported" onchange="$('#edit_downtime_reported_id').val(getID(this))">
+                <select class="form-control" id="edit_downtime_reported" onchange="$('#edit_downtime_reported_id').val(getId(this))">
                 </select>
             </div>
         </div>

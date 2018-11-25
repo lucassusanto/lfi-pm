@@ -41,7 +41,7 @@
             <label class="control-label col-sm-3" for="add_contract_contract">Contract: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="add_contract_contract_id" name="contract" required>
-                <select class="form-control" id="add_contract_contract" onchange="$('#add_contract_contract_id').val(getID(this))">
+                <select class="form-control" id="add_contract_contract" onchange="$('#add_contract_contract_id').val(getId(this))">
 
                 </select>
             </div>
@@ -98,7 +98,7 @@
             <label class="control-label col-sm-3" for="edit_contract_contract">Contract: *</label>
             <div class="col-sm-3">
                 <input type="hidden" id="edit_contract_contract_id" name="contract" required>
-                <select class="form-control" id="edit_contract_contract" onchange="$('#edit_contract_contract_id').val(getID(this))">
+                <select class="form-control" id="edit_contract_contract" onchange="$('#edit_contract_contract_id').val(getId(this))">
 
                 </select>
             </div>
